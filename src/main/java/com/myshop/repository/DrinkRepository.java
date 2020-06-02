@@ -1,6 +1,7 @@
 package com.myshop.repository;
 
 import com.myshop.domain.Drink;
+import com.myshop.util.exception.NotEnoughProductInStorage;
 
 import java.util.List;
 
@@ -14,5 +15,5 @@ public interface DrinkRepository<T extends Drink> {
 
     void add(T drink, int quantity);
 
-    void take(T drink, int quantity);
+    void take(T drink, int quantity) throws NotEnoughProductInStorage;
 }

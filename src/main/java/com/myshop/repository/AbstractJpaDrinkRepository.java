@@ -1,6 +1,7 @@
 package com.myshop.repository;
 
 import com.myshop.domain.Drink;
+import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -54,12 +55,21 @@ public class AbstractJpaDrinkRepository implements DrinkRepository {
 
     @Override
     public void add(Drink drink, int quantity) {
-        if (quantity > 0) drink.setQuantity(drink.getQuantity() + quantity);
+        if (quantity > 0) {
+            drink.setQuantity(drink.getQuantity() + quantity);
+            save(drink);
+        }
     }
 
     @Override
-    public void take(Drink drink, int quantity) {
-        if (quantity > 0) drink.setQuantity(drink.getQuantity() - quantity);
+    public void take(Drink drink, int quantity) throws NotEnoughProductInStorage {
+        if (drink.getQuantity() < quantity) {
+            throw new NotEnoughProductInStorage();
+        }
+        else if (quantity > 0) {
+            drink.setQuantity(drink.getQuantity() - quantity);
+            save(drink);
+        }
     }
 
 }

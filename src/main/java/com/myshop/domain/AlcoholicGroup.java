@@ -4,5 +4,6 @@ public enum AlcoholicGroup {
     WINE,
     STRONG_ALCOHOL,
     BEER,
-    LIQUOR
+    LIQUOR,
+    OTHER
 }

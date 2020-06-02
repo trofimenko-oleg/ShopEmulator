@@ -2,6 +2,7 @@ package com.myshop.service;
 
 import com.myshop.domain.Drink;
 import com.myshop.repository.DrinkRepository;
+import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +49,7 @@ public class DrinkServiceImpl implements DrinkService {
     }
 
     @Override
-    public void take(Drink drink, int quantity) {
+    public void take(Drink drink, int quantity) throws NotEnoughProductInStorage {
         drinkRepository.take(drink, quantity);
     }
 }
