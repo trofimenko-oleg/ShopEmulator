@@ -24,18 +24,20 @@ public class ShopController {
     @GetMapping("/list")
     public String drinkList(Model model) {
         model.addAttribute("drinks", drinkService.getAll());
-        for (Drink drink: drinkService.getAll())
-        {
-            System.out.println(drink);
-        }
         return "shop";
     }
 
     @GetMapping("/hello")
     public String printWelcome(ModelMap model) {
-        model.addAttribute("message", "Hello!");
-        return "hello";
+        model.addAttribute("drinks", drinkService.getAll());
+        return "cart";
     }
+    @GetMapping("/hello2")
+    public String printWelcome2(ModelMap model) {
+        model.addAttribute("drinks", drinkService.getAll());
+        return "cart2";
+    }
+
 
 
 

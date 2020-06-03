@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.myshop.util.FormattersUtil.formatPriceTwoDigitsAfterPoint;
+import static com.myshop.util.FormattersUtil.round;
 
 @Service
 public class DrinkServiceImpl implements DrinkService {
@@ -42,7 +42,7 @@ public class DrinkServiceImpl implements DrinkService {
         List<Drink> allDrinks = drinkRepository.getAll();
         for (Drink drink: allDrinks)
         {
-            drink.setPurchasePrice(formatPriceTwoDigitsAfterPoint(drink.getPurchasePrice() * PriceUtil.getMarkup()));
+            drink.setPurchasePrice(round(drink.getPurchasePrice() * PriceUtil.getMarkup()));
         }
         return allDrinks;
     }

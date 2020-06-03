@@ -24,7 +24,11 @@
         <th>Price</th>
         <th>Volume</th>
         <th>Left, pc</th>
-        <th></th>
+        <th>
+            <form action="https://google.com">
+            <input type="submit" value="Go to Google" />
+            </form>
+        </th>
     </tr>
     </thead>
     <c:forEach items="${drinks}" var="drink">

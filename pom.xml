@@ -39,7 +39,7 @@
         <junit.version>4.13</junit.version>
 
         <spring-data-jpa.version>2.0.2.RELEASE</spring-data-jpa.version>
-        <tomcat.version>8.5.55</tomcat.version>
+        <tomcat.version>8.5.23</tomcat.version>
 
     </properties>
 

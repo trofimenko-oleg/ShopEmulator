@@ -12,5 +12,7 @@
 </head>
 <body>
             <h1>Message: ${message}</h1>
+            <a href="/hello">cart</a>
+            <a href="/hello2">cart2</a>
 </body>
 </html>

@@ -2,16 +2,17 @@ package com.myshop.util;
 
 import com.myshop.domain.Drink;
 
+import java.text.DecimalFormat;
 import java.util.Locale;
 
 public abstract class FormattersUtil {
     public static void formatPriceTwoDigitsAfterPoint(Drink drink)
     {
         double price = drink.getPurchasePrice();
-        drink.setPurchasePrice(Double.valueOf(String.format(Locale.getDefault(),"%.2f", price)));
+        drink.setPurchasePrice(round(price));
     }
-    public static double formatPriceTwoDigitsAfterPoint(double price)
+    public static double round(double price)
     {
-        return Double.valueOf(String.format(Locale.getDefault(),"%.2f", price));
+        return Math.round(price * 100)/100;
     }
 }
