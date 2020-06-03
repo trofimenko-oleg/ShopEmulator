@@ -2,21 +2,20 @@ package com.myshop.service;
 
 import com.myshop.domain.Drink;
 import com.myshop.repository.DrinkRepository;
+import com.myshop.util.PriceUtil;
 import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.myshop.util.FormattersUtil.formatPriceTwoDigitsAfterPoint;
+
 @Service
 public class DrinkServiceImpl implements DrinkService {
 
-    private final DrinkRepository drinkRepository;
-
     @Autowired
-    public DrinkServiceImpl(DrinkRepository drinkRepository) {
-        this.drinkRepository = drinkRepository;
-    }
+    private DrinkRepository drinkRepository;
 
     @Override
     public Drink save(Drink drink) {
@@ -40,7 +39,12 @@ public class DrinkServiceImpl implements DrinkService {
 
     @Override
     public List<Drink> getAll() {
-        return drinkRepository.getAll();
+        List<Drink> allDrinks = drinkRepository.getAll();
+        for (Drink drink: allDrinks)
+        {
+            drink.setPurchasePrice(formatPriceTwoDigitsAfterPoint(drink.getPurchasePrice() * PriceUtil.getMarkup()));
+        }
+        return allDrinks;
     }
 
     @Override

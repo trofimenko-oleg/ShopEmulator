@@ -29,5 +29,18 @@ public abstract class PriceUtil {
         }
         else return DAYTIME.OTHER;
     }
+
+    public static double getMarkup() {
+        DAYTIME daytime = getDaytime();
+
+        if (daytime == PriceUtil.DAYTIME.EVENING){
+            return 1.08;
+        }
+        else if (daytime == PriceUtil.DAYTIME.WEEKEND){
+            return 1.15;
+        }
+        else
+            return 1.1;
+    }
 }
 

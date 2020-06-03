@@ -6,16 +6,13 @@ import com.myshop.service.DrinkServiceImpl;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.Arrays;
 import java.util.List;
 
 
 public class AppMain {
     public static void main(String[] args) {
-        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("db/spring-db.xml")) {
+        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-db.xml")) {
             DrinkService drinkService = appCtx.getBean(DrinkServiceImpl.class);
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
 

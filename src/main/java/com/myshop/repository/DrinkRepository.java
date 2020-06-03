@@ -5,15 +5,15 @@ import com.myshop.util.exception.NotEnoughProductInStorage;
 
 import java.util.List;
 
-public interface DrinkRepository<T extends Drink> {
+public interface DrinkRepository {
 
-    T save(T drink);
+    Drink save(Drink drink);
     void delete(int id);
-    T get(int id);
-    List <T> getByPartOfName(String searchString);
-    List<T> getAll();
+    Drink get(int id);
+    List <Drink> getByPartOfName(String searchString);
+    List<Drink> getAll();
 
-    void add(T drink, int quantity);
+    void add(Drink drink, int quantity);
 
-    void take(T drink, int quantity) throws NotEnoughProductInStorage;
+    void take(Drink drink, int quantity) throws NotEnoughProductInStorage;
 }
