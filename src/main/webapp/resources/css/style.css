@@ -13,10 +13,9 @@ body {
 
 .shopping-cart {
     width: 750px;
-    height: 423px;
-    margin: 80px auto;
+    margin: 30px auto;
     background: #FFFFFF;
-    box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
+    box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.10);
     border-radius: 6px;
 
     display: flex;
@@ -38,7 +37,7 @@ body {
     display: flex;
 }
 
-.item:nth-child(3) {
+.item:nth-child(even) {
     border-top:  1px solid #E1E8EE;
     border-bottom:  1px solid #E1E8EE;
 }
@@ -52,36 +51,31 @@ body {
 .delete-btn {
     display: inline-block;
     Cursor: pointer;
-    width: 18px;
-    height: 17px;
+    width: 16px;
+    height: 16px;
     background: url("../img/delete-16.png") no-repeat center;
 }
 
-.is-active {
-    animation-name: animate;
-    animation-duration: .8s;
-    animation-iteration-count: 1;
-    animation-timing-function: steps(28);
-    animation-fill-mode: forwards;
-}
 
-@keyframes animate {
-    0%   { background-position: left;  }
-    50%  { background-position: right; }
-    100% { background-position: right; }
-}
-
-/* Let’s add some basic style to  product name and description. */
+/* Letâ€™s add some basic style to  product name and description. */
 .description {
     padding-top: 10px;
     margin-right: 60px;
-    width: 115px;
+    width: 130px;
+}
+
+.productPrice{
+    width: 60px;
+}
+
+.fullPrice{
+    width: 60px
 }
 
 .description span {
     display: block;
     font-size: 14px;
-    color: #43484D;
+    color: #9441ef;
     font-weight: 400;
 }
 
@@ -90,25 +84,30 @@ body {
 }
 .description span:last-child {
     font-weight: 300;
-    margin-top: 8px;
-    color: #86939E;
+    margin-top: 18px;
+    color: #9441ef;
+}
+.fullPrice{
+    margin-top: 18px;
+    color: #5e6977;
 }
 
 .quantity {
     padding-top: 20px;
-    margin-right: 60px;
+    margin-right: auto;
+    width: 120px;
 }
 .quantity input {
-    -webkit-appearance: none;
     border: none;
     text-align: center;
-    width: 32px;
+    width: 33px;
     font-size: 16px;
-    color: #43484D;
+    color: #414448;
     font-weight: 300;
 }
 
 button[class*=btn] {
+    padding-top: 0px;
     width: 30px;
     height: 30px;
     background-color: #E1E8EE;
@@ -116,12 +115,10 @@ button[class*=btn] {
     border: none;
     cursor: pointer;
 }
-.minus-btn img {
-    margin-bottom: 3px;
+.minus-btn{
+    margin-right:10px;
 }
-.plus-btn img {
-    margin-top: 2px;
-}
+
 
 button:focus,
 input:focus {
@@ -133,32 +130,19 @@ input:focus {
     padding-top: 27px;
     text-align: center;
     font-size: 16px;
-    color: #43484D;
+    color: #9441ef;
     font-weight: 300;
 }
 
-@media (max-width: 800px) {
-.shopping-cart {
-    width: 100%;
-    height: auto;
-    overflow: hidden;
-}
-.item {
-    height: auto;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.image img {
-    width: 50%;
-}
-.image,
-.quantity,
-.description {
-    width: 100%;
-    text-align: center;
-    margin: 6px 0;
-}
-.buttons {
-    margin-right: 20px;
-}
+.bottom{
+    display: flex;
+    flex-direction:row-reverse;
+    justify-content:center;
+    align-self:flex-end;
+    padding-top:5px;
+    font-weight: 300;
+    font-size: 16px;
+    color: #414448;
+    width:300px;
+    height:40px;
 }

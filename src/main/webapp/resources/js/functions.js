@@ -20,7 +20,7 @@ function getCount(){
     for (var i = 0; i < elem.length; ++ i) {
         sum += parseInt(elem[i].value);
     }
-    field.textContent = "Всего заказано " + sum + "товаров";
+    field.textContent = "Всего заказано " + sum + " товаров";
 }
 
 //max amount = 9

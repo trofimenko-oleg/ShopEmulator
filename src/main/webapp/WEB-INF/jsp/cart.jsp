@@ -57,8 +57,8 @@
     </div>
     </c:forEach>
 
-    <div><span id = "finalCount"></span></div>
-    <div><span id = "finalPrice"></span></div>
+    <div class="bottom"><span id = "finalCount"></span></div>
+    <div class="bottom"><span id = "finalPrice"></span></div>
 
 </div>
 </body>
