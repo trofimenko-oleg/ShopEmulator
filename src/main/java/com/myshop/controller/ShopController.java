@@ -32,13 +32,4 @@ public class ShopController {
         model.addAttribute("drinks", drinkService.getAll());
         return "cart";
     }
-    @GetMapping("/hello2")
-    public String printWelcome2(ModelMap model) {
-        model.addAttribute("drinks", drinkService.getAll());
-        return "cart2";
-    }
-
-
-
-
 }
