@@ -1,4 +1,3 @@
-<%--<link href="css/style.css" rel="stylesheet">--%>
 <%--
   Created by IntelliJ IDEA.
   User: bethrezene
@@ -13,46 +12,15 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <link href="<c:url value="/resources/css/style.css"/>" rel="stylesheet">
-    <script src="jquery-3.5.1.min.js"></script>
-    <script src="static/js/counterscript.js" type="text/javascript"></script>
-
+    <spring:url value="resources/css/style.css" var="mainCss"/>
+    <link href="${mainCss}" rel="stylesheet"/>
     <title>Title</title>
-    <script type="text/javascript">
-    $('.minus-btn').on('click', function(e) {
-    e.preventDefault();
-    var $this = $(this);
-    var $input = $this.closest('div').find('input');
-    var value = parseInt($input.val());
-
-    if (value &gt; 1) {
-    value = value - 1;
-    } else {
-    value = 0;
-    }
-
-    $input.val(value);
-
-    });
-
-    $('.plus-btn').on('click', function(e) {
-    e.preventDefault();
-    var $this = $(this);
-    var $input = $this.closest('div').find('input');
-    var value = parseInt($input.val());
-
-    if (value &lt; 100) {
-    value = value + 1;
-    } else {
-    value =100;
-    }
-
-    $input.val(value);
-    });
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <c:set var = "totalCost" scope = "session" value = "${0}"/>
+<%--<script type="text/javascript" src="static/js/counterscript.js"></script>--%>
+<%--<script type="text/javascript" src="static/js/functions.js"></script>--%>
 
 
 <div class="shopping-cart">
@@ -62,44 +30,93 @@
     </div>
     <c:forEach items="${drinks}" var="drink">
         <jsp:useBean id="drink" scope="page" type="com.myshop.domain.Drink"/>
-    <!-- Товар #${drink.id} -->
-    <div class="item">
-        <div class="buttons">
-            <span class="delete-btn"></span>
-        </div>
+        <!-- Товар #1 -->
+        <div class="item">
+            <div class="buttons">
+                <span class="delete-btn"></span>
+            </div>
 
-        <div class="description">
-            <span class="hide">${drink.name}</span>
-            <span>${drink.volume}</span>
-            <span>${drink.purchasePrice}</span>
-        </div>
+            <div class="description">
+                <span>${drink.name}</span>
+                <span>${drink.volume}</span>
+                <span>${drink.purchasePrice}</span>
+            </div>
 
-        <div class="quantity">
-            <button class="minus-btn" type="button" name="button">
-                <img src="static/img/minus-5-16.png" alt="" />
-            </button>
-            <input class = "myInput" type="text" name="name" value="1">
-            <button class="plus-btn" type="button" name="button">
-                <img src="static/img/plus-5-16.png" alt="" />
-            </button>
-        </div>
+            <div class="quantity">
+                <button class="minus-btn" type="button" name="button" >
+<%--                    onclick=minusOne(this)--%>
+                    <img src="static/img/minus-5-16.png" alt="" />
+                </button>
+                <input class = "myInput" type="text" name="name" value="1">
+                <button class="plus-btn" type="button" name="button" >
+<%--                    onclick=plusOne(this)--%>
+                    <img src="static/img/plus-5-16.png" alt="" />
+                </button>
+            </div>
 
-        <div class="total-price">
-            <script>
-            function getInputValue(){
-                // Selecting the input element and get its value
-                var elem = document.getElementsByClassName("myInput");
-                var sum = 0;
-                for (var i = 0; i < elem.length; ++ i) {
-                    sum += elem[i].getAttribute(getInputValue());
-                }
-                // Displaying the value
-                alert(sum);
-            }
-            </script>
+            <div class="total-price">
+
+                <input type="text" class = "xxx" value="0">
+
+
+            </div>
         </div>
-    </div>
     </c:forEach>
+
+    <script type="text/javascript">
+        var x = document.getElementsByClassName("xxx");
+        for(var i = 0; i < x.length; i++) {
+            x[i].value = "22$";
+        }
+    </script>
+
+    <script>
+        function getSum(){
+            const field = document.getElementById('finalCount');
+            // Selecting the input element and get its value
+            var elem = document.getElementsByClassName("myInput");
+            var sum = 0;
+            for (var i = 0; i < elem.length; ++ i) {
+                sum += parseInt(elem[i].value);
+            }
+            //$(this).value = sum;
+            field.value = sum;
+            // Displaying the value
+            //alert(sum);
+            // document.getElementById("name").addEventListener("focus", function(){
+            //     alert('Hello')
+            // });
+        }
+    </script>
+    <script>
+        var elements = document.getElementsByClassName("plus-btn");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].addEventListener('click', plusOne(elements[i]), false);
+        }
+
+        function plusOne(element) {
+            alert("I'm TRYING!");
+            alert(element.closest('div').find('input').name);
+            var input = element.closest('div').find('input');
+            alert(input);
+            alert(input.value);
+            var inputvalue = parseInt(input.value);
+            alert(inputvalue);
+            if (inputvalue < 100)
+            {
+                inputvalue = inputvalue + 1;
+            }
+            else {
+                inputvalue =100;
+            }
+
+            input.value = inputvalue;
+        }
+    </script>
+    <%--    <script>getSum();</script>--%>
+
+    <div><input id = "finalCount" type="text" value="0" onclick="getSum()"/></div>
+    <script>getSum()</script>
 </div>
 </body>
 </html>

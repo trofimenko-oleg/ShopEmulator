@@ -13,6 +13,8 @@ public abstract class FormattersUtil {
     }
     public static double round(double price)
     {
-        return Math.round(price * 100)/100;
+        double temp = Math.round(price * 100);
+       return temp/100;
+       //return Math.round(price*100)/100 gives wrong result no idea why
     }
 }

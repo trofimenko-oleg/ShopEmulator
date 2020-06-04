@@ -16,10 +16,67 @@
     <link href="${mainCss}" rel="stylesheet"/>
     <title>Title</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="static/js/counterscript.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function(){
+            $(".edit-count").on("click", function(){
+                var $this = $(this);
+                var $quantity = $this.closest('div').find('input');
+                var quantity = parseInt($quantity.val());
+                if ($this.hasClass("minus-btn")) quantity = minusOne(quantity);
+                if ($this.hasClass("plus-btn")) quantity = plusOne(quantity);
+                $quantity.val(quantity);
+                var $parent = $this.closest('div').parent();
+                var $price = $parent.find('.productPrice').text();
+                var price = parseFloat($price);
+                $parent.find('.fullPrice').text(price * quantity);
+                getCount();
+                getSum();
+            });
+
+        });
+        $(document).ready(function(){
+            priceofeveryunitfill();
+            getSum();
+            getCount();
+        });
+    </script>
+    <script>
+        function plusOne(a) {
+            if (a < 100)
+                return a + 1;
+            else return 100;
+        }
+        function minusOne(a) {
+            if (a > 0)
+                return a - 1;
+            else return 0;
+        }
+        function priceofeveryunitfill()
+        {
+            //var elem = document.getElementsByClassName("fullPrice");
+            //for (var i = 0; i < elem.length; ++ i) {
+                     //sum += parseInt(elem[i].item().find("span").first().textContent);
+
+
+            $elements = $(".fullPrice");
+            $elements.each(function () {
+                var $current = $(this);
+                var $parent = $current.parent();
+                var $quantity = $parent.find(".quantity input").val();
+
+                var quantity = parseInt($quantity);
+                    var $price = $parent.find('.productPrice').text();
+                    var price = parseFloat($price);
+                    $current.text(quantity * price);
+            }
+        );
+        }
+    </script>
 </head>
 <body>
 <c:set var = "totalCost" scope = "session" value = "${0}"/>
+<%--<script type="text/javascript" src="static/js/counterscript.js"></script>--%>
+<%--<script type="text/javascript" src="static/js/functions.js"></script>--%>
 
 
 <div class="shopping-cart">
@@ -35,38 +92,71 @@
             <span class="delete-btn"></span>
         </div>
 
-        <div class="description">
+        <div class="description productName">
             <span>${drink.name}</span>
-            <span>${drink.volume}</span>
+        </div>
+
+        <div class="description productPrice">
             <span>${drink.purchasePrice}</span>
         </div>
 
-        <div class="quantity">
-            <button class="minus-btn" type="button" name="button">
+        <div class="quantity" name = "test">
+            <button class="minus-btn edit-count" type="button" name="button">
                 <img src="static/img/minus-5-16.png" alt="" />
             </button>
             <input class = "myInput" type="text" name="name" value="1">
-            <button class="plus-btn" type="button" name="button">
+            <button class="plus-btn edit-count" type="button" name="button" >
+<%--                    //onclick=plusOne(this)>--%>
                 <img src="static/img/plus-5-16.png" alt="" />
             </button>
         </div>
 
-        <div class="total-price">
-            <script>
-            function getInputValue(){
-                // Selecting the input element and get its value
-                var elem = document.getElementsByClassName("myInput");
-                var sum = 0;
-                for (var i = 0; i < elem.length; ++ i) {
-                    sum += elem[i].getAttribute(getInputValue());
-                }
-                // Displaying the value
-                alert(sum);
-            }
-            </script>
+        <div class="description fullPrice">
+            <span></span>
         </div>
     </div>
     </c:forEach>
+
+<%--    <script type="text/javascript">--%>
+<%--        var x = document.getElementsByClassName("xxx");--%>
+<%--        for(var i = 0; i < x.length; i++) {--%>
+<%--            x[i].value = "22$";--%>
+<%--        }--%>
+<%--    </script>--%>
+
+    <script>
+        function getCount(){
+            const field = document.getElementById('finalCount');
+            // Selecting the input element and get its value
+            var elem = document.getElementsByClassName("myInput");
+            var sum = 0;
+            for (var i = 0; i < elem.length; ++ i) {
+                sum += parseInt(elem[i].value);
+            }
+            field.textContent = "Всего заказано " + sum + "товаров";
+        }
+    </script>
+    <script>
+        function getSum(){
+            const field = document.getElementById('finalPrice');
+            // Selecting the input elements and summing their values
+            $elements = $(".fullPrice");
+            //var elem = document.getElementsByClassName("fullPrice");
+            var sum = 0;
+            $elements.each(function () {
+                sum += parseFloat($(this).text());
+            });
+            //  for (var i = 0; i < elem.length; ++ i) {
+            //     sum += parseInt(elem[i].item().find("span").first().textContent);
+            //  }
+            // Displaying the value
+            field.textContent = "Общая сумма: " + sum;
+        }
+    </script>
+
+    <div><span id = "finalCount"></span></div>
+    <div><span id = "finalPrice"></span></div>
+
 </div>
 </body>
 </html>
