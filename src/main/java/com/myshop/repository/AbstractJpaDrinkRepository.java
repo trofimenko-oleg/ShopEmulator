@@ -2,7 +2,6 @@ package com.myshop.repository;
 
 import com.myshop.domain.Drink;
 import com.myshop.util.exception.NotEnoughProductInStorage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
