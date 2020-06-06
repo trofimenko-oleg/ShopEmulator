@@ -8,11 +8,12 @@ function getSum(){
         sum += parseFloat($(this).text());
     });
     // Displaying the value
-    field.textContent = "Общая сумма: " + Math.round(sum * 100) / 100;
+    field.textContent = "Общая сумма: " + round(sum);
 }
 
 function round(a) {
-    return (Math.round10(parseFloat(a), -2));
+    if (typeof a === "string") return Math.round(parseFloat(a) * 100) / 100;
+    else if (typeof a === "number") return Math.round(a*100)/100;
 }
 
 //how many different products were added
@@ -51,7 +52,7 @@ function fullPriceOfOneItemFill(element)
         var quantity = parseInt($quantity);
         var $price = $parent.find('.productPrice').text();
         var price = parseFloat($price);
-        $current.text((Math.round(quantity * price * 100) / 100));
+        $current.text(round(quantity * price));
 
 }
 
@@ -77,6 +78,7 @@ $(document).ready(function(){
         calculateOrderOnInputChange($quantity, quantity);
 
     });
+    //calculations on changing quantity field
     $('.myInput').on('input',function(){
         $this = $(this);
         if ($this.val() > 99) $this.val(99);
@@ -92,7 +94,7 @@ function calculateOrderOnInputChange(element, quantity)
     var $parent = $this.closest('div').parent();
     var $price = $parent.find('.productPrice').text();
     var price = parseFloat($price);
-    $parent.find('.fullPrice').text((Math.round(price * quantity * 100) / 100));
+    $parent.find('.fullPrice').text(round(price * quantity));
     getCount();
     getSum();
     showDiscount();
@@ -132,23 +134,25 @@ function showDiscount()
 {
     var $elements = $(".item");
     $elements.each(function () {
-        var $this = $(this);
-        var $count = $this.find(".myInput").val();
-        if ($count > 2)
-        {
-            var $priceBeforeDiscount = $this.find(".productPrice").text();
-            var $priceWithDiscount = $this.find(".hidden").text();
-            var $itemPrice = getItemPrice($priceBeforeDiscount, $priceWithDiscount, $count);
-            $this.find(".priceWithDiscount").css("visibility", "visible");
-            $this.find(".priceWithDiscount").text($itemPrice);
-            $this.find(".productPrice").css("text-decoration", "line-through");
-        }
-        if ($count <= 2)
-        {
-            $this.find(".priceWithDiscount").css("visibility", "hidden");
-            $this.find(".productPrice").css("text-decoration", "none");
-        }
+        showItemDiscount($(this));
+    });
+}
 
-    })
-
+function showItemDiscount(element) {
+    var $this = $(element);
+    var $count = $this.find(".myInput").val();
+    if ($count > 2)
+    {
+        var $priceBeforeDiscount = $this.find(".productPrice").text();
+        var $priceWithDiscount = $this.find(".hidden").text();
+        var $itemPrice = getItemPrice($priceBeforeDiscount, $priceWithDiscount, $count);
+        $this.find(".priceWithDiscount").css("visibility", "visible");
+        $this.find(".priceWithDiscount").text($itemPrice);
+        $this.find(".productPrice").css("text-decoration", "line-through");
+    }
+    if ($count <= 2)
+    {
+        $this.find(".priceWithDiscount").css("visibility", "hidden");
+        $this.find(".productPrice").css("text-decoration", "none");
+    }
 }
