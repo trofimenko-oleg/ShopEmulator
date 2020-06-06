@@ -17,13 +17,22 @@ public class OrderDetails extends AbstractBaseEntity
     @Column(name = "drink_quantity")
     private int drinkQuantity;
 
+    @Column(name = "drink_price")
+    private double itemPrice;
+
     public OrderDetails() {
     }
 
-    public OrderDetails(Order order, Drink drink, int drinkQuantity) {
+    public OrderDetails(Order order, OrderDetails other)
+    {
+        this(order, other.drink, other.drinkQuantity, other.itemPrice);
+    }
+
+    public OrderDetails(Order order, Drink drink, int drinkQuantity, double itemPrice) {
         this.order = order;
         this.drink = drink;
         this.drinkQuantity = drinkQuantity;
+        this.itemPrice = itemPrice;
     }
 
     public Order getOrder() {

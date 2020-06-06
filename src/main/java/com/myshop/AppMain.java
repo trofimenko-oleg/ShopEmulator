@@ -3,8 +3,8 @@ package com.myshop;
 import com.myshop.domain.*;
 import com.myshop.repository.OrderRepository;
 import com.myshop.repository.OrderRepositoryImpl;
-import com.myshop.service.DrinkService;
-import com.myshop.service.DrinkServiceImpl;
+import com.myshop.service.*;
+import com.myshop.service.to.ShortenedOrderItem;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -21,7 +21,8 @@ public class AppMain {
         try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-db.xml")) {
             DrinkService drinkService = appCtx.getBean(DrinkServiceImpl.class);
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
-            OrderRepository orderRepository = appCtx.getBean(OrderRepositoryImpl.class);
+            OrderService orderService = appCtx.getBean(OrderServiceImpl.class);
+            ShortenedOrderItemService shortenedOrderItemService = appCtx.getBean(ShortenedOrderItemService.class);
 
           //  Drink drink = new AlcoholicDrink("Вино", 15.20, 0.67, 10, AlcoholicGroup.WINE, 12);
          //   drinkService.save(drink);
@@ -32,27 +33,28 @@ public class AppMain {
             {
                 System.out.println(drink1);
             }
-
-            Order order = new Order();
-            OrderDetails orderDetails = new OrderDetails(order, drinks.get(0), 6);
-            OrderDetails orderDetails2 = new OrderDetails(order, drinks.get(1), 7);
-            OrderDetails orderDetails3 = new OrderDetails(order, drinks.get(4), 1);
-            order.setOrders(new ArrayList<OrderDetails>(){{
-                add(orderDetails);
-                add(orderDetails2);
-                add(orderDetails3);
-            }});
-            order.setDayOfWeek(DayOfWeek.FRIDAY);
-            order.setLocalDate(LocalDate.now());
-            order.setShippingInfo("bla");
-            order.setTime(LocalTime.now());
-            double checkValue = (orderDetails.getCostWithoutMarkup() + orderDetails2.getCostWithoutMarkup() + orderDetails3.getCostWithoutMarkup())*1.1;
-            order.setTotalCheckValue(checkValue);
-            orderRepository.save(order);
-            System.out.println(orderRepository.get(1).getTotalCheckValue());
-            Order second = new Order(order);
-            second.setTotalCheckValue(23566);
-            orderRepository.save(second);
+            List<ShortenedOrderItem> list = shortenedOrderItemService.getItems(orderService.get(2));
+            System.out.println(list);
+//            Order order = new Order();
+//            OrderDetails orderDetails = new OrderDetails(order, drinks.get(0), 6, 15.20);
+//            OrderDetails orderDetails2 = new OrderDetails(order, drinks.get(1), 7, 14.40);
+//            OrderDetails orderDetails3 = new OrderDetails(order, drinks.get(4), 1, 10.99);
+//            order.setOrders(new ArrayList<OrderDetails>(){{
+//                add(orderDetails);
+//                add(orderDetails2);
+//                add(orderDetails3);
+//            }});
+//            order.setDayOfWeek(DayOfWeek.FRIDAY);
+//            order.setLocalDate(LocalDate.now());
+//            order.setShippingInfo("bla");
+//            order.setTime(LocalTime.now());
+//            double checkValue = (orderDetails.getCostWithoutMarkup() + orderDetails2.getCostWithoutMarkup() + orderDetails3.getCostWithoutMarkup())*1.1;
+//            order.setTotalCheckValue((Math.round(checkValue*100))/100);
+//            orderService.save(order);
+//            System.out.println(orderService.get(1).getTotalCheckValue());
+//            Order second = new Order(order);
+//            second.setTotalCheckValue(23566);
+//            orderService.save(second);
 
 
 

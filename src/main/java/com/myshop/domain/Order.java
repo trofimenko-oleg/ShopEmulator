@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 @NamedQueries({
         @NamedQuery(name = Order.BY_DATE, query = "SELECT o FROM Order o ORDER BY o.localDate"),
@@ -16,7 +17,7 @@ public class Order extends AbstractBaseEntity {
     public static final String BY_DATE = "Order.byDate";
     public static final String BY_TIME = "Order.byTime";
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderDetails> orders;
     @Column
     @Enumerated
@@ -35,7 +36,11 @@ public class Order extends AbstractBaseEntity {
 
     public Order(Order other)
     {
-        this.orders = other.orders;
+        orders = new ArrayList<>();
+        for (OrderDetails orderDetails: other.orders)
+        {
+            orders.add(new OrderDetails(this, orderDetails));
+        }
         this.dayOfWeek = other.dayOfWeek;
         this.time = other.time;
         this.localDate = other.localDate;

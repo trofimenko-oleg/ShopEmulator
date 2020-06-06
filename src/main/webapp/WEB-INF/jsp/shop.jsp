@@ -25,8 +25,8 @@
         <th>Volume</th>
         <th>Left, pc</th>
         <th>
-            <form action="https://google.com">
-            <input type="submit" value="Go to Google" />
+            <form method="post" action="/cart2">
+            <input type="submit" value="Go to cart" />
             </form>
         </th>
     </tr>

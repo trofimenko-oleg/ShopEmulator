@@ -12,7 +12,10 @@
 </head>
 <body>
             <h1>Message: ${message}</h1>
-            <a href="hello">cart</a>
-            <a href="hello2">cart2</a>
+            <a href="cart">cart</a>
+            <a href="cart2">cart2</a>
+            <form method="post" action="cart2">
+                <input type="submit" value="Go to cart" />
+            </form>
 </body>
 </html>

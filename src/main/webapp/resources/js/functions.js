@@ -11,6 +11,10 @@ function getSum(){
     field.textContent = "Общая сумма: " + Math.round(sum * 100) / 100;
 }
 
+function round(a) {
+    return (Math.round(a*100))/100;
+}
+
 //how many different products were added
 function getCount(){
     const field = document.getElementById('finalCount');
@@ -83,10 +87,51 @@ function calculateOrderOnInputChange(element, quantity)
     $parent.find('.fullPrice').text((Math.round(price * quantity * 100) / 100));
     getCount();
     getSum();
+    showDiscount();
 }
 
 $(document).ready(function(){
     priceofeveryunitfill();
     getSum();
     getCount();
+    showDiscount();
 });
+
+function getPrice (a, b, c){
+    //a - initial price, price if > 2, quantity
+    var $finalPrice = 0;
+       var $initialPrice = a;
+       var $wholesalePrice = b;
+       var $quantity = c;
+       if (quantity <= 2)
+       { $finalPrice = $initialPrice*$quantity;}
+       else if (quantity > 2)
+       {
+           $finalPrice = $initialPrice*2;
+           $finalPrice += $wholesalePrice*($quantity-2);
+       }
+        return round($finalPrice);
+}
+
+function getItemPrice (a, b, c){
+    alert(" a = " + a + " b = " + b + " c = " + c );
+    return round(getPrice(a, b, c) / c);
+}
+
+function showDiscount()
+{
+    var $count = $(".myInput").val();
+    if ($count > 2)
+    {
+        var $priceBeforeDiscount = $(".productPrice").val();
+        var $priceWithDiscount = $(".hidden span").val();
+        $(".priceWithDiscount span").textContent = getItemPrice($priceBeforeDiscount, $priceWithDiscount, $count);
+        $(".priceWithDiscount span").setAttribute("hidden","false");
+        $(".productPrice").setAttribute("style", "text-decoration: line-through");
+    }
+    if ($count < 2)
+    {
+        $(".priceWithDiscount span").setAttribute("hidden", "true");
+        $(".productPrice").setAttribute("style", "text-decoration: none");
+    }
+}
