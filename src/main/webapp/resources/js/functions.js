@@ -41,22 +41,30 @@ function minusOne(a) {
     else return 0;
 }
 
+
+
+function fullPriceOfOneItemFill(element)
+{
+        var $current = $(element);
+        var $parent = $current.parent();
+        var $quantity = $parent.find(".quantity input").val();
+        var quantity = parseInt($quantity);
+        var $price = $parent.find('.productPrice').text();
+        var price = parseFloat($price);
+        $current.text((Math.round(quantity * price * 100) / 100));
+
+}
+
 //calculates price*quantity for every kind of product added
 function priceofeveryunitfill()
 {
     $elements = $(".fullPrice");
     $elements.each(function () {
-            var $current = $(this);
-            var $parent = $current.parent();
-            var $quantity = $parent.find(".quantity input").val();
-
-            var quantity = parseInt($quantity);
-            var $price = $parent.find('.productPrice').text();
-            var price = parseFloat($price);
-            $current.text((Math.round(quantity * price * 100) / 100));
+            fullPriceOfOneItemFill($(this));
         }
     );
 }
+
 //buttons + and - handler
 $(document).ready(function(){
     $(".edit-count").on("click", function(){
