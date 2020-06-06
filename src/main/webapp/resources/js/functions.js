@@ -12,7 +12,7 @@ function getSum(){
 }
 
 function round(a) {
-    return (Math.round(a*100))/100;
+    return (Math.round10(parseFloat(a), -2));
 }
 
 //how many different products were added
@@ -100,38 +100,47 @@ $(document).ready(function(){
 function getPrice (a, b, c){
     //a - initial price, price if > 2, quantity
     var $finalPrice = 0;
-       var $initialPrice = a;
-       var $wholesalePrice = b;
+       var $initialPrice = parseFloat(a);
+       var $wholesalePrice = parseFloat(b);
        var $quantity = c;
-       if (quantity <= 2)
-       { $finalPrice = $initialPrice*$quantity;}
-       else if (quantity > 2)
+
+    if (parseInt($quantity) <= 2)
+       {
+           $finalPrice = $initialPrice*$quantity;
+       }
+       else if (parseInt($quantity) > 2)
        {
            $finalPrice = $initialPrice*2;
-           $finalPrice += $wholesalePrice*($quantity-2);
+           $finalPrice = $finalPrice + $wholesalePrice*($quantity-2);
        }
-        return round($finalPrice);
+    return $finalPrice;
 }
 
 function getItemPrice (a, b, c){
-    alert(" a = " + a + " b = " + b + " c = " + c );
-    return round(getPrice(a, b, c) / c);
+    return getPrice(a, b, c) / c;
 }
 
 function showDiscount()
 {
-    var $count = $(".myInput").val();
-    if ($count > 2)
-    {
-        var $priceBeforeDiscount = $(".productPrice").val();
-        var $priceWithDiscount = $(".hidden span").val();
-        $(".priceWithDiscount span").textContent = getItemPrice($priceBeforeDiscount, $priceWithDiscount, $count);
-        $(".priceWithDiscount span").setAttribute("hidden","false");
-        $(".productPrice").setAttribute("style", "text-decoration: line-through");
-    }
-    if ($count < 2)
-    {
-        $(".priceWithDiscount span").setAttribute("hidden", "true");
-        $(".productPrice").setAttribute("style", "text-decoration: none");
-    }
+    var $elements = $(".item");
+    $elements.each(function () {
+        var $this = $(this);
+        var $count = $this.find(".myInput").val();
+        if ($count > 2)
+        {
+            var $priceBeforeDiscount = $this.find(".productPrice").text();
+            var $priceWithDiscount = $this.find(".hidden").text();
+            var $itemPrice = getItemPrice($priceBeforeDiscount, $priceWithDiscount, $count);
+            $this.find(".priceWithDiscount").css("visibility", "visible");
+            $this.find(".priceWithDiscount").text($itemPrice);
+            $this.find(".productPrice").css("text-decoration", "line-through");
+        }
+        if ($count <= 2)
+        {
+            $this.find(".priceWithDiscount").css("visibility", "hidden");
+            $this.find(".productPrice").css("text-decoration", "none");
+        }
+
+    })
+
 }

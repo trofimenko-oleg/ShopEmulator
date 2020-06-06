@@ -47,8 +47,8 @@
 <%--        <span></span>--%>
 <%--    <span><script>getItemPrice(${item.priceWithDiscount}, ${item.priceWithDiscount}, $('.myInput').val())</script></span>--%>
         </div>
-        <span class = "hidden">${item.priceWithDiscount}</span>
-        <span class = "priceWithDiscount" hidden="true"></span>
+        <span class = "hidden" style="visibility:hidden">${item.priceWithDiscount}</span>
+        <span class = "priceWithDiscount" style="visibility:hidden"></span>
 <%--        <c:if test="${item.quantity > 2}">--%>
 <%--        <span>${item.priceWithDiscount}</span>--%>
 <%--        </c:if>--%>
