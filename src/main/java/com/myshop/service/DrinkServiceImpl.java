@@ -40,10 +40,10 @@ public class DrinkServiceImpl implements DrinkService {
     @Override
     public List<Drink> getAll() {
         List<Drink> allDrinks = drinkRepository.getAll();
-        for (Drink drink: allDrinks)
-        {
-            drink.setPurchasePrice(round(drink.getPurchasePrice() * PriceUtil.getMarkup()));
-        }
+//        for (Drink drink: allDrinks)
+//        {
+//            drink.setPurchasePrice(round(drink.getPurchasePrice() * PriceUtil.getMarkup()));
+//        }
         return allDrinks;
     }
 

@@ -14,7 +14,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <spring:url value="resources/css/style.css" var="mainCss"/>
     <link href="${mainCss}" rel="stylesheet"/>
-    <title>Title</title>
+    <title>Cart</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
@@ -29,7 +29,7 @@
 
     <%int counter = 1;%>
     <c:forEach items="${order}" var="item">
-        <jsp:useBean id="item" scope="page" class="com.myshop.service.to.ShortenedOrderItem"/>
+        <jsp:useBean id="item" scope="request" class="com.myshop.service.to.ShortenedOrderItem"/>
         <!-- Товар #<%=counter++%>> -->
 
 
