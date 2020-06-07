@@ -4,6 +4,8 @@ import com.myshop.domain.Drink;
 import com.myshop.util.PriceUtil;
 import org.springframework.stereotype.Component;
 
+import static com.myshop.util.FormattersUtil.round;
+
 @Component
 public class ShortenedOrderItem {
     private Drink drink;
@@ -18,7 +20,7 @@ public class ShortenedOrderItem {
     public ShortenedOrderItem(Drink drink, int quantity) {
         this.drink = drink;
         this.quantity = quantity;
-        this.priceWithoutDiscount = drink.getPurchasePrice()* PriceUtil.getMarkup();
+        this.priceWithoutDiscount = round(drink.getPurchasePrice()* PriceUtil.getMarkup());
         this.priceWithDiscount = drink.getPurchasePrice()*PriceUtil.WHOLESALE_MARKUP;
     }
 

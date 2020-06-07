@@ -41,7 +41,7 @@ public class ShortenedOrderItemServiceImpl implements ShortenedOrderItemService{
              totalSum += itemPrice*quantity;
          }
          order.setOrders(orderDetails);
-         order.setTotalCheckValue(totalSum);
+         order.setTotalCheckValue(round(totalSum));
          order.setTime(LocalTime.now());
          order.setLocalDate(LocalDate.now());
          order.setDayOfWeek(LocalDate.now().getDayOfWeek());

@@ -33,16 +33,16 @@ public class ShopController {
         return "shop";
     }
 
-    @GetMapping("/cart")
-    public String showCart(ModelMap model) {
-        model.addAttribute("drinks", drinkService.getAll());
-        return "cart";
-    }
+//    @GetMapping("/cart")
+//    public String showCart(ModelMap model) {
+//        model.addAttribute("drinks", drinkService.getAll());
+//        return "cart";
+//    }
 
-    @PostMapping("/cart2")
-    public String showCart2(ModelMap model) {
+    @PostMapping("/cart")
+    public String showCart(ModelMap model) {
         //model.addAttribute("drinks", drinkService.getAll());
         model.addAttribute("order", shortenedOrderItemService.getItems(orderService.get(2)));
-        return "cart2";
+        return "cart";
     }
 }

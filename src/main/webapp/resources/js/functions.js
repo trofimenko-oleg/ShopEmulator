@@ -29,7 +29,7 @@ function getCount(){
     field.textContent = "Всего заказано " + sum + " товаров";
 }
 
-//max amount = 9
+//max quantity = 99
 function plusOne(a) {
     if (a < 99)
         return a + 1;
@@ -46,26 +46,18 @@ function minusOne(a) {
 
 function fullPriceOfOneItemFill(element)
 {
-    //$this.find(".priceWithDiscount").css("visibility", "hidden");
-
     var $current = $(element);
         var $item = $current.closest(".item");
         var $quantity = $item.find(".quantity input").val();
         var quantity = parseInt($quantity);
             var $price = $item.find('.productPrice').text();
-            alert($price);
         $itemDiscountPrice = $item.find(".priceWithDiscount");
-        if (!$itemDiscountPrice.css('display') == 'none')
+        if ($itemDiscountPrice.css('visibility') != 'hidden')
         {
             $price = $itemDiscountPrice.text();
-            alert($price);
         }
-        //else {
-        //    alert("length < 0");
-        //    $price = $item.find('.productPrice').text();
-        //}
         var price = parseFloat($price);
-        $current.text(round(quantity * price));
+        $item.find(".fullPrice").text(round(quantity * price));
 }
 
 //calculates price*quantity for every kind of product added
@@ -102,17 +94,15 @@ $(document).ready(function(){
 
 function calculateOrderOnInputChange(element, quantity)
 {
-    $this = element;
-    var $item = $this.closest('.item');
-
-    var $price = $item.find('.productPrice').text();
-
-
-    var price = parseFloat($price);
-    $item.find('.fullPrice').text(round(price * quantity));
+    // $this = element;
+    // var $item = $this.closest('.item');
+    // var $price = $item.find('.productPrice').text();
+    // var price = parseFloat($price);
+    // $item.find('.fullPrice').text(round(price * quantity));
+    showItemDiscount(element.closest('.item'));
+    fullPriceOfOneItemFill(element);
     getCount();
     getSum();
-    showItemDiscount(element.closest('.item'));
 }
 
 $(document).ready(function(){

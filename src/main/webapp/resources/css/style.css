@@ -17,7 +17,6 @@ body {
     background: #FFFFFF;
     box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.10);
     border-radius: 6px;
-
     display: flex;
     flex-direction: column;
 }
@@ -42,10 +41,14 @@ body {
     border-bottom:  1px solid #E1E8EE;
 }
 
+.hidden{
+    height:0px;
+    width: 0px;
+}
 .buttons {
     position: relative;
     padding-top: 30px;
-    margin-right: 60px;
+    margin-right: 30px;
 }
 
 .delete-btn {
@@ -56,20 +59,30 @@ body {
     background: url("../img/delete-16.png") no-repeat center;
 }
 
-
-/* Letâ€™s add some basic style to  product name and description. */
 .description {
     padding-top: 10px;
-    margin-right: 60px;
-    width: 130px;
+
+}
+
+.productName{
+    margin-right: 10px;
+    width: 180px;
 }
 
 .productPrice{
-    width: 60px;
+    width: 70px;
+    margin-right:20px;
+    text-align:right;
+}
+
+.priceWithDiscount{
+    width: 70px;
+    margin-right:10px;
+    text-align:left;
 }
 
 .fullPrice{
-    width: 60px
+    width: 60px;
 }
 
 .description span {
@@ -90,12 +103,12 @@ body {
 .fullPrice{
     margin-top: 18px;
     color: #5e6977;
+    width:100px;
 }
 
 .quantity {
     padding-top: 20px;
     margin-right: auto;
-    width: 120px;
 }
 .quantity input {
     border: none;
@@ -107,16 +120,17 @@ body {
 }
 
 button[class*=btn] {
-    padding-top: 0px;
-    width: 30px;
-    height: 30px;
+    margin-top:5px;
+    padding:4px;
+    width: 24px;
+    height: 24px;
     background-color: #E1E8EE;
     border-radius: 6px;
     border: none;
     cursor: pointer;
 }
 .minus-btn{
-    margin-right:10px;
+    margin-right:12px;
 }
 
 
@@ -135,14 +149,16 @@ input:focus {
 }
 
 .bottom{
-    display: flex;
     flex-direction:row-reverse;
-    justify-content:center;
-    align-self:flex-end;
-    padding-top:5px;
+    align-self:center;
     font-weight: 300;
     font-size: 16px;
     color: #414448;
-    width:300px;
-    height:40px;
+    height:50px;
+    margin:30px;
+
 }
+.bottom div{
+    margin-bottom:15px;
+}
+

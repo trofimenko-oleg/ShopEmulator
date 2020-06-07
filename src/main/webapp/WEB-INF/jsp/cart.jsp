@@ -24,41 +24,50 @@
     <!-- Title -->
     <div class="title">
         Shopping Bag
+
     </div>
-    <c:forEach items="${drinks}" var="drink">
-        <jsp:useBean id="drink" scope="page" type="com.myshop.domain.Drink"/>
-    <!-- Товар #${drink.id} -->
-    <div class="item">
-        <div class="buttons">
-            <span class="delete-btn"></span>
-        </div>
 
-        <div class="description productName">
-            <span>${drink.name}</span>
-        </div>
+    <%int counter = 1;%>
+    <c:forEach items="${order}" var="item">
+        <jsp:useBean id="item" scope="page" class="com.myshop.service.to.ShortenedOrderItem"/>
+        <!-- Товар #<%=counter++%>> -->
 
-        <div class="description productPrice">
-            <span>${drink.purchasePrice}</span>
-        </div>
 
-        <div class="quantity" name = "test">
-            <button class="minus-btn edit-count" type="button" name="button">
-                <img src="static/img/minus-5-16.png" alt="" />
-            </button>
-            <input class = "myInput" type="number" max="99", min="0" name="name" value="1">
-            <button class="plus-btn edit-count" type="button" name="button" >
-                <img src="static/img/plus-5-16.png" alt="" />
-            </button>
-        </div>
+        <div class="item">
+            <div class="buttons">
+                <span class="delete-btn"></span>
+            </div>
 
-        <div class="description fullPrice">
-            <span></span>
+            <div class="description productName">
+                <span>${item.drink.name}</span>
+            </div>
+
+            <div class="description productPrice">
+                <span>${item.priceWithoutDiscount}</span>
+            </div>
+            <span class = "hidden" style="visibility:hidden">${item.priceWithDiscount}</span>
+            <div class = "description priceWithDiscount" style="visibility:hidden"></div>
+
+            <div class="quantity" name = "test">
+                <button class="minus-btn edit-count" type="button" name="button">
+                    <img src="static/img/minus-5-16.png" alt="" />
+                </button>
+                <input class = "myInput" type="number" max="99", min="0" name="name" value="${item.quantity}">
+                <button class="plus-btn edit-count" type="button" name="button" >
+                    <img src="static/img/plus-5-16.png" alt="" />
+                </button>
+            </div>
+
+            <div class="description fullPrice">
+                <span></span>
+            </div>
         </div>
-    </div>
     </c:forEach>
+    <div class = "bottom">
+        <div id = "finalCount"></div>
+        <div id = "finalPrice"></div>
+    </div>
 
-    <div class="bottom"><span id = "finalCount"></span></div>
-    <div class="bottom"><span id = "finalPrice"></span></div>
 
 </div>
 </body>
