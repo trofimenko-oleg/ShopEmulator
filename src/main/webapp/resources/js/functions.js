@@ -11,6 +11,7 @@ function getSum(){
     field.textContent = "Общая сумма: " + round(sum);
 }
 
+//rounds to 2 digits after point
 function round(a) {
     if (typeof a === "string") return Math.round(parseFloat(a) * 100) / 100;
     else if (typeof a === "number") return Math.round(a*100)/100;
@@ -43,21 +44,32 @@ function minusOne(a) {
 }
 
 
-
 function fullPriceOfOneItemFill(element)
 {
-        var $current = $(element);
-        var $parent = $current.parent();
-        var $quantity = $parent.find(".quantity input").val();
+    //$this.find(".priceWithDiscount").css("visibility", "hidden");
+
+    var $current = $(element);
+        var $item = $current.closest(".item");
+        var $quantity = $item.find(".quantity input").val();
         var quantity = parseInt($quantity);
-        var $price = $parent.find('.productPrice').text();
+            var $price = $item.find('.productPrice').text();
+            alert($price);
+        $itemDiscountPrice = $item.find(".priceWithDiscount");
+        if (!$itemDiscountPrice.css('display') == 'none')
+        {
+            $price = $itemDiscountPrice.text();
+            alert($price);
+        }
+        //else {
+        //    alert("length < 0");
+        //    $price = $item.find('.productPrice').text();
+        //}
         var price = parseFloat($price);
         $current.text(round(quantity * price));
-
 }
 
 //calculates price*quantity for every kind of product added
-function priceofeveryunitfill()
+function everyItemFullPriceFill()
 {
     $elements = $(".fullPrice");
     $elements.each(function () {
@@ -70,12 +82,12 @@ function priceofeveryunitfill()
 $(document).ready(function(){
     $(".edit-count").on("click", function(){
         var $this = $(this);
-        var $quantity = $this.closest('div').find('input');
-        var quantity = parseInt($quantity.val());
+        var $input = $this.closest('div').find('input');
+        var quantity = parseInt($input.val());
         if ($this.hasClass("minus-btn")) quantity = minusOne(quantity);
         if ($this.hasClass("plus-btn")) quantity = plusOne(quantity);
-        $quantity.val(quantity);
-        calculateOrderOnInputChange($quantity, quantity);
+        $input.val(quantity);
+        calculateOrderOnInputChange($input, quantity);
 
     });
     //calculations on changing quantity field
@@ -91,20 +103,23 @@ $(document).ready(function(){
 function calculateOrderOnInputChange(element, quantity)
 {
     $this = element;
-    var $parent = $this.closest('div').parent();
-    var $price = $parent.find('.productPrice').text();
+    var $item = $this.closest('.item');
+
+    var $price = $item.find('.productPrice').text();
+
+
     var price = parseFloat($price);
-    $parent.find('.fullPrice').text(round(price * quantity));
+    $item.find('.fullPrice').text(round(price * quantity));
     getCount();
     getSum();
-    showDiscount();
+    showItemDiscount(element.closest('.item'));
 }
 
 $(document).ready(function(){
-    priceofeveryunitfill();
-    getSum();
+    showAllDiscounts();
+    everyItemFullPriceFill();
     getCount();
-    showDiscount();
+    getSum();
 });
 
 function getPrice (a, b, c){
@@ -123,14 +138,14 @@ function getPrice (a, b, c){
            $finalPrice = $initialPrice*2;
            $finalPrice = $finalPrice + $wholesalePrice*($quantity-2);
        }
-    return $finalPrice;
+    return round($finalPrice);
 }
 
 function getItemPrice (a, b, c){
-    return getPrice(a, b, c) / c;
+    return round(getPrice(a, b, c) / c);
 }
 
-function showDiscount()
+function showAllDiscounts()
 {
     var $elements = $(".item");
     $elements.each(function () {

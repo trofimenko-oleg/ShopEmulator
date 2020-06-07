@@ -49,15 +49,13 @@
         </div>
         <span class = "hidden" style="visibility:hidden">${item.priceWithDiscount}</span>
         <span class = "priceWithDiscount" style="visibility:hidden"></span>
-<%--        <c:if test="${item.quantity > 2}">--%>
-<%--        <span>${item.priceWithDiscount}</span>--%>
-<%--        </c:if>--%>
+
 
         <div class="quantity" name = "test">
             <button class="minus-btn edit-count" type="button" name="button">
                 <img src="static/img/minus-5-16.png" alt="" />
             </button>
-            <input class = "myInput" type="number" max="99", min="0" name="name" value="1">
+            <input class = "myInput" type="number" max="99", min="0" name="name" value="${item.quantity}">
             <button class="plus-btn edit-count" type="button" name="button" >
                 <img src="static/img/plus-5-16.png" alt="" />
             </button>
