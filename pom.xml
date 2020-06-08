@@ -41,7 +41,7 @@
 
 
         <spring-data-jpa.version>2.0.2.RELEASE</spring-data-jpa.version>
-        <tomcat.version>8.5.23</tomcat.version>
+        <tomcat.version>8.5.24</tomcat.version>
 
         <!--webjars-->
         <webjars-bootstrap.version>3.3.7-1</webjars-bootstrap.version>
