@@ -2,6 +2,7 @@ package com.myshop.repository;
 
 import com.myshop.domain.Drink;
 import com.myshop.util.exception.NotEnoughProductInStorage;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -10,9 +11,11 @@ import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 @Repository
 public class AbstractJpaDrinkRepository implements DrinkRepository {
-
+private static final Logger log = getLogger(AbstractJpaDrinkRepository.class);
     @PersistenceContext
     private EntityManager em;
 
@@ -49,6 +52,7 @@ public class AbstractJpaDrinkRepository implements DrinkRepository {
 
     @Override
     public List<Drink> getAll() {
+        log.debug("retrieving all drinks");
         return em.createNamedQuery(Drink.NO_SORT, Drink.class)
                 .getResultList();
     }

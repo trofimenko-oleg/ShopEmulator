@@ -12,14 +12,10 @@
 </head>
 <body>
             <h1>Message: ${message}</h1>
-            <a href="shop/">shop/</a>
-            <a href="shop">shop</a>
-            <a href="/shop/">/shop/</a>
-            <a href="/shop/">/shop/</a>
+            <a href="shop">shop/</a>
+            <a href="cart">/shop/</a>
 
-            <form method="post" action="shop">
-                <input type="submit" value="shop" />
-            </form>
+
             <form method="post" action="shop/cart">
                 <input type="submit" value="shop/cart" />
             </form>
