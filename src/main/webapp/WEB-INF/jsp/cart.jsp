@@ -28,9 +28,9 @@
     </div>
 
     <%int counter = 1;%>
-    <c:forEach items="${order}" var="item">
-        <jsp:useBean id="item" scope="page" class="com.myshop.service.to.ShortenedOrderItem"/>
-        <!-- Товар #<%=counter++%>> -->
+    <c:forEach items="${order.orderItems}" var="item" varStatus="vs">
+        <jsp:useBean id="item" class="com.myshop.service.to.ShortenedOrderItem"/>
+        <!-- Товар #<c:out value="${vs.index}"/>> -->
 
 
         <div class="item">
@@ -52,7 +52,7 @@
                 <button class="minus-btn edit-count" type="button" name="button">
                     <img src="static/img/minus-5-16.png" alt="" />
                 </button>
-                <input class = "myInput" type="number" max="99", min="0" name="name" value="${item.quantity}">
+                <input class = "myInput" type="number" max="99" min="0" name="name" value="${item.quantity}">
                 <button class="plus-btn edit-count" type="button" name="button" >
                     <img src="static/img/plus-5-16.png" alt="" />
                 </button>

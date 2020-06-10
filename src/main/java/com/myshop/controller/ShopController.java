@@ -1,9 +1,11 @@
 package com.myshop.controller;
 
 import com.myshop.domain.Drink;
+import com.myshop.domain.Order;
 import com.myshop.service.DrinkService;
 import com.myshop.service.OrderService;
 import com.myshop.service.ShortenedOrderItemService;
+import com.myshop.service.to.OrderForm;
 import com.myshop.service.to.ShortenedOrderItem;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-@RestController
+@Controller
 @SessionAttributes(value = "order")
 public class ShopController {
     private static final Logger log = getLogger(ShopController.class);
@@ -81,32 +83,36 @@ public class ShopController {
         {
             shortenedOrderItemList.add(new ShortenedOrderItem(drink, 0));
         }
-        modelAndView.addObject("order", shortenedOrderItemList);
+        OrderForm orderForm = new OrderForm();
+        orderForm.setOrderItems(shortenedOrderItemList);
+        modelAndView.addObject("order", orderForm);
         modelAndView.setViewName("shop");
         return modelAndView;
     }
 
-    @GetMapping("/cart")
-    public ModelAndView showCart(ModelAndView model) {
-        model.addObject("order", shortenedOrderItemService.getItems(orderService.get(2)));
-        model.setViewName("cart");
-
-        return model;
-    }
+//    @GetMapping("/cart")
+//    public ModelAndView showCart2(@ModelAttribute("order") OrderForm orderForm) {
+//        OrderForm returned = new OrderForm();
+//        returned.setOrderItems(shortenedOrderItemService.getItems(orderService.get(2)));
+//        return new ModelAndView("cart", "order", returned);
+//    }
 
     @PostMapping(value = "/cart")
-    public ModelAndView showCart(@ModelAttribute("order") List<ShortenedOrderItem> list) {
-        List<ShortenedOrderItem> items = new ArrayList<>();
-        for (ShortenedOrderItem item: list)    {
+    public ModelAndView showCart(@ModelAttribute("order") OrderForm orderForm) {
+        List<ShortenedOrderItem> items = orderForm.getOrderItems();
+        List<ShortenedOrderItem> toCart = new ArrayList<>();
+        OrderForm returned = new OrderForm();
+        for (ShortenedOrderItem item: items)    {
             if (item.getQuantity() > 0) {
-                items.add(item);
+                toCart.add(item);
             }
         }
-        if (items.size() == 0) {
-            return new ModelAndView("shop", "order", list);
+        if (toCart.size() == 0) {
+            return new ModelAndView("shop", "order", orderForm);
         }
          else  {
-             return new ModelAndView("cart", "order", items);
+             orderForm.setOrderItems(toCart);
+             return new ModelAndView("cart", "order", orderForm);
         }
     }
 

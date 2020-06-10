@@ -36,14 +36,15 @@
             </th>
         </tr>
         </thead>
-        <c:forEach items="${order}" var="item" varStatus="status">
-            <jsp:useBean id="item" scope="page" type="com.myshop.service.to.ShortenedOrderItem"/>
+        <c:forEach items="${order.orderItems}" var="item" varStatus="status">
+            <jsp:useBean id="item" type="com.myshop.service.to.ShortenedOrderItem"/>
             <tr class = "item">
                 <td>${item.drink.name}</td>
                 <td>${item.priceWithoutDiscount}</td>
                 <td>${item.drink.volume}</td>
                 <td name = "quantityInStore">${item.drink.quantity}</td>
-                <td><input type="number" min="0", max="99" path="order[${status.index}].quantity" name ="order[${status.index}].quantity" value="${item.quantity}"></td>
+                <td><input type="text" name = "orderItems[${status.index}].quantity" value="${item.quantity}"></td>
+<%--                <td><input type="number" min="0" max="99" path="order[${status.index}].quantity" name ="order[${status.index}].quantity" value="${item.quantity}"></td>--%>
             </tr>
         </c:forEach>
         <tr>
