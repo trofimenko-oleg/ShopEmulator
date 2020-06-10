@@ -29,7 +29,7 @@
 
     <%int counter = 1;%>
     <c:forEach items="${order}" var="item">
-        <jsp:useBean id="item" scope="request" class="com.myshop.service.to.ShortenedOrderItem"/>
+        <jsp:useBean id="item" scope="page" class="com.myshop.service.to.ShortenedOrderItem"/>
         <!-- Товар #<%=counter++%>> -->
 
 

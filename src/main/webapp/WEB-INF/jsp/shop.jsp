@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
 <html>
@@ -21,7 +22,7 @@
 <body>
 <script type="text/javascript" src="static/js/shop.js"></script>
 <hr>
-<form method="post" name = "mainForm" action="cart">
+<form:form method="post" modelAttribute="order" name = "mainForm" action="cart">
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
@@ -31,26 +32,24 @@
             <th>Left, pc</th>
             <th></th>
             <th>
-                <form method="post" action="cart">
                 <input type="submit" value="Go to cart" />
-                </form>
             </th>
         </tr>
         </thead>
-        <c:forEach items="${items}" var="item">
+        <c:forEach items="${order}" var="item" varStatus="status">
             <jsp:useBean id="item" scope="page" type="com.myshop.service.to.ShortenedOrderItem"/>
             <tr class = "item">
                 <td>${item.drink.name}</td>
                 <td>${item.priceWithoutDiscount}</td>
                 <td>${item.drink.volume}</td>
                 <td name = "quantityInStore">${item.drink.quantity}</td>
-                <td><input type="number"  name ="desiredQuantity" value="${item.quantity}"></td>
+                <td><input type="number" min="0", max="99" path="order[${status.index}].quantity" name ="order[${status.index}].quantity" value="${item.quantity}"></td>
             </tr>
         </c:forEach>
         <tr>
-            <td><input type="submit" value="Go to cart"></td>
         </tr>
     </table>
-</form>
+    <input type="submit" value="Go to cart">
+</form:form>
 </body>
 </html>

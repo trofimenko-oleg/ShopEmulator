@@ -16,6 +16,9 @@ public class OrderClientView {
         private Double price;
         private Integer quantity;
 
+        public DrinkDetails() {
+        }
+
         public Double getPrice() {
             return price;
         }

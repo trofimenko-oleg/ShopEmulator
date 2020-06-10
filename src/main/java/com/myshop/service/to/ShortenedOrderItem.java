@@ -3,6 +3,7 @@ package com.myshop.service.to;
 import com.myshop.domain.Drink;
 import com.myshop.util.PriceUtil;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import static com.myshop.util.FormattersUtil.round;
 
@@ -21,7 +22,7 @@ public class ShortenedOrderItem {
         this.drink = drink;
         this.quantity = quantity;
         this.priceWithoutDiscount = round(drink.getPurchasePrice()* PriceUtil.getMarkup());
-        this.priceWithDiscount = drink.getPurchasePrice()*PriceUtil.WHOLESALE_MARKUP;
+        this.priceWithDiscount = round(drink.getPurchasePrice()*PriceUtil.WHOLESALE_MARKUP);
     }
 
     public double getPriceWithDiscount() {
