@@ -7,6 +7,7 @@ import com.myshop.service.OrderService;
 import com.myshop.service.ShortenedOrderItemService;
 import com.myshop.service.to.OrderForm;
 import com.myshop.service.to.ShortenedOrderItem;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -42,39 +43,6 @@ public class ShopController {
         return new ModelAndView("index");
     }
 
-//    @GetMapping("/shop")
-//    public String drinkList(ModelMap model) {
-//        List<ShortenedOrderItem> shortenedOrderItemList = new ArrayList<>();
-//        for (Drink drink: drinkService.getAll())
-//        {
-//            shortenedOrderItemList.add(new ShortenedOrderItem(drink, 0));
-//        }
-//        model.addAttribute("items", shortenedOrderItemList);
-//        //return shortenedOrderItemList;
-//        return "shop";
-//    }
-
-//    @GetMapping("/carto")
-//    List<ShortenedOrderItem> drinkListPost(ModelMap model) {
-//        List<ShortenedOrderItem> shortenedOrderItemList = new ArrayList<>();
-//        for (Drink drink: drinkService.getAll())
-//        {
-//            shortenedOrderItemList.add(new ShortenedOrderItem(drink, 0));
-//        }
-//        //model.addAttribute("items", shortenedOrderItemList);
-//        return shortenedOrderItemList;
-//    }
-
-//    @GetMapping("/shop")
-//    public String drinkList(Model model) {
-//        List<ShortenedOrderItem> shortenedOrderItemList = new ArrayList<>();
-//        for (Drink drink: drinkService.getAll())
-//        {
-//            shortenedOrderItemList.add(new ShortenedOrderItem(drink, 0));
-//        }
-//        model.addAttribute("items", shortenedOrderItemList);
-//        return "shop";
-//    }
     @GetMapping("/shop")
     public ModelAndView drinkList() {
         List<ShortenedOrderItem> shortenedOrderItemList = new ArrayList<>();
@@ -90,12 +58,6 @@ public class ShopController {
         return modelAndView;
     }
 
-//    @GetMapping("/cart")
-//    public ModelAndView showCart2(@ModelAttribute("order") OrderForm orderForm) {
-//        OrderForm returned = new OrderForm();
-//        returned.setOrderItems(shortenedOrderItemService.getItems(orderService.get(2)));
-//        return new ModelAndView("cart", "order", returned);
-//    }
 
     @PostMapping(value = "/cart")
     public ModelAndView showCart(@ModelAttribute("order") OrderForm orderForm) {
@@ -116,51 +78,49 @@ public class ShopController {
         }
     }
 
-//
-//    @PostMapping(value = "/cart", consumes = "application/x-www-form-urlencoded")
-//    public ModelAndView showCart2(List<ShortenedOrderItem> list) {
-//        List<ShortenedOrderItem> items = new ArrayList<>();
-//        for (ShortenedOrderItem item: list)    {
-//            if (item.getQuantity() > 0) {
-//                items.add(item);
-//            }
-//        }
-//        if (items.size() == 0) {
-//            return new ModelAndView("shop", "items", list);
-//        }
-//        else  {
-//            return new ModelAndView("cart", "order", items);
-//        }
-//    }
+    private OrderForm getOrderedItemsOrReturnBackIfNoItems(OrderForm orderForm)
+    {
+        List<ShortenedOrderItem> items = orderForm.getOrderItems();
+        List<ShortenedOrderItem> toCart = new ArrayList<>();
+        OrderForm newOrderForm = new OrderForm();
+        for (ShortenedOrderItem item: items)    {
+            if (item.getQuantity() > 0) {
+                toCart.add(item);
+            }
+        }
+        if (toCart.size() > 0) {
+            newOrderForm.setOrderItems(toCart);
+        }
+        return newOrderForm;
+    }
 
-//    @PostMapping(value = "/cart", consumes = "application/json")
-//    public ModelAndView showCart(@RequestBody List<ShortenedOrderItem> list) {
-//        ModelAndView mav = new ModelAndView();
-//        List<ShortenedOrderItem> items = new ArrayList<>();
-//        for (ShortenedOrderItem item: list)    {
-//            if (item.getQuantity() > 0) {
-//                items.add(item);
-//            }
-//        }
-//
-//        if (items.size() == 0) {
-//            //return new ModelAndView("shop", "items", list);
-//            mav.setViewName("shop");
-//            mav.addObject("items", list);
-//        }
-//        else  {
-//            mav.setViewName("cart");
-//            mav.addObject("order", items);
-//            //return new ModelAndView("cart", "order", items);
-//        }
-//        return mav;
-//    }
+    @PostMapping(value = "/saveOrder")
+    public ModelAndView saveOrder(@ModelAttribute("order") OrderForm orderForm) {
+            OrderForm newOrderForm = getOrderedItemsOrReturnBackIfNoItems(orderForm);
+            ModelAndView modelAndView = new ModelAndView();
 
-//    @PostMapping(value = "/shop/cart", consumes = MediaType.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
-//    public String showCart(@RequestBody List<ShortenedOrderItem> list, ModelMap model) {
-//        //model.addAttribute("drinks", drinkService.getAll());
-//        model.addAttribute("order", list);
-////        model.addAttribute("order", shortenedOrderItemService.getItems(orderService.get(2)));
-//        return "cart";
-//    }
+        if (newOrderForm.getOrderItems().size() == 0) {
+            modelAndView.setViewName("shop");
+        }
+        else  {
+            Order order = orderService.save(shortenedOrderItemService.getOrderFromItemList(newOrderForm.getOrderItems()));
+            //modelAndView.setViewName("orderadditionalinfo");
+            modelAndView.addObject("id", order.getId());
+            modelAndView.setViewName("orderadditionalinfo?id="+order.getId());
+        }
+        return modelAndView;
+    }
+
+    @PostMapping(value="/save_additional_order_info")
+    public String saveAdditionalInfo(@RequestParam("id") int id, Model model)
+    {
+        Order order = orderService.get(id);
+        if (model.getAttribute("additional_info") != null)
+        {
+            String info = (String)model.getAttribute("additional_info");
+            order.setShippingInfo(info);
+            orderService.save(order);
+        }
+        return "shop";
+    }
 }

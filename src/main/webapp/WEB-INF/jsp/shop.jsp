@@ -22,35 +22,30 @@
 <body>
 <script type="text/javascript" src="static/js/shop.js"></script>
 <hr>
-<form:form method="post" modelAttribute="order" name = "mainForm" action="cart">
-    <table border="1" cellpadding="8" cellspacing="0">
+<form:form method="post"  modelAttribute="order" name = "mainForm" action="cart">
+    <table class = "shop" border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Volume</th>
-            <th>Left, pc</th>
-            <th></th>
-            <th>
-                <input type="submit" value="Go to cart" />
-            </th>
+            <th class="name">Name</th>
+            <th class="price">Price</th>
+            <th class="volume">Volume</th>
+            <th class="left">Left, pc</th>
+            <th class="count">Add to cart</th>
         </tr>
         </thead>
         <c:forEach items="${order.orderItems}" var="item" varStatus="status">
             <jsp:useBean id="item" type="com.myshop.service.to.ShortenedOrderItem"/>
             <tr class = "item">
-                <td>${item.drink.name}</td>
-                <td>${item.priceWithoutDiscount}</td>
-                <td>${item.drink.volume}</td>
-                <td name = "quantityInStore">${item.drink.quantity}</td>
-                <td><input type="text" name = "orderItems[${status.index}].quantity" value="${item.quantity}"></td>
-<%--                <td><input type="number" min="0" max="99" path="order[${status.index}].quantity" name ="order[${status.index}].quantity" value="${item.quantity}"></td>--%>
+                <td class="name">${item.drink.name}</td>
+                <td class="price">${item.priceWithoutDiscount}</td>
+                <td class="volume">${item.drink.volume}</td>
+                <td class="left" name = "quantityInStore">${item.drink.quantity}</td>
+                <td class="count"><input type="number" class="count" min="0" max="99" step="1" name = "orderItems[${status.index}].quantity" value="${item.quantity}"></td>
             </tr>
         </c:forEach>
-        <tr>
-        </tr>
+        <input type="submit" value="Go to cart" class ="submit_button">
     </table>
-    <input type="submit" value="Go to cart">
+
 </form:form>
 </body>
 </html>

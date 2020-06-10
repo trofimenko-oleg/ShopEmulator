@@ -20,6 +20,15 @@ body {
     display: flex;
     flex-direction: column;
 }
+.shop {
+    width: 750px;
+    margin: 30px auto;
+    background: #FFFFFF;
+    box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.10);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+}
 
 .title {
     height: 60px;
@@ -31,12 +40,17 @@ body {
 }
 
 .item {
-    padding: 20px 30px;
+    padding: 22px 30px;
     height: 120px;
     display: flex;
 }
 
-.item:nth-child(even) {
+.shop_item {
+    padding: 22px 30px;
+    height: 90px;
+    display: flex;
+}
+.item:nth-child(even), .shop_item:nth-child(odd) {
     border-top:  1px solid #E1E8EE;
     border-bottom:  1px solid #E1E8EE;
 }
@@ -60,22 +74,35 @@ body {
 }
 
 .description {
-    padding-top: 10px;
+    padding-top: 12px;
 
 }
 
-.productName{
+.productName {
     margin-right: 10px;
     width: 180px;
 }
 
+.name {
+    margin-right: 10px;
+    width: 300px;
+    text-align:left;
+}
+
+.price, .volume, .left, .count{
+    margin-right: 10px;
+    width: 85px;
+    text-align:left;
+}
+
 .productPrice{
     width: 70px;
-    margin-right:20px;
+    margin-right:10px;
     text-align:right;
 }
 
 .priceWithDiscount{
+    margin-top: 8px;
     width: 70px;
     margin-right:10px;
     text-align:left;
@@ -113,12 +140,15 @@ body {
 .quantity input {
     border: none;
     text-align: center;
-    width: 33px;
+    width: 36px;
     font-size: 16px;
     color: #414448;
     font-weight: 300;
 }
-
+tr, td, th{
+    border: 0;
+    border-radius:0px;
+}
 button[class*=btn] {
     margin-top:5px;
     padding:4px;
@@ -149,16 +179,45 @@ input:focus {
 }
 
 .bottom{
-    flex-direction:row-reverse;
-    align-self:center;
+    display: flex;
+    flex-direction: row;
     font-weight: 300;
     font-size: 16px;
     color: #414448;
     height:50px;
-    margin:30px;
+    margin:20px;
 
 }
 .bottom div{
     margin-bottom:15px;
+}
+.bottom_block{
+    width:510px;
+    text-align:right;
+    margin-right:40px
+}
+.submit {
+    box-shadow:inset 0px 0px 0px 0px #caefab;
+    background:linear-gradient(to bottom, #77d42a 5%, #5cb811 100%);
+    background-color:#77d42a;
+    border-radius:6px;
+    border:1px solid #268a16;
+    display:inline-block;
+    cursor:pointer;
+    color:#5c506d;
+    font-family:Arial;
+    font-size:16px;
+    font-weight:bold;
+    padding:5px 10px;
+    text-decoration:none;
+    text-shadow:0px 0px 0px #aade7c;
+}
+.submit:hover {
+    background:linear-gradient(to bottom, #5cb811 5%, #77d42a 100%);
+    background-color:#5cb811;
+}
+.submit:active {
+    position:relative;
+    top:1px;
 }
 

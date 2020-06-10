@@ -1,0 +1,21 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: bethrezene
+  Date: 10.06.2020
+  Time: 18:16
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
+        <form method="post" modelAttribute="order" name = "submit" action="save_additional_order_info">
+            <span>Thank you for order in our shop, your order number is №${id}. Please leave us your contacts and shipping info in the field below</span>
+            <input type="text" name = "additional_info">
+            <button type="submit" name="submit_button"> S e n d </button>
+        </form>
+
+</body>
+</html>

@@ -26,7 +26,7 @@
         Shopping Bag
 
     </div>
-
+    <form method="post" modelAttribute="order" name = "submit" action="saveOrder">
     <%int counter = 1;%>
     <c:forEach items="${order.orderItems}" var="item" varStatus="vs">
         <jsp:useBean id="item" class="com.myshop.service.to.ShortenedOrderItem"/>
@@ -63,11 +63,14 @@
             </div>
         </div>
     </c:forEach>
-    <div class = "bottom">
-        <div id = "finalCount"></div>
-        <div id = "finalPrice"></div>
-    </div>
-
+        <div class="bottom">
+            <div class="bottom_block">
+                <div id="finalCount">Всего заказано 151 товаров</div>
+                <div id="finalPrice">Общая сумма: 9306.01</div>
+            </div>
+            <button type="submit" class="submit"> Confirm order </button>
+        </div>
+    </form>
 
 </div>
 </body>
