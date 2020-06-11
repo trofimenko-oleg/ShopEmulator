@@ -14,7 +14,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <spring:url value="resources/css/style.css" var="mainCss"/>
     <link href="${mainCss}" rel="stylesheet"/>
-    <title>Title</title>
+    <title>Cart</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
@@ -26,49 +26,51 @@
         Shopping Bag
 
     </div>
+    <form method="post" modelAttribute="order" name = "submit" action="saveOrder">
+        <%int counter = 1;%>
+        <c:forEach items="${order.orderItems}" var="item" varStatus="vs">
+            <jsp:useBean id="item" class="com.myshop.service.to.ShortenedOrderItem"/>
+            <!-- Товар #<c:out value="${vs.index}"/>> -->
 
-    <%int counter = 1;%>
-    <c:forEach items="${order}" var="item">
-        <jsp:useBean id="item" scope="page" class="com.myshop.service.to.ShortenedOrderItem"/>
-    <!-- Товар #<%=counter++%>> -->
 
+            <div class="item">
+                <div class="buttons">
+                    <span class="delete-btn"></span>
+                </div>
 
-    <div class="item">
-        <div class="buttons">
-            <span class="delete-btn"></span>
+                <div class="description productName">
+                    <span>${item.drink.name}</span>
+                </div>
+
+                <div class="description productPrice">
+                    <span>${item.priceWithoutDiscount}</span>
+                </div>
+                <span class = "hidden" style="visibility:hidden">${item.priceWithDiscount}</span>
+                <div class = "description priceWithDiscount" style="visibility:hidden"></div>
+
+                <div class="quantity" name = "test">
+                    <button class="minus-btn edit-count" type="button" name="button">
+                        <img src="static/img/minus-5-16.png" alt="" />
+                    </button>
+                    <input class = "myInput" type="number" max="99" min="0" name="name" value="${item.quantity}">
+                    <button class="plus-btn edit-count" type="button" name="button" >
+                        <img src="static/img/plus-5-16.png" alt="" />
+                    </button>
+                </div>
+
+                <div class="description fullPrice">
+                    <span></span>
+                </div>
+            </div>
+        </c:forEach>
+        <div class="bottom">
+            <div class="bottom_block">
+                <div id="finalCount"></div>
+                <div id="finalPrice"></div>
+            </div>
+            <button type="submit" class="submit"> Confirm order </button>
         </div>
-
-        <div class="description productName">
-            <span>${item.drink.name}</span>
-        </div>
-
-        <div class="description productPrice">
-        <span>${item.priceWithoutDiscount}</span>
-<%--        <span></span>--%>
-<%--    <span><script>getItemPrice(${item.priceWithDiscount}, ${item.priceWithDiscount}, $('.myInput').val())</script></span>--%>
-        </div>
-        <span class = "hidden" style="visibility:hidden">${item.priceWithDiscount}</span>
-        <span class = "priceWithDiscount" style="visibility:hidden"></span>
-
-
-        <div class="quantity" name = "test">
-            <button class="minus-btn edit-count" type="button" name="button">
-                <img src="static/img/minus-5-16.png" alt="" />
-            </button>
-            <input class = "myInput" type="number" max="99", min="0" name="name" value="${item.quantity}">
-            <button class="plus-btn edit-count" type="button" name="button" >
-                <img src="static/img/plus-5-16.png" alt="" />
-            </button>
-        </div>
-
-        <div class="description fullPrice">
-            <span></span>
-        </div>
-    </div>
-    </c:forEach>
-
-    <div class="bottom"><span id = "finalCount"></span></div>
-    <div class="bottom"><span id = "finalPrice"></span></div>
+    </form>
 
 </div>
 </body>

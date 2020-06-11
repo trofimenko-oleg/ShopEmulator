@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,23 +105,24 @@ public class ShopController {
         }
         else  {
             Order order = orderService.save(shortenedOrderItemService.getOrderFromItemList(newOrderForm.getOrderItems()));
-            //modelAndView.setViewName("orderadditionalinfo");
             modelAndView.addObject("id", order.getId());
-            modelAndView.setViewName("orderadditionalinfo?id="+order.getId());
+            modelAndView.setViewName("orderadditionalinfo");
         }
         return modelAndView;
     }
 
-    @PostMapping(value="/save_additional_order_info")
-    public String saveAdditionalInfo(@RequestParam("id") int id, Model model)
+    @PostMapping(value="/save_additional_order_info/{id}")
+    public String saveAdditionalInfo(@PathVariable int id, @ModelAttribute("info") String info)
     {
         Order order = orderService.get(id);
-        if (model.getAttribute("additional_info") != null)
+        if (info != null)
         {
-            String info = (String)model.getAttribute("additional_info");
             order.setShippingInfo(info);
             orderService.save(order);
         }
-        return "shop";
+        else {
+            //throw new Exception
+        }
+        return "redirect:/shop";
     }
 }

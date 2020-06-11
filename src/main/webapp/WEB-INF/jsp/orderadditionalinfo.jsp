@@ -11,9 +11,9 @@
     <title>Title</title>
 </head>
 <body>
-        <form method="post" modelAttribute="order" name = "submit" action="save_additional_order_info">
+        <form method="post" modelAttribute="info" name = "submit" action="save_additional_order_info/${id}">
             <span>Thank you for order in our shop, your order number is №${id}. Please leave us your contacts and shipping info in the field below</span>
-            <input type="text" name = "additional_info">
+            <input type="text" name = "info">
             <button type="submit" name="submit_button"> S e n d </button>
         </form>
 

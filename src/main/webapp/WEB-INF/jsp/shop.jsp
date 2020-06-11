@@ -35,7 +35,7 @@
         </thead>
         <c:forEach items="${order.orderItems}" var="item" varStatus="status">
             <jsp:useBean id="item" type="com.myshop.service.to.ShortenedOrderItem"/>
-            <tr class = "item">
+            <tr class = "shop_item">
                 <td class="name">${item.drink.name}</td>
                 <td class="price">${item.priceWithoutDiscount}</td>
                 <td class="volume">${item.drink.volume}</td>
