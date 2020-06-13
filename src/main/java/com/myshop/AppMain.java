@@ -28,11 +28,11 @@ public class AppMain {
          //   drinkService.save(drink);
          //   Drink drink2 = new NonAlcoholicDrink("Минералка", 15.20, 0.67, 10, NonAlcoholicGroup.MINERAL_WATER, "Ну очень вкусная минералка");
          //   drinkService.save(drink2);
-            List<Drink> drinks = drinkService.getAll();
-            for (Drink drink1: drinks)
-            {
-                System.out.println(drink1);
-            }
+//            List<Drink> drinks = drinkService.getAll();
+//            for (Drink drink1: drinks)
+//            {
+//                System.out.println(drink1);
+//            }
             List<ShortenedOrderItem> list = shortenedOrderItemService.getItems(orderService.get(2));
             System.out.println(list);
 //            Order order = new Order();

@@ -46,6 +46,7 @@
                 <span>${item.priceWithoutDiscount}</span>
             </div>
             <span class = "hidden" style="visibility:hidden">${item.priceWithDiscount}</span>
+            <span class = "max_quantity" style="visibility:hidden">${item.drink.quantity}</span>
             <div class = "description priceWithDiscount" style="visibility:hidden"></div>
 
             <div class="quantity" name = "test">

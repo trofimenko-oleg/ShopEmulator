@@ -1,24 +1,19 @@
 package com.myshop.service;
 
-import com.myshop.domain.Drink;
 import com.myshop.domain.Order;
 import com.myshop.domain.OrderDetails;
-import com.myshop.service.to.OrderClientView;
 import com.myshop.service.to.ShortenedOrderItem;
-import com.myshop.util.PriceUtil;
+import com.myshop.util.TimeUtil;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static com.myshop.util.FormattersUtil.round;
 @Service
 public class ShortenedOrderItemServiceImpl implements ShortenedOrderItemService{
+    private Clock clock = TimeUtil.getClock();
     @Override
     public List<ShortenedOrderItem> getItems(Order order) {
         List<ShortenedOrderItem> list = new ArrayList<>();
@@ -40,11 +35,12 @@ public class ShortenedOrderItemServiceImpl implements ShortenedOrderItemService{
              orderDetails.add(new OrderDetails(order, item.getDrink(), quantity, itemPrice));
              totalSum += itemPrice*quantity;
          }
+         LocalDateTime localDateTime = LocalDateTime.ofInstant(clock.instant(), clock.getZone());
          order.setOrders(orderDetails);
          order.setTotalCheckValue(round(totalSum));
-         order.setTime(LocalTime.now());
-         order.setLocalDate(LocalDate.now());
-         order.setDayOfWeek(LocalDate.now().getDayOfWeek());
+         order.setTime(localDateTime.toLocalTime());
+         order.setLocalDate(localDateTime.toLocalDate());
+         order.setDayOfWeek(localDateTime.getDayOfWeek());
          return order;
     }
 }

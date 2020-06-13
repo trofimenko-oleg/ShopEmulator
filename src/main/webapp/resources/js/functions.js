@@ -17,6 +17,11 @@ function round(a) {
     else if (typeof a === "number") return Math.round(a*100)/100;
 }
 
+function min(a, b){
+    if (parseInt(a, 10) < parseInt(b, 10)) return parseInt(a, 10);
+    else return parseInt(b,10);
+}
+
 //how many different products were added
 function getCount(){
     const field = document.getElementById('finalCount');
@@ -150,4 +155,25 @@ function showItemDiscount(element) {
         $this.find(".priceWithDiscount").css("visibility", "hidden");
         $this.find(".productPrice").css("text-decoration", "none");
     }
+}
+function setRestrictions() {
+    $elements = (".myInput");
+    $elements.each(function () {
+        setRestrictionToQuantityField($(this));
+    })
+
+}
+
+function setRestrictionToQuantityField(element)
+{
+    var $this = $(element);
+    var $max_quantity = $this.find(".max_quantity").text();
+    var minimum = min($max_quantity, 99);
+    $this.setAttribute("max", minimum.toString());
+
+}
+
+function min(a, b){
+    if (parseInt(a, 10) < parseInt(b, 10)) return parseInt(a, 10);
+    else return parseInt(b,10);
 }

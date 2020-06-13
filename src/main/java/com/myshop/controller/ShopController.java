@@ -4,9 +4,11 @@ import com.myshop.domain.Drink;
 import com.myshop.domain.Order;
 import com.myshop.service.DrinkService;
 import com.myshop.service.OrderService;
+import com.myshop.service.PurchaseService;
 import com.myshop.service.ShortenedOrderItemService;
 import com.myshop.service.to.OrderForm;
 import com.myshop.service.to.ShortenedOrderItem;
+import com.myshop.util.exception.NotEnoughProductInStorage;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,8 @@ public class ShopController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private PurchaseService purchaseService;
 
     @GetMapping("/")
     public ModelAndView root()
@@ -96,7 +100,7 @@ public class ShopController {
     }
 
     @PostMapping(value = "/saveOrder")
-    public ModelAndView saveOrder(@ModelAttribute("order") OrderForm orderForm) {
+    public ModelAndView saveOrder(@ModelAttribute("order") OrderForm orderForm) throws NotEnoughProductInStorage {
             OrderForm newOrderForm = getOrderedItemsOrReturnBackIfNoItems(orderForm);
             ModelAndView modelAndView = new ModelAndView();
 
@@ -104,7 +108,7 @@ public class ShopController {
             modelAndView.setViewName("shop");
         }
         else  {
-            Order order = orderService.save(shortenedOrderItemService.getOrderFromItemList(newOrderForm.getOrderItems()));
+               Order order = orderService.save(shortenedOrderItemService.getOrderFromItemList(newOrderForm.getOrderItems()));
             modelAndView.addObject("id", order.getId());
             modelAndView.setViewName("orderadditionalinfo");
         }
@@ -112,8 +116,7 @@ public class ShopController {
     }
 
     @PostMapping(value="/save_additional_order_info/{id}")
-    public String saveAdditionalInfo(@PathVariable int id, @ModelAttribute("info") String info)
-    {
+    public String saveAdditionalInfo(@PathVariable int id, @ModelAttribute("info") String info) throws NotEnoughProductInStorage {
         Order order = orderService.get(id);
         if (info != null)
         {

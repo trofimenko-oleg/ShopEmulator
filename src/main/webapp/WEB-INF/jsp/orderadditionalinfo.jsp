@@ -8,7 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Add contact information</title>
+    <spring:url value="resources/css/style.css" var="mainCss"/>
+    <link href="${mainCss}" rel="stylesheet"/>
+
 </head>
 <body>
         <form method="post" modelAttribute="info" name = "submit" action="save_additional_order_info/${id}">
