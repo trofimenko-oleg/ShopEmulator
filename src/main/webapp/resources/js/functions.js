@@ -88,7 +88,9 @@ $(document).ready(function(){
     //calculations on changing quantity field
     $('.myInput').on('input',function(){
         $this = $(this);
-        if ($this.val() > 99) $this.val(99);
+        var $max_quantity = $this.closest(".item").find(".max_quantity").text();
+        var minimum = min(parseInt($max_quantity, 10), 99);
+        if ($this.val() > minimum) $this.val(minimum);
         if ($this.val() < 0) $this.val(0);
         calculateOrderOnInputChange($(this), $(this).val());
     });
@@ -106,6 +108,7 @@ $(document).ready(function(){
     everyItemFullPriceFill();
     getCount();
     getSum();
+    setRestrictions();
 });
 
 function getPrice (a, b, c){
@@ -157,23 +160,23 @@ function showItemDiscount(element) {
     }
 }
 function setRestrictions() {
-    $elements = (".myInput");
+    var $elements = (".myInput");
+    alert("outside each" + $elements.length);
+
     $elements.each(function () {
+        alert("inside each");
         setRestrictionToQuantityField($(this));
-    })
+    });
 
 }
 
 function setRestrictionToQuantityField(element)
 {
+    alert("I'm here");
     var $this = $(element);
-    var $max_quantity = $this.find(".max_quantity").text();
-    var minimum = min($max_quantity, 99);
-    $this.setAttribute("max", minimum.toString());
-
-}
-
-function min(a, b){
-    if (parseInt(a, 10) < parseInt(b, 10)) return parseInt(a, 10);
-    else return parseInt(b,10);
+    var $max_quantity = $this.closest(".item").find(".max_quantity").text();
+    var minimum = min(parseInt($max_quantity, 10), 99);
+    $this.attr({"max" : minimum, "min" : 0});
+    //$this.setAttribute("max", minimum.toString());
+    alert($this.attr("max"));
 }

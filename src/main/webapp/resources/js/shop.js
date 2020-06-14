@@ -11,5 +11,3 @@ function min(a, b){
     if (parseInt(a, 10) < parseInt(b, 10)) return parseInt(a, 10);
     else return parseInt(b,10);
 }
-
-

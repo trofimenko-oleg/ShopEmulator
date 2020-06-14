@@ -2,10 +2,7 @@ package com.myshop.controller;
 
 import com.myshop.domain.Drink;
 import com.myshop.domain.Order;
-import com.myshop.service.DrinkService;
-import com.myshop.service.OrderService;
-import com.myshop.service.PurchaseService;
-import com.myshop.service.ShortenedOrderItemService;
+import com.myshop.service.*;
 import com.myshop.service.to.OrderForm;
 import com.myshop.service.to.ShortenedOrderItem;
 import com.myshop.util.exception.NotEnoughProductInStorage;
@@ -42,10 +39,13 @@ public class ShopController {
     @Autowired
     private PurchaseService purchaseService;
 
+    @Autowired
+    private RefillingService refillingService;
+
     @GetMapping("/")
     public ModelAndView root()
     {
-        return new ModelAndView("index");
+        return new ModelAndView("redirect:/shop");
     }
 
     @GetMapping("/shop")

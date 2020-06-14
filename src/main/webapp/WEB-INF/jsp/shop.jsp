@@ -23,9 +23,10 @@
 <script type="text/javascript" src="static/js/shop.js"></script>
 <hr>
 <form:form method="post"  modelAttribute="order" name = "mainForm" action="cart">
+    <input type="submit" value="Go to cart" class="submit_button">
     <table class = "shop" border="1" cellpadding="8" cellspacing="0">
         <thead>
-        <tr>
+        <tr class="shop_item">
             <th class="name">Name</th>
             <th class="price">Price</th>
             <th class="volume">Volume</th>
@@ -43,9 +44,8 @@
                 <td class="count"><input type="number" class="count" min="0" max="99" step="1" name = "orderItems[${status.index}].quantity" value="${item.quantity}"></td>
             </tr>
         </c:forEach>
-        <input type="submit" value="Go to cart" class ="submit_button">
     </table>
-
+    <input type="submit" value="Go to cart" class="submit_button">
 </form:form>
 </body>
 </html>

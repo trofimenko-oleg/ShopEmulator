@@ -1,5 +1,6 @@
 package com.myshop.controller;
 
+import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.slf4j.Logger;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,7 +14,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 public class GlobalControllerExceptionHandler {
     private static final Logger log = getLogger(GlobalControllerExceptionHandler.class);
 
-    @ExceptionHandler(value = Exception.class)
+    @ExceptionHandler(value = NotEnoughProductInStorage.class)
     public ModelAndView defaultErrorHandler(HttpServletRequest request, Exception e) throws Exception
     {
         log.error("exception at request" + request.getRequestURL());

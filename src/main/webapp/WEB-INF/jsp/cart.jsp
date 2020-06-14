@@ -27,7 +27,6 @@
 
     </div>
     <form method="post" modelAttribute="order" name = "submit" action="saveOrder">
-    <%int counter = 1;%>
     <c:forEach items="${order.orderItems}" var="item" varStatus="vs">
         <jsp:useBean id="item" class="com.myshop.service.to.ShortenedOrderItem"/>
         <!-- Товар #<c:out value="${vs.index}"/>> -->
