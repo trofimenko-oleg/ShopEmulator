@@ -2,12 +2,18 @@ package com.myshop.service;
 
 import com.myshop.domain.Drink;
 import com.myshop.repository.DrinkRepository;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@EnableScheduling //not needed?
+@Transactional
 public class RefillingServiceImpl implements RefillingService{
 
     private final DrinkRepository drinkRepository;
@@ -17,7 +23,7 @@ public class RefillingServiceImpl implements RefillingService{
     }
 
     @Override
-    @Scheduled(cron = "0 0 21 * * *")
+    //@Scheduled(cron = "0 24 22 * * *")
     public void refill() {
         List<Drink> drinkList = drinkRepository.getAll();
         for (Drink drink: drinkList)

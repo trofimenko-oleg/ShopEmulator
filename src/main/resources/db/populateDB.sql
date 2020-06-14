@@ -32,7 +32,7 @@ VALUES
 INSERT INTO DRINKS
 (NAME, PURCHASEPRICE, QUANTITY, VOLUME, DRINK_TYPE)
 VALUES
-('Сок Богач Грейпфрутовый', 22.00, 156, 0.95, 'n');
+('Сок Богач Грейпфрутовый очень вкусный молодящий, здоровья придающий. Оптом дешевле', 22.00, 156, 0.95, 'n');
 
 INSERT INTO NONALCOHOLICDRINKS
 (TYPE, COMPOSITION, ID)

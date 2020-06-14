@@ -1,9 +1,6 @@
 package com.myshop.util;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 
 public abstract class PriceUtil {
     public static final double EVENING_MARKUP = 1.08;
@@ -19,9 +16,10 @@ public abstract class PriceUtil {
         OTHER
     }
 
-    public static DAYTIME getDaytime()
+    public static DAYTIME getDaytime(Clock clock)
     {
-        LocalDateTime localDateTime = LocalDateTime.now();
+
+        LocalDateTime localDateTime = LocalDateTime.now(clock);
         LocalTime localTime = localDateTime.toLocalTime();
         LocalDate localDate = localDateTime.toLocalDate();
         DayOfWeek dayOfWeek = localDate.getDayOfWeek();
@@ -35,7 +33,7 @@ public abstract class PriceUtil {
     }
 
     public static double getMarkup() {
-        DAYTIME daytime = getDaytime();
+        DAYTIME daytime = getDaytime(TimeUtil.getClock());
 
         if (daytime == PriceUtil.DAYTIME.EVENING){
             return EVENING_MARKUP;

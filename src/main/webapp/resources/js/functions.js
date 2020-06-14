@@ -160,11 +160,8 @@ function showItemDiscount(element) {
     }
 }
 function setRestrictions() {
-    var $elements = (".myInput");
-    alert("outside each" + $elements.length);
-
+    var $elements = $(".myInput");
     $elements.each(function () {
-        alert("inside each");
         setRestrictionToQuantityField($(this));
     });
 
@@ -172,11 +169,9 @@ function setRestrictions() {
 
 function setRestrictionToQuantityField(element)
 {
-    alert("I'm here");
     var $this = $(element);
     var $max_quantity = $this.closest(".item").find(".max_quantity").text();
     var minimum = min(parseInt($max_quantity, 10), 99);
     $this.attr({"max" : minimum, "min" : 0});
     //$this.setAttribute("max", minimum.toString());
-    alert($this.attr("max"));
 }

@@ -6,17 +6,14 @@ import com.myshop.service.*;
 import com.myshop.service.to.OrderForm;
 import com.myshop.service.to.ShortenedOrderItem;
 import com.myshop.util.exception.NotEnoughProductInStorage;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +39,7 @@ public class ShopController {
     @Autowired
     private RefillingService refillingService;
 
+
     @GetMapping("/")
     public ModelAndView root()
     {
@@ -65,8 +63,16 @@ public class ShopController {
 
 
     @PostMapping(value = "/cart")
-    public ModelAndView showCart(@ModelAttribute("order") OrderForm orderForm) {
+    public ModelAndView showCart(@ModelAttribute("order") OrderForm orderForm, HttpServletRequest request) {
         List<ShortenedOrderItem> items = orderForm.getOrderItems();
+        //to prevent wrong refresh, after refreshing page orderForm is downloading in not expected (for me) way
+        for (ShortenedOrderItem item: items)
+        {
+            if (item.getDrink() == null){
+                //return drinkList();
+                return new ModelAndView("redirect:shop");
+            }
+        }
         List<ShortenedOrderItem> toCart = new ArrayList<>();
         OrderForm returned = new OrderForm();
         for (ShortenedOrderItem item: items)    {
@@ -75,11 +81,15 @@ public class ShopController {
             }
         }
         if (toCart.size() == 0) {
-            return new ModelAndView("shop", "order", orderForm);
+            //return new ModelAndView("shop", "order", orderForm);
+            return drinkList();
         }
          else  {
-             orderForm.setOrderItems(toCart);
-             return new ModelAndView("cart", "order", orderForm);
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("cart");
+            returned.setOrderItems(toCart);
+            modelAndView.addObject("order", returned);
+            return modelAndView;
         }
     }
 
@@ -100,7 +110,12 @@ public class ShopController {
     }
 
     @PostMapping(value = "/saveOrder")
-    public ModelAndView saveOrder(@ModelAttribute("order") OrderForm orderForm) throws NotEnoughProductInStorage {
+    public ModelAndView saveOrder(@ModelAttribute("order") OrderForm orderForm, HttpServletRequest request, @ModelAttribute String id, ModelAndView mav) throws NotEnoughProductInStorage {
+            String id1 = id;
+            if ((request.getSession().getAttribute("id")) != null)
+            {
+                return new ModelAndView("orderadditionalinfo");
+            }
             OrderForm newOrderForm = getOrderedItemsOrReturnBackIfNoItems(orderForm);
             ModelAndView modelAndView = new ModelAndView();
 
@@ -109,6 +124,9 @@ public class ShopController {
         }
         else  {
                Order order = orderService.save(shortenedOrderItemService.getOrderFromItemList(newOrderForm.getOrderItems()));
+              // request.getSession().invalidate();
+               request.getSession().setAttribute("id", order.getId());
+               mav.addObject("id", order.getId());
             modelAndView.addObject("id", order.getId());
             modelAndView.setViewName("orderadditionalinfo");
         }
@@ -116,7 +134,7 @@ public class ShopController {
     }
 
     @PostMapping(value="/save_additional_order_info/{id}")
-    public String saveAdditionalInfo(@PathVariable int id, @ModelAttribute("info") String info) throws NotEnoughProductInStorage {
+    public ModelAndView saveAdditionalInfo(@PathVariable int id, @ModelAttribute("info") String info, HttpServletRequest request, RedirectAttributes ra) throws NotEnoughProductInStorage {
         Order order = orderService.get(id);
         if (info != null)
         {
@@ -126,6 +144,14 @@ public class ShopController {
         else {
             //throw new Exception
         }
-        return "redirect:/shop";
+        ModelAndView modelAndView = new ModelAndView("redirect:/shop");
+        request.getSession().invalidate();
+
+        //RedirectView redirectView = new RedirectView("shop");
+        //redirectView.setExposeModelAttributes(false);
+        //modelAndView.setView(redirectView);
+        return modelAndView;
+        //return new ModelAndView("redirect:/shop");
+
     }
 }

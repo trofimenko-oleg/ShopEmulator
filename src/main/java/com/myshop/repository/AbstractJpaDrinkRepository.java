@@ -15,7 +15,8 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 @Repository
 public class AbstractJpaDrinkRepository implements DrinkRepository {
-private static final Logger log = getLogger(AbstractJpaDrinkRepository.class);
+
+    private static final Logger log = getLogger(AbstractJpaDrinkRepository.class);
     @PersistenceContext
     private EntityManager em;
 
@@ -75,5 +76,4 @@ private static final Logger log = getLogger(AbstractJpaDrinkRepository.class);
             save(drink);
         }
     }
-
 }

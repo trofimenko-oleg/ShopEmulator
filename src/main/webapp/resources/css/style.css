@@ -46,7 +46,7 @@ body {
 }
 
 .shop_item {
-    padding: 22px 30px;
+    padding: 10px 30px;
     height: 90px;
     display: flex;
 }
@@ -85,8 +85,10 @@ body {
 
 .name {
     margin-right: 10px;
+    margin-bottom:2px;
     width: 300px;
     text-align:left;
+    overflow:hidden;
 }
 
 .price, .volume, .left, .count{

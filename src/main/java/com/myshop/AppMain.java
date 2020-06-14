@@ -18,7 +18,7 @@ import java.util.List;
 
 public class AppMain {
     public static void main(String[] args) {
-        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-db.xml")) {
+        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-db.xml", "spring/spring-mvc.xml")) {
             DrinkService drinkService = appCtx.getBean(DrinkServiceImpl.class);
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
             OrderService orderService = appCtx.getBean(OrderServiceImpl.class);

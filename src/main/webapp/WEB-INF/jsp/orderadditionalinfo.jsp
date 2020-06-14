@@ -18,7 +18,7 @@
 <body>
     <div class="shopping-cart additional-info">
         <form method="post" modelattribute="info" name="submit" action="save_additional_order_info/${id}">
-            <div class="message">Thank you for order in our shop, your order number is <span>№36</span>. Please leave us your contacts and shipping info in the field below</div>
+            <div class="message">Thank you for order in our shop, your order number is <span>${id}</span>. Please leave us your contacts and shipping info in the field below</div>
             <div class="text_field">
                 <textarea name="info"></textarea>
 
