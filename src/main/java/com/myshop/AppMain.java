@@ -5,6 +5,8 @@ import com.myshop.repository.OrderRepository;
 import com.myshop.repository.OrderRepositoryImpl;
 import com.myshop.service.*;
 import com.myshop.service.to.ShortenedOrderItem;
+import com.myshop.simulator.Simulator;
+import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -18,13 +20,19 @@ import java.util.List;
 
 public class AppMain {
     public static void main(String[] args) {
-        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-db.xml", "spring/spring-mvc.xml")) {
-            DrinkService drinkService = appCtx.getBean(DrinkServiceImpl.class);
+        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
+            //DrinkService drinkService = appCtx.getBean(DrinkServiceImpl.class);
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
-            OrderService orderService = appCtx.getBean(OrderServiceImpl.class);
+            OrderService orderService = appCtx.getBean(OrderService.class);
             ShortenedOrderItemService shortenedOrderItemService = appCtx.getBean(ShortenedOrderItemService.class);
-
-          //  Drink drink = new AlcoholicDrink("Вино", 15.20, 0.67, 10, AlcoholicGroup.WINE, 12);
+            ApplicationContextUtils applicationContextUtils = new ApplicationContextUtils();
+            applicationContextUtils.setApplicationContext(appCtx);
+            try {
+                Simulator.startSimulator(30);
+            } catch (NotEnoughProductInStorage notEnoughProductInStorage) {
+                notEnoughProductInStorage.printStackTrace();
+            }
+            //  Drink drink = new AlcoholicDrink("Вино", 15.20, 0.67, 10, AlcoholicGroup.WINE, 12);
          //   drinkService.save(drink);
          //   Drink drink2 = new NonAlcoholicDrink("Минералка", 15.20, 0.67, 10, NonAlcoholicGroup.MINERAL_WATER, "Ну очень вкусная минералка");
          //   drinkService.save(drink2);
@@ -33,8 +41,10 @@ public class AppMain {
 //            {
 //                System.out.println(drink1);
 //            }
-            List<ShortenedOrderItem> list = shortenedOrderItemService.getItems(orderService.get(2));
-            System.out.println(list);
+//            List<ShortenedOrderItem> list = shortenedOrderItemService.getItems(orderService.get(2));
+//            System.out.println(list);
+//
+//
 //            Order order = new Order();
 //            OrderDetails orderDetails = new OrderDetails(order, drinks.get(0), 6, 15.20);
 //            OrderDetails orderDetails2 = new OrderDetails(order, drinks.get(1), 7, 14.40);

@@ -62,4 +62,13 @@ public class OrderDetails extends AbstractBaseEntity
     public double getCostWithoutMarkup() {
         return drinkQuantity * drink.getPurchasePrice();
     }
+
+    @Override
+    public String toString() {
+        return "OrderDetails{" +
+                "drink=" + drink +
+                ", drinkQuantity=" + drinkQuantity +
+                ", itemPrice=" + itemPrice +
+                '}';
+    }
 }

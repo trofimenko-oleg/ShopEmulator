@@ -1,6 +1,8 @@
 package com.myshop.simulator;
 
+import com.myshop.ApplicationContextUtils;
 import com.myshop.domain.Drink;
+import com.myshop.domain.Order;
 import com.myshop.service.*;
 import com.myshop.service.to.ShortenedOrderItem;
 import com.myshop.util.PriceUtil;
@@ -8,6 +10,8 @@ import com.myshop.util.TimeUtil;
 import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.time.*;
@@ -18,40 +22,30 @@ import java.util.stream.Stream;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-@Controller
+
 public class Shop {
 private static final Logger log = getLogger(Shop.class);
 private static Clock clock = Clock.system(ZoneId.systemDefault());
 private List<Customer> customerList = new ArrayList<>();
 
-    @Autowired
-    private DrinkService drinkService;
-
-    @Autowired
-    private ShortenedOrderItemService shortenedOrderItemService;
-
-    @Autowired
-    private OrderService orderService;
-
-    @Autowired
-    private PurchaseService purchaseService;
-
-    @Autowired
-    private RefillingService refillingService;
+    private DrinkService drinkService = ApplicationContextUtils.getApplicationContext().getBean(DrinkService.class);
+    private ShortenedOrderItemService shortenedOrderItemService = ApplicationContextUtils.getApplicationContext().getBean(ShortenedOrderItemService.class);
+    private OrderService orderService = ApplicationContextUtils.getApplicationContext().getBean(OrderService.class);
+    private PurchaseService purchaseService = ApplicationContextUtils.getApplicationContext().getBean(PurchaseService.class);
+    private RefillingService refillingService = ApplicationContextUtils.getApplicationContext().getBean(RefillingService.class);
 
 
     //offset for next client
 //    private Duration duration;
 
-    public Shop() {
-
-    }
-
     public void toNextDay()
     {
         LocalDate ld = LocalDate.now(clock).plus(1, ChronoUnit.DAYS);
+        LocalDateTime localDateTime = LocalDateTime.of(ld, LocalTime.of(8, 0, 0));
+        Instant instant = localDateTime.toInstant(ZoneId.systemDefault().getRules().getOffset(LocalDateTime.now()));
         //clock set to tomorrow 8AM
-        clock = Clock.fixed(LocalDateTime.of(ld, LocalTime.of(8,0,0)).toInstant(OffsetDateTime.now().getOffset()), ZoneId.systemDefault());
+
+        clock = Clock.fixed(instant, ZoneId.systemDefault());
         TimeUtil.setClock(clock);
     }
 
@@ -69,13 +63,17 @@ private List<Customer> customerList = new ArrayList<>();
             {
                 Drink drink = drinkService.get(entry.getKey().getId());
                 int count = minimum(drink.getQuantity(), entry.getValue());
-                drinkService.take(drink, count);
-                ShortenedOrderItem shortenedOrderItem = new ShortenedOrderItem(drink, count);
-                log.debug("Time: {}, Drink {} in amount {} was taken, price for 1 piece is {}, current markup is {}", buyTime, drink.getName(), count, shortenedOrderItem.getAverageItemPrice(), PriceUtil.getMarkup());
-                shortenedOrderItems.add(shortenedOrderItem);
+
+                if (count > 0) {
+                    //drinkService.take(drink, count);
+                    ShortenedOrderItem shortenedOrderItem = new ShortenedOrderItem(drink, count);
+                    shortenedOrderItems.add(shortenedOrderItem);
+                    log.debug("Date/Time: {}, Drink {} in amount {} was added to order, price for 1 piece is {}, current markup is {}", LocalDateTime.ofInstant(buyTime.instant(), ZoneId.systemDefault()), drink.getName(), count, shortenedOrderItem.getAverageItemPrice(), PriceUtil.getMarkupAsString());
+                }
             }
-            orderService.save(shortenedOrderItemService.getOrderFromItemList(shortenedOrderItems));
-            log.debug("Full order: {}", customerMap);
+            Order order = shortenedOrderItemService.getOrderFromItemList(shortenedOrderItems);
+            orderService.save(order);
+            log.debug("Full order: {}", order.getOrders());
         }
     }
 

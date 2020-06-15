@@ -23,6 +23,15 @@ public class ShortenedOrderItem {
         this.quantity = quantity;
         this.priceWithoutDiscount = round(drink.getPurchasePrice()* PriceUtil.getMarkup());
         this.priceWithDiscount = round(drink.getPurchasePrice()*PriceUtil.WHOLESALE_MARKUP);
+        if (quantity <=2)
+        {
+            averageItemPrice = priceWithoutDiscount;
+        }
+        else {
+            double priceForTwoPieces = priceWithoutDiscount*2;
+            double priceForOtherPieces = priceWithDiscount*(quantity-2);
+            averageItemPrice = round((priceForTwoPieces+priceForOtherPieces)/quantity);
+        }
     }
 
     public double getPriceWithDiscount() {

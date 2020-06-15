@@ -14,7 +14,7 @@ import java.util.List;
 @Transactional
 public class PurchaseServiceImpl implements PurchaseService{
 
-    private final DrinkRepository drinkRepository;
+    private final DrinkRepository drinkRepository; //?final
 
     public PurchaseServiceImpl(DrinkRepository drinkRepository) {
         this.drinkRepository = drinkRepository;

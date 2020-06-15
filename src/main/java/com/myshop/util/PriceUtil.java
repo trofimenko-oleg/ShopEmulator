@@ -9,6 +9,12 @@ public abstract class PriceUtil {
     public static final double WHOLESALE_MARKUP = 1.07;
     private static LocalTime eveningStart = LocalTime.of(18, 0, 0);
     private static LocalTime eveningEnd = LocalTime.of(20, 0, 0);
+
+    public static String getMarkupAsString()
+    {
+        return String.valueOf((int)(getMarkup()*100)-100) + "%";
+    }
+
     public enum DAYTIME
     {
         WEEKEND,

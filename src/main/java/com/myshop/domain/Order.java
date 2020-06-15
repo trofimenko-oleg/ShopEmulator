@@ -104,4 +104,11 @@ public class Order extends AbstractBaseEntity {
     public void setShippingInfo(String shippingInfo) {
         this.shippingInfo = shippingInfo;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orders=" + orders +
+                '}';
+    }
 }

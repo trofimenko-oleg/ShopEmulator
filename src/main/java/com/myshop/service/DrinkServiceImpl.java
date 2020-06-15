@@ -7,6 +7,7 @@ import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static com.myshop.util.FormattersUtil.round;
@@ -48,8 +49,9 @@ public class DrinkServiceImpl implements DrinkService {
         drinkRepository.add(drink, quantity);
     }
 
-    @Override
-    public void take(Drink drink, int quantity) throws NotEnoughProductInStorage {
-        drinkRepository.take(drink, quantity);
-    }
+//    @Override
+//    @Transactional
+//    public void take(Drink drink, int quantity) throws NotEnoughProductInStorage {
+//        drinkRepository.take(drink, quantity);
+//    }
 }

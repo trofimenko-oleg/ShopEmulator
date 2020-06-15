@@ -12,5 +12,5 @@ public interface DrinkService {
     List<Drink> getByPartOfName(String searchString);
     List<Drink> getAll();
     void add(Drink drink, int quantity);
-    void take(Drink drink, int quantity) throws NotEnoughProductInStorage;
+//    void take(Drink drink, int quantity) throws NotEnoughProductInStorage;
 }

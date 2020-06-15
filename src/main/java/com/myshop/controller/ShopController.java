@@ -5,6 +5,8 @@ import com.myshop.domain.Order;
 import com.myshop.service.*;
 import com.myshop.service.to.OrderForm;
 import com.myshop.service.to.ShortenedOrderItem;
+import com.myshop.simulator.Shop;
+import com.myshop.simulator.Simulator;
 import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +43,8 @@ public class ShopController {
 
 
     @GetMapping("/")
-    public ModelAndView root()
-    {
+    public ModelAndView root() throws NotEnoughProductInStorage {
+        Simulator.startSimulator(30);
         return new ModelAndView("redirect:/shop");
     }
 
