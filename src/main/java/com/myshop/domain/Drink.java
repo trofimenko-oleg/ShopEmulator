@@ -1,6 +1,7 @@
 package com.myshop.domain;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @NamedQueries({
         @NamedQuery(name = Drink.NO_SORT, query = "SELECT d FROM Drink d"),
@@ -68,4 +69,18 @@ public abstract class Drink extends AbstractBaseEntity{
         this.volume = volume;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Drink)) return false;
+        Drink drink = (Drink) o;
+        return Double.compare(drink.getPurchasePrice(), getPurchasePrice()) == 0 &&
+                Double.compare(drink.getVolume(), getVolume()) == 0 &&
+                getName().equals(drink.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getPurchasePrice(), getVolume());
+    }
 }

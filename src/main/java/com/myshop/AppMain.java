@@ -10,6 +10,7 @@ import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,7 +20,7 @@ import java.util.List;
 
 
 public class AppMain {
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
             //DrinkService drinkService = appCtx.getBean(DrinkServiceImpl.class);
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
@@ -28,7 +29,11 @@ public class AppMain {
             ApplicationContextUtils applicationContextUtils = new ApplicationContextUtils();
             applicationContextUtils.setApplicationContext(appCtx);
             try {
-                Simulator.startSimulator(30);
+                try {
+                    Simulator.startSimulator(3);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } catch (NotEnoughProductInStorage notEnoughProductInStorage) {
                 notEnoughProductInStorage.printStackTrace();
             }

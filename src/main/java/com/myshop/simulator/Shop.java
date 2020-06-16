@@ -27,6 +27,10 @@ public class Shop {
 private static final Logger log = getLogger(Shop.class);
 private static Clock clock = Clock.system(ZoneId.systemDefault());
 private List<Customer> customerList = new ArrayList<>();
+    private Map<Drink, Integer> sellsInfo = new HashMap<>();
+    private Map<Drink, Integer> refillInfo = new HashMap<>();
+    private double allOrdersChecksSum = 0;
+
 
     private DrinkService drinkService = ApplicationContextUtils.getApplicationContext().getBean(DrinkService.class);
     private ShortenedOrderItemService shortenedOrderItemService = ApplicationContextUtils.getApplicationContext().getBean(ShortenedOrderItemService.class);
@@ -42,11 +46,12 @@ private List<Customer> customerList = new ArrayList<>();
     {
         LocalDate ld = LocalDate.now(clock).plus(1, ChronoUnit.DAYS);
         LocalDateTime localDateTime = LocalDateTime.of(ld, LocalTime.of(8, 0, 0));
-        Instant instant = localDateTime.toInstant(ZoneId.systemDefault().getRules().getOffset(LocalDateTime.now()));
         //clock set to tomorrow 8AM
-
-        clock = Clock.fixed(instant, ZoneId.systemDefault());
+        clock = Clock.fixed(localDateTime.toInstant(ZoneId.systemDefault().getRules().getOffset(LocalDateTime.now())), ZoneId.systemDefault());
         TimeUtil.setClock(clock);
+        log.info("Date/Time is {}.", localDateTime);
+        log.info("New day started");
+        log.info("==============================");
     }
 
     public void operateOneHour() throws NotEnoughProductInStorage {
@@ -71,22 +76,35 @@ private List<Customer> customerList = new ArrayList<>();
                     log.debug("Date/Time: {}, Drink {} in amount {} was added to order, price for 1 piece is {}, current markup is {}", LocalDateTime.ofInstant(buyTime.instant(), ZoneId.systemDefault()), drink.getName(), count, shortenedOrderItem.getAverageItemPrice(), PriceUtil.getMarkupAsString());
                 }
             }
-            Order order = shortenedOrderItemService.getOrderFromItemList(shortenedOrderItems);
-            orderService.save(order);
-            log.debug("Full order: {}", order.getOrders());
+            if (shortenedOrderItems.size() > 0){
+                for (ShortenedOrderItem item: shortenedOrderItems)
+                {
+                    sellsInfo.merge(item.getDrink(), item.getQuantity(), (a, b) -> a + b);
+                }
+                Order order = shortenedOrderItemService.getOrderFromItemList(shortenedOrderItems);
+                orderService.save(order);
+                allOrdersChecksSum += order.getTotalCheckValue();
+                log.debug("Full order: {}", order.getOrders());
+            }
         }
     }
 
     public void workForOneDay() throws NotEnoughProductInStorage {
+        toNextDay();
         //shop works for 13 hours
         for (int i = 0; i < 13; i ++)
         {
             operateOneHour();
             clock = Clock.offset(clock, Duration.ofHours(1));
         }
-        refillingService.refill();
-        LocalDate ld = LocalDate.now(clock).plus(1, ChronoUnit.DAYS);
-        toNextDay();
+        Map<Drink, Integer> refilledDrinks = refillingService.refill();
+        if (refilledDrinks.size() > 0){
+            for (Map.Entry<Drink,Integer> entry: refilledDrinks.entrySet()){
+                refillInfo.merge(entry.getKey(), entry.getValue(), (a, b) -> a + b);
+            }
+        }
+        log.info("Day ended");
+        log.info("------------------------------");
     }
 
 
@@ -100,5 +118,15 @@ private List<Customer> customerList = new ArrayList<>();
         else return b;
     }
 
+    public Map<Drink, Integer> getSellsInfo() {
+        return sellsInfo;
+    }
 
+    public Map<Drink, Integer> getRefillInfo() {
+        return refillInfo;
+    }
+
+    public double getAllOrdersChecksSum() {
+        return allOrdersChecksSum;
+    }
 }

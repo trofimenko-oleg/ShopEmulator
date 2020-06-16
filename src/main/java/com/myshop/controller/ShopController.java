@@ -44,7 +44,6 @@ public class ShopController {
 
     @GetMapping("/")
     public ModelAndView root() throws NotEnoughProductInStorage {
-        Simulator.startSimulator(30);
         return new ModelAndView("redirect:/shop");
     }
 
