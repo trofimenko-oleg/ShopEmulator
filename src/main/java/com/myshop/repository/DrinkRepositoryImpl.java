@@ -14,9 +14,9 @@ import java.util.List;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Repository
-public class AbstractJpaDrinkRepository implements DrinkRepository {
+public class DrinkRepositoryImpl implements DrinkRepository {
 
-    private static final Logger log = getLogger(AbstractJpaDrinkRepository.class);
+    private static final Logger log = getLogger(DrinkRepositoryImpl.class);
     @PersistenceContext
     private EntityManager em;
 
@@ -59,6 +59,7 @@ public class AbstractJpaDrinkRepository implements DrinkRepository {
     }
 
     @Override
+    @Transactional
     public void add(Drink drink, int quantity) {
         if (quantity > 0) {
             drink.setQuantity(drink.getQuantity() + quantity);
@@ -67,6 +68,7 @@ public class AbstractJpaDrinkRepository implements DrinkRepository {
     }
 
     @Override
+    @Transactional
     public void take(Drink drink, int quantity) throws NotEnoughProductInStorage {
         if (drink.getQuantity() < quantity) {
             throw new NotEnoughProductInStorage();

@@ -30,7 +30,7 @@ public class ShortenedOrderItemServiceImpl implements ShortenedOrderItemService{
         List<OrderDetails> orderDetails = new ArrayList<>();
          for (ShortenedOrderItem item: items)
          {
-             double itemPrice = item.getPriceWithoutDiscount();
+             double itemPrice = item.getAverageItemPrice();
              int quantity = item.getQuantity();
              orderDetails.add(new OrderDetails(order, item.getDrink(), quantity, itemPrice));
              totalSum += itemPrice*quantity;
