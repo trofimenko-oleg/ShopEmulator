@@ -34,7 +34,7 @@
 
         <div class="item">
             <div class="buttons">
-                <span class="delete-btn"></span>
+                <a class="delete-btn" href = "cart/remove/${vs.index}"></a>
             </div>
 
             <div class="description productName">
@@ -53,7 +53,7 @@
                     <img src="static/img/minus-5-16.png" alt="" />
                 </button>
 <%--                <input class = "myInput" type="number" max="99" min="0" name="orderItems[${vs.index}].quantity" value="${item.quantity}">--%>
-                <input class = "myInput" type="number" max="99" min="0" path="orderItems[${vs.index}].quantity" value="${item.quantity}">
+                <input class = "myInput" type="number" max="99" min="0" path="orderItems[${vs.index}].quantity" name="orderItems[${vs.index}].quantity" value="${item.quantity}">
                 <button class="plus-btn edit-count" type="button" name="button" >
                     <img src="static/img/plus-5-16.png" alt="" />
                 </button>

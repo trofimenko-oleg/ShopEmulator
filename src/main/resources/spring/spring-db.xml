@@ -73,7 +73,6 @@
         <task:scheduled ref="refillingServiceImpl" method="refill"
                         cron="0 0 21 * * *" />
     </task:scheduled-tasks>
-
     <task:executor id="myExecutor" pool-size="5"/>
 
 </beans>

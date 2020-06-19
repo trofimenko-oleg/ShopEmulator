@@ -17,7 +17,6 @@ import java.util.Map;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Service
-@EnableScheduling //not needed?
 @Transactional
 public class RefillingServiceImpl implements RefillingService{
     private static final Logger log = getLogger(RefillingServiceImpl.class);

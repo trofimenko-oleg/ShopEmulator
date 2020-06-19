@@ -63,8 +63,8 @@ public class ShopController {
     }
 
 
-    @PostMapping(value = "/cart")
-    public ModelAndView showCart(@ModelAttribute("order") OrderForm orderForm, HttpServletRequest request) {
+    @RequestMapping(value = "/cart")
+    public ModelAndView showCart(@ModelAttribute("order") OrderForm orderForm) {
         List<ShortenedOrderItem> items = orderForm.getOrderItems();
         //to prevent wrong refresh, after refreshing page orderForm is downloading in not expected (for me) way
         for (ShortenedOrderItem item: items)
@@ -92,6 +92,47 @@ public class ShopController {
             modelAndView.addObject("order", returned);
             return modelAndView;
         }
+    }
+
+    @GetMapping(value = "/cart/remove/{id}")
+    public ModelAndView showCart(@ModelAttribute("order") OrderForm orderForm, @PathVariable int id) {
+        OrderForm returnedForm = orderForm;
+        List<ShortenedOrderItem> items = returnedForm.getOrderItems();
+        items.remove(id);
+        ModelAndView modelAndView = showCart(returnedForm);
+        modelAndView.setViewName("redirect:/cart");
+        return modelAndView;
+       // modelAndView.setViewName("cart");
+
+        //return modelAndView;
+        //return new ModelAndView("redirect:cart");
+
+        //to prevent wrong refresh, after refreshing page orderForm is downloading in not expected (for me) way
+//        for (ShortenedOrderItem item: items)
+//        {
+//            if (item.getDrink() == null){
+//                //return drinkList();
+//                return new ModelAndView("redirect:shop");
+//            }
+//        }
+//        List<ShortenedOrderItem> toCart = new ArrayList<>();
+//        OrderForm returned = new OrderForm();
+//        for (ShortenedOrderItem item: items)    {
+//            if (item.getQuantity() > 0) {
+//                toCart.add(item);
+//            }
+//        }
+//        if (toCart.size() == 0) {
+//            //return new ModelAndView("shop", "order", orderForm);
+//            return drinkList();
+//        }
+//        else  {
+//            ModelAndView modelAndView = new ModelAndView();
+//            modelAndView.setViewName("cart");
+//            returned.setOrderItems(toCart);
+//            modelAndView.addObject("order", returned);
+//            return modelAndView;
+//        }
     }
 
     private OrderForm getOrderedItemsOrReturnBackIfNoItems(OrderForm orderForm)

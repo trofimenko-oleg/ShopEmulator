@@ -35,8 +35,8 @@ public class AppMain {
 //            } catch (NotEnoughProductInStorage notEnoughProductInStorage) {
 //                notEnoughProductInStorage.printStackTrace();
 //            }
-            DrinkService drinkService = appCtx.getBean(DrinkService.class);
-            drinkService.save(new NonAlcoholicDrink("Водичка", 4.64, 0.2, 13, NonAlcoholicGroup.MINERAL_WATER, "391"));
+//            DrinkService drinkService = appCtx.getBean(DrinkService.class);
+//            drinkService.save(new NonAlcoholicDrink("Водичка", 4.64, 0.2, 13, NonAlcoholicGroup.MINERAL_WATER, "391"));
         }
     }
 }

@@ -35,7 +35,6 @@ public class ShortenedOrderItemServiceImpl implements ShortenedOrderItemService{
              totalSum += itemPrice*quantity;
          }
         LocalDateTime localDateTime = LocalDateTime.ofInstant(TimeUtil.getClock().instant(), TimeUtil.getDefaultZoneId());
-        //ZonedDateTime defaultZoneTime = ZonedDateTime.ofInstant(TimeUtil.getClock().instant(), TimeUtil.getDefaultZoneId());
         order.setOrders(orderDetails);
         order.setTotalCheckValue(round(totalSum));
         order.setTime(localDateTime.toLocalTime());
