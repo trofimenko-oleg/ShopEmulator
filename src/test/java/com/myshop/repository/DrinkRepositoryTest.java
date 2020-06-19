@@ -40,8 +40,8 @@ public class DrinkRepositoryTest {
     public void prepare() throws Exception {
         Operation operation =
                 sequenceOf(
-                        DatabaseSetup.DELETE_ALL,
-                        DatabaseSetup.INSERT_REFERENCE_DATA);
+                        DatabaseSetup.DELETE_DRINKS,
+                        DatabaseSetup.INSERT_DRINKS);
         DbSetup dbSetup = new DbSetup(new DataSourceDestination(dataSource), operation);
         // or without DataSource:
         // DbSetup dbSetup = new DbSetup(new DriverManagerDestination(TEST_DB_URL, TEST_DB_USER, TEST_DB_PASSWORD), operation);

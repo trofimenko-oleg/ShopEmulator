@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 @NamedQueries({
@@ -17,6 +18,8 @@ public class Order extends AbstractBaseEntity {
     public static final String BY_DATE = "Order.byDate";
     public static final String BY_TIME = "Order.byTime";
 
+
+    //TODO: rename orders to items
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderDetails> orders;
     @Column
@@ -48,13 +51,11 @@ public class Order extends AbstractBaseEntity {
         this.shippingInfo = other.shippingInfo;
     }
 
-    public Order(List<OrderDetails> orders, DayOfWeek dayOfWeek, LocalTime time, LocalDate localDate, double totalCheckValue, String shippingInfo) {
+    public Order(List<OrderDetails> orders, DayOfWeek dayOfWeek, LocalTime time, LocalDate localDate) {
         this.orders = orders;
         this.dayOfWeek = dayOfWeek;
         this.time = time;
         this.localDate = localDate;
-        this.totalCheckValue = totalCheckValue;
-        this.shippingInfo = shippingInfo;
     }
 
     public List<OrderDetails> getOrders() {

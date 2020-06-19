@@ -13,7 +13,6 @@ import java.util.List;
 import static com.myshop.util.FormattersUtil.round;
 @Service
 public class ShortenedOrderItemServiceImpl implements ShortenedOrderItemService{
-    //private Clock clock = TimeUtil.getClock();
     @Override
     public List<ShortenedOrderItem> getItems(Order order) {
         List<ShortenedOrderItem> list = new ArrayList<>();
@@ -35,12 +34,13 @@ public class ShortenedOrderItemServiceImpl implements ShortenedOrderItemService{
              orderDetails.add(new OrderDetails(order, item.getDrink(), quantity, itemPrice));
              totalSum += itemPrice*quantity;
          }
-         LocalDateTime localDateTime = LocalDateTime.ofInstant(TimeUtil.getClock().instant(), TimeUtil.getClock().getZone());
-         order.setOrders(orderDetails);
-         order.setTotalCheckValue(round(totalSum));
-         order.setTime(localDateTime.toLocalTime());
-         order.setLocalDate(localDateTime.toLocalDate());
-         order.setDayOfWeek(localDateTime.getDayOfWeek());
-         return order;
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(TimeUtil.getClock().instant(), TimeUtil.getDefaultZoneId());
+        //ZonedDateTime defaultZoneTime = ZonedDateTime.ofInstant(TimeUtil.getClock().instant(), TimeUtil.getDefaultZoneId());
+        order.setOrders(orderDetails);
+        order.setTotalCheckValue(round(totalSum));
+        order.setTime(localDateTime.toLocalTime());
+        order.setLocalDate(localDateTime.toLocalDate());
+        order.setDayOfWeek(localDateTime.getDayOfWeek());
+        return order;
     }
 }

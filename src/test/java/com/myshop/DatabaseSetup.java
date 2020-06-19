@@ -8,10 +8,15 @@ import static com.ninja_squad.dbsetup.operation.CompositeOperation.sequenceOf;
 
 public class DatabaseSetup {
 
-    public static final Operation DELETE_ALL =
-            deleteAllFrom("ALCOHOLICDRINKS", "NONALCOHOLICDRINKS", "DRINKS",  "ORDERSDETAILS", "ORDERS");
 
-    public static final Operation INSERT_REFERENCE_DATA =
+    public static final Operation DELETE_ORDERS =
+            deleteAllFrom("ORDERSDETAILS", "ORDERS");
+    public static final Operation DELETE_DRINKS =
+            deleteAllFrom("ALCOHOLICDRINKS", "NONALCOHOLICDRINKS", "DRINKS");
+    public static final Operation DELETE_ALL =
+            sequenceOf(DELETE_DRINKS, DELETE_ORDERS);
+
+    public static final Operation INSERT_DRINKS =
             sequenceOf(
                     insertInto("DRINKS")
                             .columns("ID", "NAME", "PURCHASEPRICE", "VOLUME", "QUANTITY", "DRINK_TYPE")
@@ -35,7 +40,10 @@ public class DatabaseSetup {
                             .values(1, "MINERAL_WATER", "Вода минеральная, лечебно-столовая")
                             .values(4, "JUICE", "Сок носок бросок кусок волосок")
                             .values(5, "OTHER", "Вода, бла-бла-бла")
-                            .build(),
+                            .build());
+
+    public static final Operation INSERT_ORDERS =
+            sequenceOf(
                     insertInto("ORDERS")
                             .columns("ID", "DATE", "DAYOFWEEK", "TIME", "CHECK_VALUE", "SHIPPING_INFO")
                             .values(1, "2020-06-18", 4, "20:13:24", 440, null)
@@ -48,4 +56,7 @@ public class DatabaseSetup {
                             .values(3, 2, 5, 6, 26.57)
                             .values(4, 2, 1, 1, 10.99)
                             .build());
+
+    public static final Operation INSERT_ALL =
+            sequenceOf(INSERT_DRINKS, INSERT_ORDERS);
 }
