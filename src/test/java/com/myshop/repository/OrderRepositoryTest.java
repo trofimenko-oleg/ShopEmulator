@@ -124,4 +124,12 @@ public class OrderRepositoryTest {
     @Test
     public void getAll() {
     }
+
+    @Test
+    public void getItem(){
+        OrderDetails orderDetails = orderRepository.getItem(1);
+        assertEquals(1, (int)orderDetails.getOrder().getId());
+        assertEquals(3, (int)orderDetails.getDrink().getId());
+        assertEquals(5, orderDetails.getDrinkQuantity());
+    }
 }

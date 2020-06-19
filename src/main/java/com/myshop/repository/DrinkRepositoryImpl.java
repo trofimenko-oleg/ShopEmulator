@@ -63,7 +63,6 @@ public class DrinkRepositoryImpl implements DrinkRepository {
     public void add(Drink drink, int quantity) {
         if (quantity > 0) {
             drink.setQuantity(drink.getQuantity() + quantity);
-            save(drink);
         }
     }
 
@@ -75,7 +74,6 @@ public class DrinkRepositoryImpl implements DrinkRepository {
         }
         else if (quantity > 0) {
             drink.setQuantity(drink.getQuantity() - quantity);
-            save(drink);
         }
     }
 }

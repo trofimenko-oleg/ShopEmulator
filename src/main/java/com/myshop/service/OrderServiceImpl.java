@@ -23,17 +23,28 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Order save(Order order) throws NotEnoughProductInStorage {
-        if (order.isNew())
-        {
+        int toTakeFromStorage = 0;
             for (OrderDetails item: order.getOrders()){
-                if (item.getDrinkQuantity() > item.getDrink().getQuantity()){
+                if (order.isNew()){
+                    toTakeFromStorage = item.getDrinkQuantity();
+                }
+                else {
+                    toTakeFromStorage = item.getDrinkQuantity() - orderRepository.getItem(item.getId()).getDrinkQuantity();
+                }
+
+                if (toTakeFromStorage > item.getDrink().getQuantity()){
                     throw new NotEnoughProductInStorage();
                 }
                 else {
-                    drinkRepository.take(item.getDrink(), item.getDrinkQuantity());
+                    if (toTakeFromStorage >= 0){
+                        drinkRepository.take(item.getDrink(), toTakeFromStorage);
+                    }
+                    else {
+                        drinkRepository.add(item.getDrink(), Math.abs(toTakeFromStorage));
+                    }
+                    drinkRepository.save(item.getDrink());
                 }
             }
-        }
         return orderRepository.save(order);
     }
 

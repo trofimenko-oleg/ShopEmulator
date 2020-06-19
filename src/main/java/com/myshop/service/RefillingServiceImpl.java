@@ -31,17 +31,18 @@ public class RefillingServiceImpl implements RefillingService{
     @Override
     public Map<Drink, Integer> refill() {
         int refilledCount = 150;
-        Map<Drink,Integer> drinksToRefill = new HashMap<>();
+        Map<Drink,Integer> refilledDrinks = new HashMap<>();
         List<Drink> drinkList = drinkRepository.getAll();
         for (Drink drink: drinkList)
         {
             if (drink.getQuantity() < 10)
             {
                 drinkRepository.add(drink, refilledCount);
-                drinksToRefill.put(drink, refilledCount);
+                refilledDrinks.put(drink, refilledCount);
+                drinkRepository.save(drink);
                 log.debug("150 units of {} was added to store", drink.getName());
             }
         }
-        return drinksToRefill;
+        return refilledDrinks;
     }
 }

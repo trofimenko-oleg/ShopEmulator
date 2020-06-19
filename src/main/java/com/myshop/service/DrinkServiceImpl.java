@@ -40,8 +40,7 @@ public class DrinkServiceImpl implements DrinkService {
 
     @Override
     public List<Drink> getAll() {
-        List<Drink> allDrinks = drinkRepository.getAll();
-        return allDrinks;
+        return drinkRepository.getAll();
     }
 
     @Override

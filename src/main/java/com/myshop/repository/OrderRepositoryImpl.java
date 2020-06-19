@@ -1,6 +1,7 @@
 package com.myshop.repository;
 
 import com.myshop.domain.Order;
+import com.myshop.domain.OrderDetails;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -42,6 +43,11 @@ public class OrderRepositoryImpl implements OrderRepository{
     public List<Order> getAll() {
         return em.createNamedQuery(Order.BY_DATE, Order.class)
                 .getResultList();
-    } 
+    }
 
+
+    @Override
+    public OrderDetails getItem(int orderDetailsId) {
+        return em.find(OrderDetails.class, orderDetailsId);
+    }
 }
