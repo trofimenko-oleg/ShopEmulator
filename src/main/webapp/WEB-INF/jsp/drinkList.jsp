@@ -27,8 +27,7 @@
 <body>
 <script type="text/javascript" src="static/js/shop.js"></script>
 
-<form:form method="post"  modelAttribute="order" name = "mainForm" action="cart">
-    <input type="submit" value="Go to cart" class="submit_button">
+<%--<form:form method="post"  modelAttribute="drinksList" name = "mainForm">--%>
     <table class = "shop" border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr class="shop_top">
@@ -36,22 +35,23 @@
             <th class="price"><fmt:message key="product.price"/></th>
             <th class="volume"><fmt:message key="product.volume"/></th>
             <th class="left"><fmt:message key="product.quantity"/></th>
-            <th class="count">Add to cart</th>
+            <th class="count">Edit</th>
+            <th class="count">Delete</th>
         </tr>
         </thead>
-        <c:forEach items="${order.orderItems}" var="item" varStatus="status">
-            <jsp:useBean id="item" type="com.myshop.service.to.ShortenedOrderItem"/>
+        <c:forEach items="${drinksList}" var="item" varStatus="status">
+            <jsp:useBean id="item" type="com.myshop.domain.Drink"/>
             <tr class = "shop_item">
-                <td class="name">${item.drink.name}</td>
-                <td class="price">${item.priceWithoutDiscount}</td>
-                <td class="volume">${item.drink.volume}</td>
-                <td class="left" name = "quantityInStore">${item.drink.quantity}</td>
-                <td class="count"><input type="number" class="count" min="0" max="99" step="1" name = "orderItems[${status.index}].quantity" value="${item.quantity}"></td>
+                <td class="name">${item.name}</td>
+                <td class="price">${item.purchasePrice}</td>
+                <td class="volume">${item.volume}</td>
+                <td class="left" name = "quantityInStore">${item.quantity}</td>
+                <td class="left"><a href="drink/edit/${item.id}" class="edit-icon"></a></td>
+                <td class="left"><a href="drink/remove/${item.id}" class="delete-btn"></a></td>
             </tr>
         </c:forEach>
     </table>
-    <input type="submit" value="Go to cart" class="submit_button">
-</form:form>
+<%--</form:form>--%>
 
 </body>
 </html>
