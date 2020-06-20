@@ -44,7 +44,7 @@ public class ShopController {
 
     @GetMapping("/")
     public ModelAndView root() throws NotEnoughProductInStorage {
-        return new ModelAndView("redirect:/shop");
+        return new ModelAndView("redirect:/drink/list");
     }
 
     @GetMapping("/shop")

@@ -27,10 +27,15 @@
 <body>
 <script type="text/javascript" src="static/js/shop.js"></script>
 
+<div class="buttons_and_search_area">
+    <div>
+    </div>
+</div>
 <%--<form:form method="post"  modelAttribute="drinksList" name = "mainForm">--%>
     <table class = "shop" border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr class="shop_top">
+            <th class="name">Alc./Non.</th>
             <th class="name"><fmt:message key="product.name"/></th>
             <th class="price"><fmt:message key="product.price"/></th>
             <th class="volume"><fmt:message key="product.volume"/></th>
@@ -42,6 +47,7 @@
         <c:forEach items="${drinksList}" var="item" varStatus="status">
             <jsp:useBean id="item" type="com.myshop.domain.Drink"/>
             <tr class = "shop_item">
+                <td class="name">${item['class'].simpleName == "AlcoholicDrink" ? "A" : "N"}</td>
                 <td class="name">${item.name}</td>
                 <td class="price">${item.purchasePrice}</td>
                 <td class="volume">${item.volume}</td>
