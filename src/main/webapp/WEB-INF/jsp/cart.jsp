@@ -12,21 +12,24 @@
 <html>
 <head>
     <jsp:include page="fragments/resources.jsp"/>
-
-<%--    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">--%>
-<%--    <spring:url value="resources/css/style.css" var="mainCss"/>--%>
-<%--    <link href="${mainCss}" rel="stylesheet"/>--%>
-    <title>Cart</title>
+    <title><spring:message code="page.cart"/></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <jsp:include page="fragments/strangetop.jsp"/>
 <script type="text/javascript" src="static/js/functions.js"></script>
 
+<c:set var="val1"><spring:message code="message.ordered"/></c:set>
+<input id="message-ordered" type="hidden" value="${val1}"/>
+<c:set var="val2"><spring:message code="message.items"/></c:set>
+<input id="message-items" type="hidden" value="${val2}"/>
+<c:set var="val3"><spring:message code="message.fullprice"/></c:set>
+<input id="message-fullprice" type="hidden" value="${val3}"/>
+
 <div class="shopping-cart">
     <!-- Title -->
     <div class="title">
-        Shopping Bag
+        <spring:message code="shoppingbag"/>
 
     </div>
     <form method="post" modelAttribute="order" name = "submit" action="saveOrder">
@@ -55,7 +58,6 @@
                 <button class="minus-btn edit-count" type="button" name="button">
                     <img src="static/img/minus-5-16.png" alt="" />
                 </button>
-<%--                <input class = "myInput" type="number" max="99" min="0" name="orderItems[${vs.index}].quantity" value="${item.quantity}">--%>
                 <input class = "myInput" type="number" max="99" min="0" path="orderItems[${vs.index}].quantity" name="orderItems[${vs.index}].quantity" value="${item.quantity}">
                 <button class="plus-btn edit-count" type="button" name="button" >
                     <img src="static/img/plus-5-16.png" alt="" />
@@ -72,7 +74,7 @@
                 <div id="finalCount"></div>
                 <div id="finalPrice"></div>
             </div>
-            <button type="submit" class="submit"> Confirm order </button>
+            <button type="submit" class="submit"> <spring:message code="button.confirm_order"/> </button>
         </div>
     </form>
 

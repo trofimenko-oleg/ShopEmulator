@@ -41,7 +41,8 @@
 
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
             p:defaultEncoding="UTF-8">
-        <property name="basename" value="messages"/>
+       <property name="basenames" value="classpath:messages"/>
+<!--<property name="basenames" value="file:///#{systemEnvironment['SHOP_ROOT']}/config/messages/messages"/>-->
         <property name="fallbackToSystemLocale" value="false"/>
     </bean>
 </beans>

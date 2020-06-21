@@ -196,4 +196,10 @@ public class ShopController {
         //return new ModelAndView("redirect:/shop");
 
     }
+
+    @GetMapping(value="/i18n")
+    public String getPage()
+    {
+        return "internationalization_test";
+    }
 }

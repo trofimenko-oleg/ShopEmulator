@@ -10,7 +10,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setBundle basename="messages"/>
 
 
 <html>
@@ -18,7 +17,7 @@
     <jsp:include page="fragments/resources.jsp"/>
 <%--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
 <%--    <base href="${pageContext.request.contextPath}/"/>--%>
-    <title>Shop</title>
+    <title><spring:message code="page.shop"/></title>
 <%--    <spring:url value="resources/css/style.css" var="mainCss"/>--%>
 <%--    <link href="${mainCss}" rel="stylesheet"/>--%>
 <%--    <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">--%>
@@ -33,17 +32,17 @@
 <div class="buttons_and_search_area">
     <div class="list-button-block">
       <form action="drink/alcoholic">
-            <button class="list-button" type="submit">Alcoholic</button>
+            <button class="list-button" type="submit"><spring:message code="button.alcoholic"/></button>
         </form>
     </div>
     <div class="list-button-block">
         <form action="drink/nonalcoholic">
-            <button class="list-button" type="submit">NonAlcoholic</button>
+            <button class="list-button" type="submit"><spring:message code="button.nonalcoholic"/></button>
         </form>
     </div>
     <div class="list-button-block">
         <form action="drink/list">
-            <button class="list-button" type="submit">All</button>
+            <button class="list-button" type="submit"><spring:message code="button.all"/></button>
         </form>
     </div>
     <div class="list-button-block">
@@ -57,13 +56,13 @@
     <table class = "shop" border="1" cellpadding="8" cellspacing="0">
         <thead>
             <tr class="list">
-                <th class="small-column">Alc?</th>
-                <th class="edit-name"><fmt:message key="product.name"/></th>
-                <th class="edit-column"><fmt:message key="product.price"/></th>
-                <th class="edit-column"><fmt:message key="product.volume"/></th>
-                <th class="edit-column"><fmt:message key="product.quantity"/></th>
-                <th class="small-column">Edit</th>
-                <th class="small-column">Delete</th>
+                <th class="small-column"><spring:message code="product.isalc"/></th>
+                <th class="edit-name"><spring:message code="product.name"/></th>
+                <th class="edit-column"><spring:message code="product.price"/></th>
+                <th class="edit-column"><spring:message code="product.volume"/></th>
+                <th class="edit-column"><spring:message code="product.quantity"/></th>
+                <th class="small-column"><spring:message code="product.edit"/></th>
+                <th class="small-column"><spring:message code="product.delete"/></th>
             </tr>
         </thead>
         <c:forEach items="${drinksList}" var="item" varStatus="status">

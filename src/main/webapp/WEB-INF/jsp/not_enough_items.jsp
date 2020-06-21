@@ -10,7 +10,7 @@
 
 <html>
 <head>
-    <title>Sorry, we don't have enough items</title>
+    <title><spring:message code="notenoughtitle"/></title>
 <%--    <spring:url value="resources/css/style.css" var="mainCss"/>--%>
 <%--    <link href="${mainCss}" rel="stylesheet"/>--%>
     <jsp:include page="fragments/resources.jsp"/>
@@ -18,10 +18,13 @@
 <body>
 <jsp:include page="fragments/strangetop.jsp"/>
 
-<div class="shopping-cart additional-info message"> Sorry, we don't have enough items in our store, you can edit your order or come tomorrow, we are refilling our store every day. Thank you for understanding</div>
+<%--<div class="shopping-cart additional-info message"> Sorry, we don't have enough items in our store, you can edit your order or come tomorrow, we are refilling our store every day. Thank you for understanding</div>
+--%>
+<div class="shopping-cart additional-info message"><spring:message code="notenoughmessage"/></div>
+
 <div> <div>
     <form action="shop">
-        <button type="submit" id="to-main-page-button">To main page</button>
+        <button type="submit" id="to-main-page-button"><spring:message code="tomainpage"/></button>
     </form>
 </div></div>
 

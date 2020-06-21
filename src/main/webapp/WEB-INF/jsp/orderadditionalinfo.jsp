@@ -10,7 +10,7 @@
 
 <html>
 <head>
-    <title>Add contact information</title>
+    <title><spring:message code="add-contact-title"/></title>
 <%--    <spring:url value="resources/css/style.css" var="mainCss"/>--%>
 <%--    <link href="${mainCss}" rel="stylesheet"/>--%>
     <jsp:include page="fragments/resources.jsp"/>
@@ -19,14 +19,14 @@
     <jsp:include page="fragments/strangetop.jsp"/>
     <div class="shopping-cart additional-info">
         <form method="post" modelattribute="info" name="submit" action="save_additional_order_info/${id}">
-            <div class="message">Thank you for order in our shop, your order number is <span>${id}</span>. Please leave us your contacts and shipping info in the field below</div>
+            <div class="message"><spring:message code="add-contact-first"/> <span>${id}</span><spring:message code="add-contact-second"/></div>
             <div class="text_field">
                 <textarea name="info"></textarea>
 
             </div>
 
             <div class="button-info">
-                <button type="submit" name="submit_button" id="submit-info"> S e n d </button>
+                <button type="submit" name="submit_button" id="submit-info"><spring:message code="button.add-contact"/></button>
             </div>
 
         </form>

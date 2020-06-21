@@ -10,13 +10,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+>
 <head>
     <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#locales").change(function () {
+                var selectedOption = $('#locales').val();
+                if (selectedOption != ''){
+                    window.location.replace('i18n?lang=' + selectedOption);
+                }
+            });
+        });
+    </script>
 </head>
 <body>
 <hr>
-
+<span>Изменить язык</span>
+<select id="locales">
+    <option value=""></option>
+    <option value="en">en</option>
+    <option value="ru">ru</option>
+</select>
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>
     <tr>

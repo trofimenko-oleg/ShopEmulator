@@ -10,10 +10,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setBundle basename="messages"/>
 <html>
 <head>
-    <title>Edit drink</title>
+    <title><spring:message code="product.edit"/></title>
 <%--    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">--%>
 <%--    <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">--%>
 <%--    <base href="${pageContext.request.contextPath}/"/>--%>
@@ -31,23 +30,23 @@
             <table>
                 <input type="hidden" name="id" value="${drink.id}">
                 <tr class = "name-outer">
-                    <td class = "first name-inner">Name</td>
+                    <td class = "first name-inner"><spring:message code="product.name"/></td>
                     <td class = "second name-inner"><input type="text" name = "name" class = "edit-form" value="${drink.name}"></td>
                 </tr>
                 <tr class = "price-outer">
-                    <td class = "first price-inner">Price</td>
+                    <td class = "first price-inner"><spring:message code="product.price"/></td>
                     <td class = "second price-inner"><input type="number" name = "purchasePrice" class = "edit-form" min="0" step="0.01" value="${drink.purchasePrice}"></td>
                 </tr>
                 <tr class = "volume-outer">
-                    <td class = "first volume-inner">Volume</td>
+                    <td class = "first volume-inner"><spring:message code="product.volume"/></td>
                     <td class = "second volume-inner"><input type="number" name = "volume" class = "edit-form" min = "0" max="100" step="0.01" value="${drink.volume}"></td>
                 </tr>
                 <tr class = "quantity-outer">
-                    <td class = "first quantity-inner">Quantity</td>
+                    <td class = "first quantity-inner"><spring:message code="product.quantity"/></td>
                     <td class = "second quantity-inner"><input type="number" name = "quantity" class = "edit-form" min = "0" step="1" value="${drink.quantity}"></td>
                 </tr>
                 <tr class = "type-outer">
-                    <td class = "first type-inner">Type</td>
+                    <td class = "first type-inner"><spring:message code="product.type"/></td>
                     <td class = "second type-inner">
                             <form:select path="group" name ="group" class = "edit-form">
                                 <c:forEach items="${groupValues}" var="group" varStatus="status">
@@ -67,22 +66,21 @@
                 </tr>
                 <c:if test = "${drink['class'].simpleName == 'NonAlcoholicDrink'}">
                 <tr class = "composition-outer">
-                    <td class = "first composition-inner">Composition</td>
+                    <td class = "first composition-inner"><spring:message code="product.composition"/></td>
                     <td class = "second composition-inner"><textarea name = "composition" class = "edit-form" rows = "10" cols="45">${drink.composition}</textarea></td>
                 </tr>
                 </c:if>
                 <c:if test = "${drink['class'].simpleName == 'AlcoholicDrink'}">
                 <tr class = "abv-outer">
-                    <td class = "first abv-inner">ABV</td>
+                    <td class = "first abv-inner"><spring:message code="product.ABV"/></td>
                     <td class = "second abv-inner"><input type="number" name = "ABV" class = "edit-form" min = "0" max="100" step="0.1" value="${drink.ABV}"></td>
                 </tr>
                 </c:if>
             </table>
             <div id="edit-button">
-                <button type="submit" id = "edit-submit">Save</button>
+                <button type="submit" id = "edit-submit"><spring:message code="product.save"/></button>
             </div>
         </form:form>
-
     </div>
 </div>
 </body>

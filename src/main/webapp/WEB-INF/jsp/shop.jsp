@@ -30,15 +30,15 @@
 <script type="text/javascript" src="static/js/shop.js"></script>
 
 <form:form method="post"  modelAttribute="order" name = "mainForm" action="cart">
-    <input type="submit" value="Go to cart" class="submit_button">
+    <input type="submit" value="<spring:message code="shop.gotoCart"/>" class="submit_button">
     <table class = "shop" border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr class="shop_top">
-            <th class="name"><fmt:message key="product.name"/></th>
-            <th class="price"><fmt:message key="product.price"/></th>
-            <th class="volume"><fmt:message key="product.volume"/></th>
-            <th class="left"><fmt:message key="product.quantity"/></th>
-            <th class="count">Add to cart</th>
+            <th class="name"><spring:message code="product.name"/></th>
+            <th class="price"><spring:message code="product.price"/></th>
+            <th class="volume"><spring:message code="product.volume"/></th>
+            <th class="left"><spring:message code="product.quantity"/></th>
+            <th class="count"><spring:message code="product.toCart"/></th>
         </tr>
         </thead>
         <c:forEach items="${order.orderItems}" var="item" varStatus="status">
@@ -52,7 +52,7 @@
             </tr>
         </c:forEach>
     </table>
-    <input type="submit" value="Go to cart" class="submit_button">
+    <input type="submit" value="<spring:message code="shop.gotoCart"/>" class="submit_button">
 </form:form>
 
 </body>

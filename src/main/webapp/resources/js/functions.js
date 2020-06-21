@@ -8,7 +8,8 @@ function getSum(){
         sum += parseFloat($(this).text());
     });
     // Displaying the value
-    field.textContent = "Общая сумма: " + round(sum);
+    field.textContent = $('#message-fullprice').val() + " " + round(sum);
+        //"Общая сумма: " + round(sum);
 }
 
 //rounds to 2 digits after point
@@ -31,7 +32,8 @@ function getCount(){
     for (var i = 0; i < elem.length; ++ i) {
         sum += parseInt(elem[i].value);
     }
-    field.textContent = "Всего заказано " + sum + " товаров";
+    field.textContent = $('#message-ordered').val() + " " +  sum + " " +  $('#message-items').val();
+    // "Всего заказано " + sum + " товаров";
 }
 
 //max quantity = 99
