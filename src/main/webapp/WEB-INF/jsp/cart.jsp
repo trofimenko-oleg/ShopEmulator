@@ -11,13 +11,16 @@
 
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <spring:url value="resources/css/style.css" var="mainCss"/>
-    <link href="${mainCss}" rel="stylesheet"/>
+    <jsp:include page="fragments/resources.jsp"/>
+
+<%--    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">--%>
+<%--    <spring:url value="resources/css/style.css" var="mainCss"/>--%>
+<%--    <link href="${mainCss}" rel="stylesheet"/>--%>
     <title>Cart</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
+<jsp:include page="fragments/strangetop.jsp"/>
 <script type="text/javascript" src="static/js/functions.js"></script>
 
 <div class="shopping-cart">

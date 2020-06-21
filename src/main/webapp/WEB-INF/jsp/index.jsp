@@ -9,7 +9,9 @@
 <html>
 <head>
     <title>Title</title>
+    <jsp:include page="fragments/resources.jsp"/>
 </head>
 <body>
+<jsp:include page="fragments/strangetop.jsp"/>
 </body>
 </html>

@@ -15,16 +15,18 @@
 
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <base href="${pageContext.request.contextPath}/"/>
+    <jsp:include page="fragments/resources.jsp"/>
+<%--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
+<%--    <base href="${pageContext.request.contextPath}/"/>--%>
     <title>Shop</title>
-    <spring:url value="resources/css/style.css" var="mainCss"/>
-    <link href="${mainCss}" rel="stylesheet"/>
-    <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">
+<%--    <spring:url value="resources/css/style.css" var="mainCss"/>--%>
+<%--    <link href="${mainCss}" rel="stylesheet"/>--%>
+     <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 <body>
+<jsp:include page="fragments/strangetop.jsp"/>
 <script type="text/javascript" src="static/js/shop.js"></script>
 
 <form:form method="post"  modelAttribute="order" name = "mainForm" action="cart">

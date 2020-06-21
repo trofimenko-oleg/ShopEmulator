@@ -11,11 +11,12 @@
 <html>
 <head>
     <title>Add contact information</title>
-    <spring:url value="resources/css/style.css" var="mainCss"/>
-    <link href="${mainCss}" rel="stylesheet"/>
-
+<%--    <spring:url value="resources/css/style.css" var="mainCss"/>--%>
+<%--    <link href="${mainCss}" rel="stylesheet"/>--%>
+    <jsp:include page="fragments/resources.jsp"/>
 </head>
 <body>
+    <jsp:include page="fragments/strangetop.jsp"/>
     <div class="shopping-cart additional-info">
         <form method="post" modelattribute="info" name="submit" action="save_additional_order_info/${id}">
             <div class="message">Thank you for order in our shop, your order number is <span>${id}</span>. Please leave us your contacts and shipping info in the field below</div>

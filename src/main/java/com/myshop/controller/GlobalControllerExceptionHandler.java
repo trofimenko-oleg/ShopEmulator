@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,5 +22,12 @@ public class GlobalControllerExceptionHandler {
         ModelAndView modelAndView = new ModelAndView("not_enough_items");
         modelAndView.addObject("exception", e);
         return modelAndView;
+    }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ModelAndView handleError404(HttpServletRequest request, Exception e)   {
+        ModelAndView mav = new ModelAndView("404");
+        mav.addObject("exception", e);
+        return mav;
     }
 }

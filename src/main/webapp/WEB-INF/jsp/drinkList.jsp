@@ -15,45 +15,67 @@
 
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <base href="${pageContext.request.contextPath}/"/>
+    <jsp:include page="fragments/resources.jsp"/>
+<%--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
+<%--    <base href="${pageContext.request.contextPath}/"/>--%>
     <title>Shop</title>
-    <spring:url value="resources/css/style.css" var="mainCss"/>
-    <link href="${mainCss}" rel="stylesheet"/>
-    <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<%--    <spring:url value="resources/css/style.css" var="mainCss"/>--%>
+<%--    <link href="${mainCss}" rel="stylesheet"/>--%>
+<%--    <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">--%>
+<%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--%>
 
 </head>
 <body>
+<jsp:include page="fragments/strangetop.jsp"/>
+
 <script type="text/javascript" src="static/js/shop.js"></script>
 
 <div class="buttons_and_search_area">
-    <div>
+    <div class="list-button-block">
+      <form action="drink/alcoholic">
+            <button class="list-button" type="submit">Alcoholic</button>
+        </form>
+    </div>
+    <div class="list-button-block">
+        <form action="drink/nonalcoholic">
+            <button class="list-button" type="submit">NonAlcoholic</button>
+        </form>
+    </div>
+    <div class="list-button-block">
+        <form action="drink/list">
+            <button class="list-button" type="submit">All</button>
+        </form>
+    </div>
+    <div class="list-button-block">
+        <form class="example" action="drink/search">
+            <input type="text" placeholder="Search.." name="search" id="search">
+            <button class="list-button list-search" type="submit"></button>
+        </form>
     </div>
 </div>
 <%--<form:form method="post"  modelAttribute="drinksList" name = "mainForm">--%>
     <table class = "shop" border="1" cellpadding="8" cellspacing="0">
         <thead>
-        <tr class="shop_top">
-            <th class="name">Alc./Non.</th>
-            <th class="name"><fmt:message key="product.name"/></th>
-            <th class="price"><fmt:message key="product.price"/></th>
-            <th class="volume"><fmt:message key="product.volume"/></th>
-            <th class="left"><fmt:message key="product.quantity"/></th>
-            <th class="count">Edit</th>
-            <th class="count">Delete</th>
-        </tr>
+            <tr class="list">
+                <th class="small-column">Alc?</th>
+                <th class="edit-name"><fmt:message key="product.name"/></th>
+                <th class="edit-column"><fmt:message key="product.price"/></th>
+                <th class="edit-column"><fmt:message key="product.volume"/></th>
+                <th class="edit-column"><fmt:message key="product.quantity"/></th>
+                <th class="small-column">Edit</th>
+                <th class="small-column">Delete</th>
+            </tr>
         </thead>
         <c:forEach items="${drinksList}" var="item" varStatus="status">
             <jsp:useBean id="item" type="com.myshop.domain.Drink"/>
             <tr class = "shop_item">
-                <td class="name">${item['class'].simpleName == "AlcoholicDrink" ? "A" : "N"}</td>
-                <td class="name">${item.name}</td>
-                <td class="price">${item.purchasePrice}</td>
-                <td class="volume">${item.volume}</td>
-                <td class="left" name = "quantityInStore">${item.quantity}</td>
-                <td class="left"><a href="drink/edit/${item.id}" class="edit-icon"></a></td>
-                <td class="left"><a href="drink/remove/${item.id}" class="delete-btn"></a></td>
+                <td class="small-column">${item['class'].simpleName == "AlcoholicDrink" ? "Alc" : "Non"}</td>
+                <td class="edit-name">${item.name}</td>
+                <td class="edit-column">${item.purchasePrice}</td>
+                <td class="edit-column">${item.volume}</td>
+                <td class="edit-column" name = "quantityInStore">${item.quantity}</td>
+                <td class="small-column"><a href="drink/edit/${item.id}" class="edit-icon"></a></td>
+                <td class="small-column"><a href="drink/remove/${item.id}" class="delete-btn"></a></td>
             </tr>
         </c:forEach>
     </table>

@@ -25,7 +25,7 @@ CREATE TABLE AlcoholicDrinks
 /*        constraint AlcoholicDrinks_Drinks_id_fk */
             references Drinks,
     type varchar(255) not null,
-    abv integer not null
+    abv float4 not null
 )
 ;
 
