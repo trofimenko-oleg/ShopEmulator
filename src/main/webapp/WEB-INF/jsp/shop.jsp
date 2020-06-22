@@ -15,19 +15,26 @@
 
 <html>
 <head>
-    <jsp:include page="fragments/resources.jsp"/>
-<%--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
-<%--    <base href="${pageContext.request.contextPath}/"/>--%>
-    <title>Shop</title>
-<%--    <spring:url value="resources/css/style.css" var="mainCss"/>--%>
-<%--    <link href="${mainCss}" rel="stylesheet"/>--%>
-     <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <jsp:include page="fragments/resources.jsp"/>
+    <script type="text/javascript" src="static/js/shop.js"></script>
+    <script type="text/javascript" src="static/js/localechange.js"></script>
+    <title><spring:message code="page.shop"/></title>
+     <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">
 
 </head>
 <body>
+<div id="locale-change">
+    <select id="locales">
+        <option value=""></option>
+        <option value="en">en</option>
+        <option value="ru">ru</option>
+        <option value="uk">ua</option>
+    </select>
+</div>
 <jsp:include page="fragments/strangetop.jsp"/>
-<script type="text/javascript" src="static/js/shop.js"></script>
+
+
 
 <form:form method="post"  modelAttribute="order" name = "mainForm" action="cart">
     <input type="submit" value="<spring:message code="shop.gotoCart"/>" class="submit_button">

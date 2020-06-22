@@ -15,19 +15,27 @@
 <html>
 <head>
     <jsp:include page="fragments/resources.jsp"/>
-<%--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--%>
-<%--    <base href="${pageContext.request.contextPath}/"/>--%>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/shop.js"></script>
+    <script type="text/javascript" src="static/js/localechange.js"></script>
     <title><spring:message code="page.shop"/></title>
-<%--    <spring:url value="resources/css/style.css" var="mainCss"/>--%>
-<%--    <link href="${mainCss}" rel="stylesheet"/>--%>
-<%--    <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">--%>
-<%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--%>
-
 </head>
 <body>
+<div id="locale-change">
+    <select id="locales">
+        <option value=""></option>
+        <option value="en">en</option>
+        <option value="ru">ru</option>
+        <option value="uk">ua</option>
+    </select>
+</div>
 <jsp:include page="fragments/strangetop.jsp"/>
 
-<script type="text/javascript" src="static/js/shop.js"></script>
+<div class="buttons_and_search_area">
+    <form action="drink/new">
+        <button  class="list-button" id="create-new-drink" type="submit"><spring:message code="button.createnewdrink"/></button>
+    </form>
+</div>
 
 <div class="buttons_and_search_area">
     <div class="list-button-block">
@@ -47,11 +55,14 @@
     </div>
     <div class="list-button-block">
         <form class="example" action="drink/search">
-            <input type="text" placeholder="Search.." name="search" id="search">
+            <input type="text" placeholder="<spring:message code="searchfield"/>" name="search" id="search">
             <button class="list-button list-search" type="submit"></button>
         </form>
     </div>
 </div>
+
+
+
 <%--<form:form method="post"  modelAttribute="drinksList" name = "mainForm">--%>
     <table class = "shop" border="1" cellpadding="8" cellspacing="0">
         <thead>
@@ -68,7 +79,9 @@
         <c:forEach items="${drinksList}" var="item" varStatus="status">
             <jsp:useBean id="item" type="com.myshop.domain.Drink"/>
             <tr class = "shop_item">
-                <td class="small-column">${item['class'].simpleName == "AlcoholicDrink" ? "Alc" : "Non"}</td>
+                <spring:message code="alc" var="alc"/>
+                <spring:message code="non" var="non"/>
+                <td class="small-column">${item['class'].simpleName == "AlcoholicDrink" ? alc : non}</td>
                 <td class="edit-name">${item.name}</td>
                 <td class="edit-column">${item.purchasePrice}</td>
                 <td class="edit-column">${item.volume}</td>

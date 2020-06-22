@@ -5,8 +5,6 @@ import com.myshop.domain.Order;
 import com.myshop.service.*;
 import com.myshop.service.to.OrderForm;
 import com.myshop.service.to.ShortenedOrderItem;
-import com.myshop.simulator.Shop;
-import com.myshop.simulator.Simulator;
 import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +42,7 @@ public class ShopController {
 
     @GetMapping("/")
     public ModelAndView root() throws NotEnoughProductInStorage {
-        return new ModelAndView("redirect:/drink/list");
+        return new ModelAndView("redirect:/shop");
     }
 
     @GetMapping("/shop")
@@ -70,7 +68,6 @@ public class ShopController {
         for (ShortenedOrderItem item: items)
         {
             if (item.getDrink() == null){
-                //return drinkList();
                 return new ModelAndView("redirect:shop");
             }
         }
@@ -82,7 +79,6 @@ public class ShopController {
             }
         }
         if (toCart.size() == 0) {
-            //return new ModelAndView("shop", "order", orderForm);
             return drinkList();
         }
          else  {
@@ -102,37 +98,6 @@ public class ShopController {
         ModelAndView modelAndView = showCart(returnedForm);
         modelAndView.setViewName("redirect:/cart");
         return modelAndView;
-       // modelAndView.setViewName("cart");
-
-        //return modelAndView;
-        //return new ModelAndView("redirect:cart");
-
-        //to prevent wrong refresh, after refreshing page orderForm is downloading in not expected (for me) way
-//        for (ShortenedOrderItem item: items)
-//        {
-//            if (item.getDrink() == null){
-//                //return drinkList();
-//                return new ModelAndView("redirect:shop");
-//            }
-//        }
-//        List<ShortenedOrderItem> toCart = new ArrayList<>();
-//        OrderForm returned = new OrderForm();
-//        for (ShortenedOrderItem item: items)    {
-//            if (item.getQuantity() > 0) {
-//                toCart.add(item);
-//            }
-//        }
-//        if (toCart.size() == 0) {
-//            //return new ModelAndView("shop", "order", orderForm);
-//            return drinkList();
-//        }
-//        else  {
-//            ModelAndView modelAndView = new ModelAndView();
-//            modelAndView.setViewName("cart");
-//            returned.setOrderItems(toCart);
-//            modelAndView.addObject("order", returned);
-//            return modelAndView;
-//        }
     }
 
     private OrderForm getOrderedItemsOrReturnBackIfNoItems(OrderForm orderForm)
@@ -188,18 +153,11 @@ public class ShopController {
         }
         ModelAndView modelAndView = new ModelAndView("redirect:/shop");
         request.getSession().invalidate();
-
-        //RedirectView redirectView = new RedirectView("shop");
-        //redirectView.setExposeModelAttributes(false);
-        //modelAndView.setView(redirectView);
         return modelAndView;
-        //return new ModelAndView("redirect:/shop");
-
     }
 
     @GetMapping(value="/i18n")
-    public String getPage()
-    {
-        return "internationalization_test";
+    public String getPage()    {
+        return "";
     }
 }

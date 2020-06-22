@@ -34,6 +34,7 @@
     <option value=""></option>
     <option value="en">en</option>
     <option value="ru">ru</option>
+    <option value="uk">ru</option>
 </select>
 <table border="1" cellpadding="8" cellspacing="0">
     <thead>

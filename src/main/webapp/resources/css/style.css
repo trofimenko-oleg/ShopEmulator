@@ -499,3 +499,11 @@ input:focus {
     justify-content: center;
 }
 
+#create-new-drink{
+    width:750px;
+}
+
+#locale-change {
+    position: fixed;
+    left: 0; top: 0;
+}

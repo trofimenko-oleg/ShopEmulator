@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class DrinksController {
@@ -29,11 +30,13 @@ public class DrinksController {
             AlcoholicDrink alcoholicDrink = (AlcoholicDrink) drink;
             model.addAttribute("drink", alcoholicDrink);
             model.addAttribute("groupValues", AlcoholicGroup.values());
+            model.addAttribute("type", "alcoholic");
         }
         else if (drink.getClass().equals(NonAlcoholicDrink.class)){
             NonAlcoholicDrink nonAlcoholicDrink = (NonAlcoholicDrink)drink;
             model.addAttribute("drink", nonAlcoholicDrink);
             model.addAttribute("groupValues", NonAlcoholicGroup.values());
+            model.addAttribute("type", "nonalcoholic");
         }
         //model.addAttribute("drink", drink);
         return "editdrink";
@@ -94,4 +97,37 @@ public class DrinksController {
         model.addAttribute("drinksList", list);
         return "drinkList";
     }
+
+    @RequestMapping(value = "/drink/new")
+    public String newDrink(Model model){
+        model.addAttribute("drink", new AlcoholicDrink());
+        return "editdrink";
+    }
+
+    @PostMapping(value = "/drink/saveNew")
+    public String saveNew(Model model, @RequestParam ("type") String type, @ModelAttribute("drink") Drink drink){
+        if (drink.getClass() == AlcoholicDrink.class)
+        {
+
+        }
+        Map<String, Object> stringObjectMap = model.asMap();
+//        Drink drink = (Drink) model.getAttribute("drink");
+        return "editdrink";
+    }
+
+    @GetMapping(value = "/drink/saveNew")
+    public String getType(Model model, @RequestParam ("type") String type){
+        //Drink drink = drinkService.get(id);
+        if (type.equals("alcoholic")){
+            model.addAttribute("groupValues", AlcoholicGroup.values());
+            model.addAttribute("drink", new AlcoholicDrink());
+        }
+        else if (type.equals("nonalcoholic")){
+            model.addAttribute("groupValues", NonAlcoholicGroup.values());
+            model.addAttribute("drink", new NonAlcoholicDrink());
+        }
+//        Drink drink = (Drink) model.getAttribute("drink");
+        return "editdrink";
+    }
+
 }

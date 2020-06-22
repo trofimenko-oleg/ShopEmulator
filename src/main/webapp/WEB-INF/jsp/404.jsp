@@ -10,7 +10,7 @@
 <html>
 <head>
     <jsp:include page="fragments/resources.jsp"/>
-    <title>Sorry, page not found</title>
+    <title><spring:message code="page.shop"/></title>
 </head>
 <body>
     <div class="shop">
