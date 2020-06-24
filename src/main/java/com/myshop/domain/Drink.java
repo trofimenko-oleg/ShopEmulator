@@ -19,10 +19,13 @@ public abstract class Drink extends AbstractBaseEntity{
 
     @Column
     protected String name;
+
     @Column(name="purchaseprice")
     protected double purchasePrice;
+
     @Column
     protected double volume;
+
     @Column
     protected int quantity;
 

@@ -1,7 +1,6 @@
 package com.myshop;
 
 import com.ninja_squad.dbsetup.operation.Operation;
-
 import static com.ninja_squad.dbsetup.Operations.deleteAllFrom;
 import static com.ninja_squad.dbsetup.Operations.insertInto;
 import static com.ninja_squad.dbsetup.operation.CompositeOperation.sequenceOf;

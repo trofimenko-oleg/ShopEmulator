@@ -3,8 +3,7 @@ package com.myshop.service.to;
 import com.myshop.domain.Drink;
 import com.myshop.util.PriceUtil;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ModelAttribute;
-
+import java.util.Objects;
 import static com.myshop.util.FormattersUtil.round;
 
 @Component
@@ -51,8 +50,7 @@ public class ShortenedOrderItem {
     }
 
     public double getAverageItemPrice() {
-        if (quantity <=2)
-        {
+        if (quantity <=2){
             averageItemPrice = priceWithoutDiscount;
         }
         else {
@@ -65,5 +63,19 @@ public class ShortenedOrderItem {
 
     public void setAverageItemPrice(double averageItemPrice) {
         this.averageItemPrice = averageItemPrice;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ShortenedOrderItem)) return false;
+        ShortenedOrderItem that = (ShortenedOrderItem) o;
+        return getQuantity() == that.getQuantity() &&
+                getDrink().equals(that.getDrink());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDrink(), getQuantity());
     }
 }

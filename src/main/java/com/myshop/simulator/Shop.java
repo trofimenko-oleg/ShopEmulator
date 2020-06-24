@@ -9,41 +9,26 @@ import com.myshop.util.PriceUtil;
 import com.myshop.util.TimeUtil;
 import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import static org.slf4j.LoggerFactory.getLogger;
 
-
 public class Shop {
-private static final Logger log = getLogger(Shop.class);
-private static Clock clock = Clock.system(ZoneId.systemDefault());
-private List<Customer> customerList = new ArrayList<>();
+    private static final Logger log = getLogger(Shop.class);
+    private static Clock clock = Clock.system(ZoneId.systemDefault());
+    private List<Customer> customerList = new ArrayList<>();
     private Map<Drink, Integer> sellsInfo = new HashMap<>();
     private Map<Drink, Integer> refillInfo = new HashMap<>();
     private double allOrdersChecksSum = 0;
-
-
     private DrinkService drinkService = ApplicationContextUtils.getApplicationContext().getBean(DrinkService.class);
     private ShortenedOrderItemService shortenedOrderItemService = ApplicationContextUtils.getApplicationContext().getBean(ShortenedOrderItemService.class);
     private OrderService orderService = ApplicationContextUtils.getApplicationContext().getBean(OrderService.class);
-    private PurchaseService purchaseService = ApplicationContextUtils.getApplicationContext().getBean(PurchaseService.class);
     private RefillingService refillingService = ApplicationContextUtils.getApplicationContext().getBean(RefillingService.class);
 
-
-    //offset for next client
-//    private Duration duration;
-
-    public void toNextDay()
-    {
+    public void toNextDay(){
         LocalDate ld = LocalDate.now(clock).plus(1, ChronoUnit.DAYS);
         LocalDateTime localDateTime = LocalDateTime.of(ld, LocalTime.of(8, 0, 0));
         //clock set to tomorrow 8AM
@@ -64,22 +49,19 @@ private List<Customer> customerList = new ArrayList<>();
             TimeUtil.setClock(buyTime);
             customerMap = customer.getDrinks();
             List<ShortenedOrderItem> shortenedOrderItems = new ArrayList<>();
-            for (Map.Entry<Drink, Integer> entry: customerMap.entrySet())
-            {
+            for (Map.Entry<Drink, Integer> entry: customerMap.entrySet()){
                 Drink drink = drinkService.get(entry.getKey().getId());
                 int count = minimum(drink.getQuantity(), entry.getValue());
 
                 if (count > 0) {
-                    //drinkService.take(drink, count);
                     ShortenedOrderItem shortenedOrderItem = new ShortenedOrderItem(drink, count);
                     shortenedOrderItems.add(shortenedOrderItem);
                     log.debug("Date/Time: {}, Drink {} in amount {} was added to order, price for 1 piece is {}, current markup is {}", LocalDateTime.ofInstant(buyTime.instant(), ZoneId.systemDefault()), drink.getName(), count, shortenedOrderItem.getAverageItemPrice(), PriceUtil.getMarkupAsString());
                 }
             }
             if (shortenedOrderItems.size() > 0){
-                for (ShortenedOrderItem item: shortenedOrderItems)
-                {
-                    sellsInfo.merge(item.getDrink(), item.getQuantity(), (a, b) -> a + b);
+                for (ShortenedOrderItem item: shortenedOrderItems){
+                    sellsInfo.merge(item.getDrink(), item.getQuantity(), Integer::sum);
                 }
                 Order order = shortenedOrderItemService.getOrderFromItemList(shortenedOrderItems);
                 orderService.save(order);
@@ -92,28 +74,21 @@ private List<Customer> customerList = new ArrayList<>();
     public void workForOneDay() throws NotEnoughProductInStorage {
         toNextDay();
         //shop works for 13 hours
-        for (int i = 0; i < 13; i ++)
-        {
+        for (int i = 0; i < 13; i ++){
             operateOneHour();
             clock = Clock.offset(clock, Duration.ofHours(1));
         }
         Map<Drink, Integer> refilledDrinks = refillingService.refill();
         if (refilledDrinks.size() > 0){
             for (Map.Entry<Drink,Integer> entry: refilledDrinks.entrySet()){
-                refillInfo.merge(entry.getKey(), entry.getValue(), (a, b) -> a + b);
+                refillInfo.merge(entry.getKey(), entry.getValue(), Integer::sum);
             }
         }
         log.info("Day ended");
         log.info("------------------------------");
     }
 
-
-//    public void makePurchase(Map<Drink, Integer> items) throws NotEnoughProductInStorage {
-//
-//    }
-
-    private int minimum(int a, int b)
-    {
+    private int minimum(int a, int b){
         if (a < b) return a;
         else return b;
     }

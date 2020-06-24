@@ -50,7 +50,6 @@ function minusOne(a) {
     else return 0;
 }
 
-
 function fullPriceOfOneItemFill(element){
     var $current = $(element);
         var $item = $current.closest(".item");
@@ -161,6 +160,7 @@ function showItemDiscount(element) {
         $this.find(".productPrice").css("text-decoration", "none");
     }
 }
+
 function setRestrictions() {
     var $elements = $(".myInput");
     $elements.each(function () {
@@ -169,11 +169,9 @@ function setRestrictions() {
 
 }
 
-function setRestrictionToQuantityField(element)
-{
+function setRestrictionToQuantityField(element){
     var $this = $(element);
     var $max_quantity = $this.closest(".item").find(".max_quantity").text();
     var minimum = min(parseInt($max_quantity, 10), 99);
     $this.attr({"max" : minimum, "min" : 0});
-    //$this.setAttribute("max", minimum.toString());
 }

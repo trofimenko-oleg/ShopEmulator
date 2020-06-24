@@ -1,7 +1,6 @@
 package com.myshop.service;
 
 import com.myshop.DatabaseSetup;
-import com.myshop.domain.Drink;
 import com.myshop.domain.Order;
 import com.myshop.domain.OrderDetails;
 import com.myshop.util.TimeUtil;
@@ -16,13 +15,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import javax.sql.DataSource;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import static com.ninja_squad.dbsetup.operation.CompositeOperation.sequenceOf;
 import static org.junit.Assert.*;
 
@@ -42,7 +38,7 @@ public class OrderServiceImplTest {
     private final static DbSetupTracker dbSetupTracker = new DbSetupTracker();
 
     @Before
-    public void prepare() throws Exception {
+    public void prepare(){
         Operation operation =
                 sequenceOf(
                         DatabaseSetup.DELETE_ALL,
@@ -67,8 +63,7 @@ public class OrderServiceImplTest {
     @Test(expected = NotEnoughProductInStorage.class)
     public void saveExistingWithMoreQuantityThanAvailable() throws NotEnoughProductInStorage {
         Order order = orderService.get(2);
-        for (OrderDetails item: order.getOrders())
-        {
+        for (OrderDetails item: order.getOrders()){
             if (item.getDrink().getId() == 3) {
                 item.setDrinkQuantity(2000);
             }
@@ -80,15 +75,13 @@ public class OrderServiceImplTest {
     public void saveExistingTakeAllAvailableFromStorage() throws NotEnoughProductInStorage {
         LocalDateTime localDateTime = LocalDateTime.now(TimeUtil.getClock());
         Order order = orderService.get(2);
-        for (OrderDetails item: order.getOrders())
-        {
+        for (OrderDetails item: order.getOrders()){
             if (item.getDrink().getId() == 3) {
                 item.setDrinkQuantity(87);
             }
         }
         orderService.save(order);
-        for (OrderDetails item: order.getOrders())
-        {
+        for (OrderDetails item: order.getOrders()){
             if (item.getDrink().getId() == 3) {
                 assertEquals(87, item.getDrinkQuantity());
             }

@@ -2,15 +2,9 @@ package com.myshop.service;
 
 import com.myshop.domain.Drink;
 import com.myshop.repository.DrinkRepository;
-import com.myshop.util.PriceUtil;
-import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 import java.util.List;
-
-import static com.myshop.util.FormattersUtil.round;
 
 @Service
 public class DrinkServiceImpl implements DrinkService {
@@ -47,10 +41,4 @@ public class DrinkServiceImpl implements DrinkService {
     public void add(Drink drink, int quantity) {
         drinkRepository.add(drink, quantity);
     }
-
-//    @Override
-//    @Transactional
-//    public void take(Drink drink, int quantity) throws NotEnoughProductInStorage {
-//        drinkRepository.take(drink, quantity);
-//    }
 }

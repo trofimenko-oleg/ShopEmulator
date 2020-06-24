@@ -2,7 +2,6 @@ package com.myshop.service;
 
 import com.myshop.domain.Order;
 import com.myshop.service.to.ShortenedOrderItem;
-
 import java.util.List;
 
 public interface ShortenedOrderItemService {

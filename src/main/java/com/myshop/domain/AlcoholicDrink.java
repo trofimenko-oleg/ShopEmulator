@@ -6,9 +6,11 @@ import javax.persistence.*;
 @Table(name = "alcoholicdrinks")
 @DiscriminatorValue("a")
 public class AlcoholicDrink extends Drink{
+
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private AlcoholicGroup group;
+
     @Column(name = "abv")
     private double ABV;
 

@@ -2,7 +2,6 @@ package com.myshop.repository;
 
 import com.myshop.domain.Drink;
 import com.myshop.util.exception.NotEnoughProductInStorage;
-
 import java.util.List;
 
 public interface DrinkRepository {

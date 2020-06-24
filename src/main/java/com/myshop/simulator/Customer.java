@@ -4,27 +4,19 @@ import com.myshop.ApplicationContextUtils;
 import com.myshop.domain.Drink;
 import com.myshop.service.*;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class Customer {
-private static final Logger log = getLogger(Customer.class);
-
+    private static final Logger log = getLogger(Customer.class);
     private DrinkService drinkService = ApplicationContextUtils.getApplicationContext().getBean(DrinkService.class);
-
     public static List<Drink> DRINKS;
     public static int count = 0;
-    public Map<Drink, Integer> getDrinks()
-    {
+
+    public Map<Drink, Integer> getDrinks(){
         if (DRINKS == null){
             DRINKS = drinkService.getAll();
         }
@@ -32,12 +24,12 @@ private static final Logger log = getLogger(Customer.class);
             count = DRINKS.size();
         }
         Random random = new Random();
-        Map<Drink, Integer> map = new HashMap();
+        Map<Drink, Integer> map = new HashMap<>();
         //будем выбирать до 4 видов товара в общем количестве от 0 до 10
             map.put(DRINKS.get(random.nextInt(count)), random.nextInt(2));
-            map.merge(DRINKS.get(random.nextInt(count)), random.nextInt(3), (a, b) -> a + b);
-            map.merge(DRINKS.get(random.nextInt(count)), random.nextInt(4), (a, b) -> a + b);
-            map.merge(DRINKS.get(random.nextInt(count)), random.nextInt(5), (a, b) -> a + b);
+            map.merge(DRINKS.get(random.nextInt(count)), random.nextInt(3), Integer::sum);
+            map.merge(DRINKS.get(random.nextInt(count)), random.nextInt(4), Integer::sum);
+            map.merge(DRINKS.get(random.nextInt(count)), random.nextInt(5), Integer::sum);
         return map;
     }
 

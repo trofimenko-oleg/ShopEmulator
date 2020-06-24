@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class DrinksController {
@@ -38,7 +36,6 @@ public class DrinksController {
             model.addAttribute("groupValues", NonAlcoholicGroup.values());
             model.addAttribute("type", "nonalcoholic");
         }
-        //model.addAttribute("drink", drink);
         return "editdrink";
     }
 
@@ -51,17 +48,14 @@ public class DrinksController {
 
     @PostMapping(value = "/drink/saveAlcoholic")
     public String saveAlco(@ModelAttribute ("drink") AlcoholicDrink drink, Model model){
-        AlcoholicDrink test = drink;
         drinkService.save(drink);
         return drinkList(model);
     }
 
     @PostMapping(value = "/drink/saveNonAlcoholic")
     public String saveNonAlco(@ModelAttribute ("drink") NonAlcoholicDrink drink, Model model){
-        NonAlcoholicDrink test = drink;
         drinkService.save(drink);
         return drinkList(model);
-        //return "drinkList";
     }
 
     @GetMapping(value = "/drink/alcoholic")
@@ -92,7 +86,6 @@ public class DrinksController {
 
     @GetMapping(value = "/drink/search")
     public String search(Model model, @RequestParam("search") String searchText){
-        String search = searchText;
         List<Drink> list = drinkService.getByPartOfName(searchText);
         model.addAttribute("drinksList", list);
         return "drinkList";
@@ -104,20 +97,8 @@ public class DrinksController {
         return "editdrink";
     }
 
-    @PostMapping(value = "/drink/saveNew")
-    public String saveNew(Model model, @RequestParam ("type") String type, @ModelAttribute("drink") Drink drink){
-        if (drink.getClass() == AlcoholicDrink.class)
-        {
-
-        }
-        Map<String, Object> stringObjectMap = model.asMap();
-//        Drink drink = (Drink) model.getAttribute("drink");
-        return "editdrink";
-    }
-
     @GetMapping(value = "/drink/saveNew")
     public String getType(Model model, @RequestParam ("type") String type){
-        //Drink drink = drinkService.get(id);
         if (type.equals("alcoholic")){
             model.addAttribute("groupValues", AlcoholicGroup.values());
             model.addAttribute("drink", new AlcoholicDrink());
@@ -126,8 +107,6 @@ public class DrinksController {
             model.addAttribute("groupValues", NonAlcoholicGroup.values());
             model.addAttribute("drink", new NonAlcoholicDrink());
         }
-//        Drink drink = (Drink) model.getAttribute("drink");
         return "editdrink";
     }
-
 }

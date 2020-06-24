@@ -4,9 +4,9 @@ import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
 @NamedQueries({
         @NamedQuery(name = Order.BY_DATE, query = "SELECT o FROM Order o ORDER BY o.localDate"),
         @NamedQuery(name = Order.BY_TIME, query = "SELECT o FROM Order o ORDER BY o.time")
@@ -18,30 +18,31 @@ public class Order extends AbstractBaseEntity {
     public static final String BY_DATE = "Order.byDate";
     public static final String BY_TIME = "Order.byTime";
 
-
-    //TODO: rename orders to items
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderDetails> orders;
+
     @Column
     @Enumerated
     private DayOfWeek dayOfWeek;
+
     @Column
     private LocalTime time;
+
     @Column(name="date")
     private LocalDate localDate;
+
     @Column(name="check_value")
     private double totalCheckValue;
+
     @Column(name="shipping_info")
     private String shippingInfo;
 
     public Order() {
     }
 
-    public Order(Order other)
-    {
+    public Order(Order other) {
         orders = new ArrayList<>();
-        for (OrderDetails orderDetails: other.orders)
-        {
+        for (OrderDetails orderDetails: other.orders){
             orders.add(new OrderDetails(this, orderDetails));
         }
         this.dayOfWeek = other.dayOfWeek;

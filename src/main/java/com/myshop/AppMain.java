@@ -20,23 +20,18 @@ import java.util.List;
 
 
 public class AppMain {
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
             ApplicationContextUtils applicationContextUtils = new ApplicationContextUtils();
             applicationContextUtils.setApplicationContext(appCtx);
-//            try {
-//                try {
-//                    //to change final log file path use Simulator.setFileName(fileName); (default C:/log/shop_log.txt)
-//                    Simulator.startSimulator(30);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            } catch (NotEnoughProductInStorage notEnoughProductInStorage) {
-//                notEnoughProductInStorage.printStackTrace();
-//            }
-//            DrinkService drinkService = appCtx.getBean(DrinkService.class);
-//            drinkService.save(new NonAlcoholicDrink("Водичка", 4.64, 0.2, 13, NonAlcoholicGroup.MINERAL_WATER, "391"));
+
+            try {
+                //to change final log file path use Simulator.setFileName(fileName); (default C:/log/shop_log.txt)
+                Simulator.startSimulator(30);
+            } catch (IOException | NotEnoughProductInStorage e) {
+                e.printStackTrace();
+            }
         }
     }
 }

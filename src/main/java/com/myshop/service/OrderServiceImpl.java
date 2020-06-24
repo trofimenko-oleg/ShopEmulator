@@ -8,7 +8,6 @@ import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
@@ -23,7 +22,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Order save(Order order) throws NotEnoughProductInStorage {
-        int toTakeFromStorage = 0;
+        int toTakeFromStorage;
             for (OrderDetails item: order.getOrders()){
                 if (order.isNew()){
                     toTakeFromStorage = item.getDrinkQuantity();

@@ -2,7 +2,6 @@ package com.myshop.repository;
 
 import com.myshop.domain.Order;
 import com.myshop.domain.OrderDetails;
-
 import java.util.List;
 
 public interface OrderRepository {

@@ -4,12 +4,10 @@ import com.myshop.DatabaseSetup;
 import com.myshop.domain.AlcoholicDrink;
 import com.myshop.domain.AlcoholicGroup;
 import com.myshop.domain.Drink;
-import com.myshop.util.TimeUtil;
 import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.DbSetupTracker;
 import com.ninja_squad.dbsetup.destination.DataSourceDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
-import javassist.NotFoundException;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,12 +15,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import javax.sql.DataSource;
-import java.time.Clock;
-import java.time.Instant;
 import java.util.List;
-
 import static com.ninja_squad.dbsetup.operation.CompositeOperation.sequenceOf;
 
 //nothing new compared to repository methods, so tests are for checkmark :)
@@ -38,7 +32,7 @@ public class DrinkServiceTest extends TestCase {
     private final static DbSetupTracker dbSetupTracker = new DbSetupTracker();
 
     @Before
-    public void prepare() throws Exception {
+    public void prepare(){
         Operation operation =
                 sequenceOf(
                         DatabaseSetup.DELETE_DRINKS,

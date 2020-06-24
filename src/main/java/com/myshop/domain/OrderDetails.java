@@ -1,11 +1,12 @@
 package com.myshop.domain;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Table(name="ordersdetails")
 @Entity
-public class OrderDetails extends AbstractBaseEntity
-{
+public class OrderDetails extends AbstractBaseEntity{
+
     @ManyToOne
     @JoinColumn(name="order_id", nullable=false)
     private Order order;
@@ -23,8 +24,7 @@ public class OrderDetails extends AbstractBaseEntity
     public OrderDetails() {
     }
 
-    public OrderDetails(Order order, OrderDetails other)
-    {
+    public OrderDetails(Order order, OrderDetails other) {
         this(order, other.drink, other.drinkQuantity, other.itemPrice);
     }
 
@@ -70,5 +70,20 @@ public class OrderDetails extends AbstractBaseEntity
                 ", drinkQuantity=" + drinkQuantity +
                 ", itemPrice=" + itemPrice +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OrderDetails)) return false;
+        OrderDetails that = (OrderDetails) o;
+        return getDrinkQuantity() == that.getDrinkQuantity() &&
+                getOrder().equals(that.getOrder()) &&
+                getDrink().equals(that.getDrink());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getOrder(), getDrink(), getDrinkQuantity());
     }
 }

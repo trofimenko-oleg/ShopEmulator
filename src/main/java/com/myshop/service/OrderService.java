@@ -2,7 +2,6 @@ package com.myshop.service;
 
 import com.myshop.domain.Order;
 import com.myshop.util.exception.NotEnoughProductInStorage;
-
 import java.util.List;
 
 public interface OrderService {

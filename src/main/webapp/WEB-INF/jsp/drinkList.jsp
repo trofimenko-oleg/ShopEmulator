@@ -61,9 +61,6 @@
     </div>
 </div>
 
-
-
-<%--<form:form method="post"  modelAttribute="drinksList" name = "mainForm">--%>
     <table class = "shop" border="1" cellpadding="8" cellspacing="0">
         <thead>
             <tr class="list">
@@ -91,7 +88,6 @@
             </tr>
         </c:forEach>
     </table>
-<%--</form:form>--%>
 
 </body>
 </html>

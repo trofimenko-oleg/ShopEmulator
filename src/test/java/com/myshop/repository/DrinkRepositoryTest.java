@@ -9,18 +9,14 @@ import com.ninja_squad.dbsetup.destination.DataSourceDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import javax.sql.DataSource;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import static com.ninja_squad.dbsetup.operation.CompositeOperation.sequenceOf;
 import static org.junit.Assert.*;
 
@@ -37,7 +33,7 @@ public class DrinkRepositoryTest {
     private final static DbSetupTracker dbSetupTracker = new DbSetupTracker();
 
     @Before
-    public void prepare() throws Exception {
+    public void prepare(){
         Operation operation =
                 sequenceOf(
                         DatabaseSetup.DELETE_DRINKS,
@@ -120,14 +116,14 @@ public class DrinkRepositoryTest {
         assertEquals(1, drinks.size());
         assertTrue(drinks.contains(drinkRepository.get(6)));
         drinks = drinkRepository.getByPartOfName("Несуществующий напиток");
-        assertTrue(drinks.size()==0);
+        assertEquals(0, drinks.size());
 
     }
 
     @Test
     public void getAll() {
         dbSetupTracker.skipNextLaunch();
-        assertTrue(drinkRepository.getAll().size() == 7);
+        assertEquals(7, drinkRepository.getAll().size());
     }
 
     @Test

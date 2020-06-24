@@ -6,9 +6,11 @@ import javax.persistence.*;
 @Table(name = "nonalcoholicdrinks")
 @DiscriminatorValue("n")
 public class NonAlcoholicDrink extends Drink{
+
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private NonAlcoholicGroup group;
+
     @Column
     private String composition;
 

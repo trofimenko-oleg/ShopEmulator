@@ -8,7 +8,6 @@ import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.DbSetupTracker;
 import com.ninja_squad.dbsetup.destination.DataSourceDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
-import com.sun.org.apache.xpath.internal.operations.Or;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,16 +15,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import javax.sql.DataSource;
-
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import static com.ninja_squad.dbsetup.operation.CompositeOperation.sequenceOf;
 import static org.junit.Assert.*;
 
@@ -46,7 +40,7 @@ public class OrderRepositoryTest {
     private static Clock clock = TimeUtil.getClock();
 
     @Before
-    public void prepare() throws Exception {
+    public void prepare(){
         Operation operation =
                 sequenceOf(
                         DatabaseSetup.DELETE_ORDERS,
@@ -74,7 +68,7 @@ public class OrderRepositoryTest {
         assertEquals(DayOfWeek.TUESDAY, order.getDayOfWeek());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         assertEquals("12:00:00", dateTimeFormatter.format(order.getTime()));
-        dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-YYYY");
+        dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         assertEquals("09-06-2020", dateTimeFormatter.format(order.getLocalDate()));
     }
 
@@ -89,12 +83,10 @@ public class OrderRepositoryTest {
         order = orderRepository.save(order);
         assertNotNull(order.getId());
         assertNotNull(order.getId());
-        for (OrderDetails item: order.getOrders())
-        {
+        for (OrderDetails item: order.getOrders()){
             assertNotNull(item.getId());
             assertEquals(item.getOrder().getId(), order.getId());
         }
-
     }
 
     @Test
@@ -108,10 +100,8 @@ public class OrderRepositoryTest {
     public void checkIfItemsWereDeleted() {
         orderRepository.delete(2);
         assertNull(orderRepository.get(2));
-        for (Order order: orderRepository.getAll())
-        {
-            for (OrderDetails item: order.getOrders())
-            {
+        for (Order order: orderRepository.getAll()){
+            for (OrderDetails item: order.getOrders()){
                 assertTrue(item.getOrder() == null || item.getOrder().getId() != 2);
             }
         }

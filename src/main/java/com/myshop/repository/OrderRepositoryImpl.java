@@ -3,7 +3,6 @@ package com.myshop.repository;
 import com.myshop.domain.Order;
 import com.myshop.domain.OrderDetails;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;

@@ -21,6 +21,7 @@ body {
     display: flex;
     flex-direction: column;
 }
+
 .shop {
     width: 750px;
     margin: auto;
@@ -51,22 +52,26 @@ body {
     height: 90px;
     display: flex;
 }
+
 .shop_top {
     padding: 10px 30px;
     height: 60px;
     display: flex;
 }
+
 .item {
     border-bottom:  1px solid #E1E8EE;
 }
+
 .shop_item {
      border-top:  1px solid #E1E8EE;
  }
 
 .hidden{
-    height:0px;
-    width: 0px;
+    height:0;
+    width: 0;
 }
+
 .buttons {
     position: relative;
     padding-top: 30px;
@@ -80,6 +85,7 @@ body {
     height: 16px;
     background: url("../img/delete-16.png") no-repeat center;
 }
+
 .edit-icon {
     display: inline-block;
     Cursor: pointer;
@@ -90,7 +96,6 @@ body {
 
 .description {
     padding-top: 12px;
-
 }
 
 .productName {
@@ -101,7 +106,6 @@ body {
 
 .name {
     margin-right: 10px;
-    margin-bottom:2px;
     width: 300px;
     text-align:left;
     overflow:hidden;
@@ -141,11 +145,13 @@ body {
 .description span:first-child {
     margin-bottom: 5px;
 }
+
 .description span:last-child {
     font-weight: 300;
     margin-top: 18px;
     color: #9441ef;
 }
+
 .fullPrice{
     margin-top: 18px;
     color: #5e6977;
@@ -156,6 +162,7 @@ body {
     padding-top: 20px;
     margin-right: auto;
 }
+
 .quantity input {
     border: none;
     text-align: center;
@@ -164,10 +171,12 @@ body {
     color: #414448;
     font-weight: 300;
 }
+
 tr, td, th{
     border: 0;
-    border-radius:0px;
+    border-radius:0;
 }
+
 button[class*=btn] {
     margin-top:5px;
     padding:4px;
@@ -178,10 +187,10 @@ button[class*=btn] {
     border: none;
     cursor: pointer;
 }
+
 .minus-btn{
     margin-right:12px;
 }
-
 
 button:focus,
 input:focus {
@@ -205,18 +214,20 @@ input:focus {
     color: #414448;
     height:50px;
     margin:20px;
-
 }
+
 .bottom div{
     margin-bottom:15px;
 }
+
 .bottom_block{
     width:510px;
     text-align:right;
     margin-right:40px
 }
+
 .submit {
-    box-shadow:inset 0px 0px 0px 0px #caefab;
+    box-shadow:inset 0 0 0 0 #caefab;
     background:linear-gradient(to bottom, #77d42a 5%, #5cb811 100%);
     background-color:#77d42a;
     border-radius:6px;
@@ -229,24 +240,25 @@ input:focus {
     font-weight:bold;
     padding:5px 10px;
     text-decoration:none;
-    text-shadow:0px 0px 0px #aade7c;
+    text-shadow:0 0 0 #aade7c;
 }
+
 .submit:hover {
     background:linear-gradient(to bottom, #5cb811 5%, #77d42a 100%);
     background-color:#5cb811;
 }
+
 .submit:active {
     position:relative;
     top:1px;
 }
 
 .submit_button{
-    box-shadow:inset 0px 9px 17px 6px #29bbff;
+    box-shadow:inset 0 9px 17px 6px #29bbff;
     background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
     background-color:#2dabf9;
     border-radius:9px;
     border:1px solid #0b0e07;
-    display:inline-block;
     cursor:pointer;
     color:#ffffff;
     font-family:Arial;
@@ -254,21 +266,23 @@ input:focus {
     display: block;
     width: 750px;
     margin:auto;
-    padding:12px 0px;
+    padding:12px 0;
     text-decoration:none;
     text-align:center;
-    text-shadow:0px 0px 34px #263666;
+    text-shadow:0 0 34px #263666;
 }
+
 .submit_button:hover {
     background:linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
     background-color:#0688fa;
 }
+
 .submit_button:active {
     position:relative;
     top:1px;
 }
-.additional-info
-{
+
+.additional-info{
     text-align:left;
 }
 
@@ -304,43 +318,44 @@ input:focus {
     background-color:#2dabf9;
     border-radius:9px;
     border:1px solid #0b0e07;
-    display:inline-block;
     cursor:pointer;
     color:#ffffff;
     font-family:Arial;
     font-size:18px;
     display: block;
-    padding:15px 0px;
+    padding:15px 0;
     text-align:center;
-    text-shadow:0px 0px 34px #263666;
+    text-shadow:0 0 34px #263666;
 }
 
 #to-main-page-button{
     width:750px;
     padding:20px;
-    box-shadow:inset 0px 9px 17px 6px #29bbff;
+    box-shadow:inset 0 9px 17px 6px #29bbff;
     background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
     background-color:#2dabf9;
     border-radius:9px;
     border:1px solid #0b0e07;
-    display:inline-block;
     cursor:pointer;
     color:#ffffff;
     font-family:Arial;
     font-size:18px;
     display: block;
-    padding:15px 0px;
+    padding:15px 0;
     text-align:center;
-    text-shadow:0px 0px 34px #263666;
+    text-shadow:0 0 34px #263666;
     margin:auto;
 }
+
 .first{
     width:100px;
     padding-left:10px;
 }
+
 .second{
     width:300px;
 }
+
 #edit-form {
     width: 400px;
     margin: 30px auto;
@@ -351,11 +366,13 @@ input:focus {
     flex-direction: column;
     padding:10px;
 }
+
 .edit-form{
     width:100%
 }
+
 #edit-submit {
-    box-shadow: 0px 0px 0px 2px #9fb4f2;
+    box-shadow: 0 0 0 2px #9fb4f2;
     background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
     background-color:#7892c2;
     border-radius:10px;
@@ -368,12 +385,14 @@ input:focus {
     padding:6px 20px;
     margin-top:6px;
     text-decoration:none;
-    text-shadow:0px 1px 0px #283966;
+    text-shadow:0 1px 0 #283966;
 }
+
 #edit-submit:hover {
     background:linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
     background-color:#476e9e;
 }
+
 #edit-submit:active {
     position:relative;
     top:1px;
@@ -414,10 +433,8 @@ input:focus {
     display: flex;
 }
 
-
 .list-button{
-    display: inline-block;
-    box-shadow: 0px 0px 0px 2px #9fb4f2;
+    box-shadow: 0 0 0 2px #9fb4f2;
     background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
     background-color:#7892c2;
     border-radius:10px;
@@ -430,13 +447,14 @@ input:focus {
     padding:6px 5px;
     margin-top:6px;
     text-decoration:none;
-    text-shadow:0px 1px 0px #283966;
+    text-shadow:0 1px 0 #283966;
     width:150px;
 }
 
 .list-button-block{
     display: inline-block;
 }
+
 .buttons_and_search_area{
     width:750px;
     margin:auto;
@@ -446,6 +464,7 @@ input:focus {
 .buttons_and_search_area div:first-child {
     text-align: left;
 }
+
 .buttons_and_search_area div:last-child {
     text-align: right;
 }
@@ -453,7 +472,7 @@ input:focus {
 #search{
     border-radius: 10px;
     border: 1px solid #4e6096;
-    box-shadow: 0px 0px 0px 2px #9fb4f2;
+    box-shadow: 0 0 0 2px #9fb4f2;
     padding:7px 10px;
 }
 
@@ -463,7 +482,7 @@ input:focus {
     display: inline-block;
     cursor: pointer;
     padding: 19px 40px 10px;
-    box-shadow: 0px 0px 0px 2px #9fb4f2;
+    box-shadow: 0 0 0 2px #9fb4f2;
     background: url("../img/search-icon-white-32.png") no-repeat, linear-gradient(to bottom, rgb(120, 146, 194) 5%, rgb(71, 110, 158) 100%);
     background-position: 23px;
     width:82px;

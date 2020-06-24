@@ -1,18 +1,13 @@
 package com.myshop.simulator;
 
-
 import com.myshop.domain.Drink;
 import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.slf4j.Logger;
-
-import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
-
 import static org.slf4j.LoggerFactory.getLogger;
-
 
 public class Simulator {
 
@@ -26,8 +21,7 @@ public class Simulator {
     public static void startSimulator(int days) throws NotEnoughProductInStorage, IOException {
         Shop shop = new Shop();
         log.info("Simulator started");
-        for (int i = 0; i < days; i ++)
-        {
+        for (int i = 0; i < days; i ++){
             shop.workForOneDay();
         }
         Map<Drink, Integer> sellsInfo = shop.getSellsInfo();
@@ -59,7 +53,5 @@ public class Simulator {
             writer.printf("So, profit is %.2f - %.2f = %.2f%n", shop.getAllOrdersChecksSum(), allOrdersCostPrice, shop.getAllOrdersChecksSum() - allOrdersCostPrice);
             writer.print("=========================" + System.lineSeparator());
         }
-
-
     }
 }

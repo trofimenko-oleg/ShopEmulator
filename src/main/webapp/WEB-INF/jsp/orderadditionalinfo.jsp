@@ -11,8 +11,6 @@
 <html>
 <head>
     <title><spring:message code="add-contact-title"/></title>
-<%--    <spring:url value="resources/css/style.css" var="mainCss"/>--%>
-<%--    <link href="${mainCss}" rel="stylesheet"/>--%>
     <jsp:include page="fragments/resources.jsp"/>
 </head>
 <body>
@@ -22,7 +20,6 @@
             <div class="message"><spring:message code="add-contact-first"/> <span>${id}</span><spring:message code="add-contact-second"/></div>
             <div class="text_field">
                 <textarea name="info"></textarea>
-
             </div>
 
             <div class="button-info">

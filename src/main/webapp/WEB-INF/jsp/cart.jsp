@@ -37,7 +37,6 @@
         <jsp:useBean id="item" class="com.myshop.service.to.ShortenedOrderItem"/>
         <!-- Товар #<c:out value="${vs.index}"/>> -->
 
-
         <div class="item">
             <div class="buttons">
                 <a class="delete-btn" href = "cart/remove/${vs.index}"></a>
