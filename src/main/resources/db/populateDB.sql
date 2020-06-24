@@ -68,3 +68,14 @@ INSERT INTO ALCOHOLICDRINKS
 (TYPE, ABV, ID)
 VALUES
 ('WINE', 12, currval('drinks_id_seq'));
+
+INSERT INTO Orders
+(date, dayofweek, time, check_value, shipping_info)
+VALUES
+(current_date, extract(dow from now()), localtime, 324.56, 'some useful information');
+
+
+INSERT INTO Ordersdetails
+(order_id, drink_id, drink_quantity, drink_price)
+VALUES
+(1, 1, 21, 5.67);
