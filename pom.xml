@@ -228,7 +228,6 @@
             <version>${webjars-noty.version}</version>
         </dependency>
     </dependencies>
-
     <profiles>
         <profile>
             <id>postgres</id>
@@ -245,9 +244,9 @@
                     <scope>provided</scope>
                 </dependency>
             </dependencies>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+<!--            <activation>-->
+<!--                <activeByDefault>true</activeByDefault>-->
+<!--            </activation>-->
         </profile>
         <profile>
             <id>heroku</id>
@@ -268,7 +267,7 @@
                                         <artifactItem>
                                             <groupId>com.github.jsimone</groupId>
                                             <artifactId>webapp-runner</artifactId>
-                                            <version>8.5.11.2</version>
+                                            <version>9.0.24.1</version>
                                             <destFileName>webapp-runner.jar</destFileName>
                                         </artifactItem>
                                     </artifactItems>
@@ -290,6 +289,9 @@
                     <version>${tomcat.version}</version>
                 </dependency>
             </dependencies>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
         </profile>
     </profiles>
 
