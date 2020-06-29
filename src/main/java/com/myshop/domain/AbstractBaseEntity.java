@@ -1,5 +1,7 @@
 package com.myshop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @MappedSuperclass
@@ -25,6 +27,7 @@ public abstract class AbstractBaseEntity {
         this.id = id;
     }
 
+    @JsonIgnore
     public boolean isNew() {
         return id == null;
     }

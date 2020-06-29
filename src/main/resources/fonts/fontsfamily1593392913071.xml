@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+	<fontFamily name="NewFontFamily2">
+		<normal><![CDATA[fonts/NewFontFamily2/DejaVuSerif.ttf]]></normal>
+		<bold><![CDATA[fonts/NewFontFamily2/DejaVuSerif-Bold.ttf]]></bold>
+		<italic><![CDATA[fonts/NewFontFamily2/DejaVuSerif-Italic.ttf]]></italic>
+		<boldItalic><![CDATA[fonts/NewFontFamily2/DejaVuSerif-BoldItalic.ttf]]></boldItalic>
+		<pdfEncoding><![CDATA[Cp1251]]></pdfEncoding>
+		<pdfEmbedded><![CDATA[true]]></pdfEmbedded>
+		<exportFonts/>
+	</fontFamily>
+</fontFamilies>

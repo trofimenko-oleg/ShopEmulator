@@ -39,6 +39,11 @@ public class DrinksController {
         return "editdrink";
     }
 
+//    @GetMapping("/drinks/list")
+//    public List<Drink> getDrinks(){
+//        return drinkService.getAll();
+//    }
+
     @GetMapping(value = "/drink/remove/{id}")
     public String removeDrink(Model model, @PathVariable int id){
         Drink drink = drinkService.get(id);
