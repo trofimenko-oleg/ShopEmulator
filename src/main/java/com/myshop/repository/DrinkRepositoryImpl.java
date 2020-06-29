@@ -4,11 +4,13 @@ import com.myshop.domain.Drink;
 import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
+
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Repository
@@ -21,11 +23,10 @@ public class DrinkRepositoryImpl implements DrinkRepository {
     @Override
     @Transactional
     public Drink save(Drink drink) {
-        if (drink.isNew()){
+        if (drink.isNew()) {
             em.persist(drink);
             return drink;
-        }
-        else {
+        } else {
             return em.merge(drink);
         }
     }
@@ -69,8 +70,7 @@ public class DrinkRepositoryImpl implements DrinkRepository {
     public void take(Drink drink, int quantity) throws NotEnoughProductInStorage {
         if (drink.getQuantity() < quantity) {
             throw new NotEnoughProductInStorage();
-        }
-        else if (quantity > 0) {
+        } else if (quantity > 0) {
             drink.setQuantity(drink.getQuantity() - quantity);
         }
     }

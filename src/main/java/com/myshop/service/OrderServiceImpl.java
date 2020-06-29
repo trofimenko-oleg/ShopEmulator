@@ -8,11 +8,12 @@ import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
 @Transactional
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
@@ -23,27 +24,24 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Order save(Order order) throws NotEnoughProductInStorage {
         int toTakeFromStorage;
-            for (OrderDetails item: order.getOrders()){
-                if (order.isNew()){
-                    toTakeFromStorage = item.getDrinkQuantity();
-                }
-                else {
-                    toTakeFromStorage = item.getDrinkQuantity() - orderRepository.getItem(item.getId()).getDrinkQuantity();
-                }
-
-                if (toTakeFromStorage > item.getDrink().getQuantity()){
-                    throw new NotEnoughProductInStorage();
-                }
-                else {
-                    if (toTakeFromStorage >= 0){
-                        drinkRepository.take(item.getDrink(), toTakeFromStorage);
-                    }
-                    else {
-                        drinkRepository.add(item.getDrink(), Math.abs(toTakeFromStorage));
-                    }
-                    drinkRepository.save(item.getDrink());
-                }
+        for (OrderDetails item : order.getOrders()) {
+            if (order.isNew()) {
+                toTakeFromStorage = item.getDrinkQuantity();
+            } else {
+                toTakeFromStorage = item.getDrinkQuantity() - orderRepository.getItem(item.getId()).getDrinkQuantity();
             }
+
+            if (toTakeFromStorage > item.getDrink().getQuantity()) {
+                throw new NotEnoughProductInStorage();
+            } else {
+                if (toTakeFromStorage >= 0) {
+                    drinkRepository.take(item.getDrink(), toTakeFromStorage);
+                } else {
+                    drinkRepository.add(item.getDrink(), Math.abs(toTakeFromStorage));
+                }
+                drinkRepository.save(item.getDrink());
+            }
+        }
         return orderRepository.save(order);
     }
 

@@ -1,6 +1,5 @@
 package com.myshop.controller;
 
-import com.myshop.domain.Drink;
 import com.myshop.service.DrinkService;
 import com.myshop.service.ReportService;
 import net.sf.jasperreports.engine.JRException;
@@ -17,7 +16,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
 
 @RestController
 public class JasperReportController {
@@ -28,30 +26,25 @@ public class JasperReportController {
     @Autowired
     ReportService reportService;
 
-    @GetMapping("/drinks/list")
-    public List<Drink> getDrinks(){
-        return drinkService.getAll();
+    @GetMapping(value = "/report/pdf/{action}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<byte[]> generatePDFReport(@PathVariable String action) throws IOException, JRException, URISyntaxException {
+        String path = reportService.exportReport("pdf");
+        byte[] contents = Files.readAllBytes(Paths.get(path));
+        HttpHeaders headers = new HttpHeaders();
+        String filename = "drinks_report.pdf";
+        if (action.equals("show")) {
+            headers.add("content-disposition", "inline;filename=" + filename);
+        } else {
+            headers.setContentDispositionFormData(filename, filename);
+        }
+        ResponseEntity<byte[]> response = new ResponseEntity<>(contents, headers, HttpStatus.OK);
+        return response;
     }
 
-    @GetMapping(value = "/report/{format}", produces = MediaType.APPLICATION_PDF_VALUE)
-    public byte[] generateReport(@PathVariable String format) throws IOException, JRException, URISyntaxException {
-        String path = reportService.exportReport(format);
+    @GetMapping(value = "/report/html", produces = MediaType.TEXT_HTML_VALUE)
+    public byte[] generateHTMLReport() throws IOException, JRException, URISyntaxException {
+        String path = reportService.exportReport("html");
         byte[] contents = Files.readAllBytes(Paths.get(path));
-        if (path.endsWith(".pdf")){
-            //downloads
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.setContentType(MediaType.APPLICATION_PDF);
-//            // Here you have to set the actual filename of your pdf
-//            String filename = "output.pdf";
-//            headers.setContentDispositionFormData(filename, filename);
-//            headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-//            ResponseEntity<byte[]> response = new ResponseEntity<>(contents, headers, HttpStatus.OK);
-//            return response;
-        }
-//        else if (path.endsWith("html")){
-//            return null;
-//        }
         return contents;
     }
-
 }

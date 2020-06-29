@@ -12,7 +12,7 @@ import java.util.List;
         @NamedQuery(name = Order.BY_TIME, query = "SELECT o FROM Order o ORDER BY o.time")
 
 })
-@Table(name="orders")
+@Table(name = "orders")
 @Entity
 public class Order extends AbstractBaseEntity {
     public static final String BY_DATE = "Order.byDate";
@@ -28,13 +28,13 @@ public class Order extends AbstractBaseEntity {
     @Column
     private LocalTime time;
 
-    @Column(name="date")
+    @Column(name = "date")
     private LocalDate localDate;
 
-    @Column(name="check_value")
+    @Column(name = "check_value")
     private double totalCheckValue;
 
-    @Column(name="shipping_info")
+    @Column(name = "shipping_info")
     private String shippingInfo;
 
     public Order() {
@@ -42,7 +42,7 @@ public class Order extends AbstractBaseEntity {
 
     public Order(Order other) {
         orders = new ArrayList<>();
-        for (OrderDetails orderDetails: other.orders){
+        for (OrderDetails orderDetails : other.orders) {
             orders.add(new OrderDetails(this, orderDetails));
         }
         this.dayOfWeek = other.dayOfWeek;

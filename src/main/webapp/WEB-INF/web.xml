@@ -15,7 +15,7 @@
     </context-param>
     <context-param>
         <param-name>spring.profiles.active</param-name>
-        <param-value>heroku</param-value>
+        <param-value>postgres</param-value>
     </context-param>
 
     <!-- Spring MVC -->

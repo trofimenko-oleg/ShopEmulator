@@ -12,7 +12,7 @@ import java.util.Objects;
 @Table(name = "drinks")
 @DiscriminatorColumn(name = "Drink_type")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Drink extends AbstractBaseEntity{
+public abstract class Drink extends AbstractBaseEntity {
     public static final String NO_SORT = "Drink.getAll";
     public static final String SORTED = "Drink.getAllSorted";
     public static final String SEARCH_BY_PART_OF_NAME = "Drink.filteredByName";
@@ -20,7 +20,7 @@ public abstract class Drink extends AbstractBaseEntity{
     @Column
     protected String name;
 
-    @Column(name="purchaseprice")
+    @Column(name = "purchaseprice")
     protected double purchasePrice;
 
     @Column

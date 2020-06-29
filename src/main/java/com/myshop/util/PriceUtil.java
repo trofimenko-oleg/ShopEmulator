@@ -10,43 +10,37 @@ public abstract class PriceUtil {
     private static LocalTime eveningStart = TimeUtil.getEveningStart();
     private static LocalTime eveningEnd = TimeUtil.getEveningEnd();
 
-    public static String getMarkupAsString()
-    {
-        return String.valueOf(Math.round(getMarkup()*100)-100) + "%";
+    public static String getMarkupAsString() {
+        return String.valueOf(Math.round(getMarkup() * 100) - 100) + "%";
     }
 
-    public enum DAYTIME{
+    public enum DAYTIME {
         WEEKEND,
         EVENING,
         OTHER
     }
 
-    public static DAYTIME getDaytime(Clock clock)
-    {
+    public static DAYTIME getDaytime(Clock clock) {
 
         LocalDateTime localDateTime = LocalDateTime.now(clock);
         LocalTime localTime = localDateTime.toLocalTime();
         LocalDate localDate = localDateTime.toLocalDate();
         DayOfWeek dayOfWeek = localDate.getDayOfWeek();
-        if (localTime.isAfter(eveningStart) && localTime.isBefore(eveningEnd)){
+        if (localTime.isAfter(eveningStart) && localTime.isBefore(eveningEnd)) {
             return DAYTIME.EVENING;
-        }
-        else if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY){
+        } else if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
             return DAYTIME.WEEKEND;
-        }
-        else return DAYTIME.OTHER;
+        } else return DAYTIME.OTHER;
     }
 
     public static double getMarkup() {
         DAYTIME daytime = getDaytime(TimeUtil.getClock());
 
-        if (daytime == PriceUtil.DAYTIME.EVENING){
+        if (daytime == PriceUtil.DAYTIME.EVENING) {
             return EVENING_MARKUP;
-        }
-        else if (daytime == PriceUtil.DAYTIME.WEEKEND){
+        } else if (daytime == PriceUtil.DAYTIME.WEEKEND) {
             return WEEKEND_MARKUP;
-        }
-        else
+        } else
             return OTHER_TIME_MARKUP;
     }
 }

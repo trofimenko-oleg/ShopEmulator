@@ -39,6 +39,25 @@
 
 <div class="buttons_and_search_area">
     <div class="list-button-block">
+        <form action="report/pdf/show">
+            <button  class="list-button" type="submit"><spring:message code="button.show-report"/></button>
+        </form>
+    </div>
+    <div class="list-button-block">
+        <p class="text-focus-in">
+            <span>Have a nice day! :)</span>
+            <span>(Imagine that here is some awesome animation)</span>
+        </p>
+    </div>
+    <div class="list-button-block">
+        <form action="report/pdf/save">
+            <button  class="list-button" type="submit"><spring:message code="button.save-report"/></button>
+        </form>
+    </div>
+</div>
+
+<div class="buttons_and_search_area">
+    <div class="list-button-block">
       <form action="drink/alcoholic">
             <button class="list-button" type="submit"><spring:message code="button.alcoholic"/></button>
         </form>

@@ -3,12 +3,12 @@ package com.myshop.domain;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Table(name="ordersdetails")
+@Table(name = "ordersdetails")
 @Entity
-public class OrderDetails extends AbstractBaseEntity{
+public class OrderDetails extends AbstractBaseEntity {
 
     @ManyToOne
-    @JoinColumn(name="order_id", nullable=false)
+    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
     @ManyToOne

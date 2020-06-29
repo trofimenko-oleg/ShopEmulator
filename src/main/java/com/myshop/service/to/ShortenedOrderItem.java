@@ -3,7 +3,9 @@ package com.myshop.service.to;
 import com.myshop.domain.Drink;
 import com.myshop.util.PriceUtil;
 import org.springframework.stereotype.Component;
+
 import java.util.Objects;
+
 import static com.myshop.util.FormattersUtil.round;
 
 @Component
@@ -20,8 +22,8 @@ public class ShortenedOrderItem {
     public ShortenedOrderItem(Drink drink, int quantity) {
         this.drink = drink;
         this.quantity = quantity;
-        this.priceWithoutDiscount = round(drink.getPurchasePrice()* PriceUtil.getMarkup());
-        this.priceWithDiscount = round(drink.getPurchasePrice()*PriceUtil.WHOLESALE_MARKUP);
+        this.priceWithoutDiscount = round(drink.getPurchasePrice() * PriceUtil.getMarkup());
+        this.priceWithDiscount = round(drink.getPurchasePrice() * PriceUtil.WHOLESALE_MARKUP);
         this.averageItemPrice = getAverageItemPrice();
     }
 
@@ -50,13 +52,12 @@ public class ShortenedOrderItem {
     }
 
     public double getAverageItemPrice() {
-        if (quantity <=2){
+        if (quantity <= 2) {
             averageItemPrice = priceWithoutDiscount;
-        }
-        else {
-            double priceForTwoPieces = priceWithoutDiscount*2;
-            double priceForOtherPieces = priceWithDiscount*(quantity-2);
-            averageItemPrice = round((priceForTwoPieces+priceForOtherPieces)/quantity);
+        } else {
+            double priceForTwoPieces = priceWithoutDiscount * 2;
+            double priceForOtherPieces = priceWithDiscount * (quantity - 2);
+            averageItemPrice = round((priceForTwoPieces + priceForOtherPieces) / quantity);
         }
         return averageItemPrice;
     }

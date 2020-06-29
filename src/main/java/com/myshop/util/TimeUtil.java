@@ -10,7 +10,6 @@ public abstract class TimeUtil {
     private static LocalTime eveningEnd = LocalTime.of(20, 0, 0);
     //private static Clock clock = Clock.offset(Clock.system(defaultZoneId), Duration.ofMinutes(332));
 
-
     public static Clock getClock() {
         return clock;
     }

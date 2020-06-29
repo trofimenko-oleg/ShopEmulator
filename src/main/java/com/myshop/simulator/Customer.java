@@ -4,10 +4,12 @@ import com.myshop.ApplicationContextUtils;
 import com.myshop.domain.Drink;
 import com.myshop.service.*;
 import org.slf4j.Logger;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class Customer {
@@ -16,30 +18,28 @@ public class Customer {
     public static List<Drink> DRINKS;
     public static int count = 0;
 
-    public Map<Drink, Integer> getDrinks(){
-        if (DRINKS == null){
+    public Map<Drink, Integer> getDrinks() {
+        if (DRINKS == null) {
             DRINKS = drinkService.getAll();
         }
-        if (count == 0){
+        if (count == 0) {
             count = DRINKS.size();
         }
         Random random = new Random();
         Map<Drink, Integer> map = new HashMap<>();
         //будем выбирать до 4 видов товара в общем количестве от 0 до 10
-            map.put(DRINKS.get(random.nextInt(count)), random.nextInt(2));
-            map.merge(DRINKS.get(random.nextInt(count)), random.nextInt(3), Integer::sum);
-            map.merge(DRINKS.get(random.nextInt(count)), random.nextInt(4), Integer::sum);
-            map.merge(DRINKS.get(random.nextInt(count)), random.nextInt(5), Integer::sum);
+        map.put(DRINKS.get(random.nextInt(count)), random.nextInt(2));
+        map.merge(DRINKS.get(random.nextInt(count)), random.nextInt(3), Integer::sum);
+        map.merge(DRINKS.get(random.nextInt(count)), random.nextInt(4), Integer::sum);
+        map.merge(DRINKS.get(random.nextInt(count)), random.nextInt(5), Integer::sum);
         return map;
     }
 
-    public List<Drink> getDrinksInstance()
-    {
+    public List<Drink> getDrinksInstance() {
         return DRINKS;
     }
 
-    public Integer getDrinksCount()
-    {
+    public Integer getDrinksCount() {
         return count;
     }
 

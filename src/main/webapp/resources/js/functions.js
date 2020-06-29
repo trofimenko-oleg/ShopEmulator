@@ -1,5 +1,5 @@
 //calculates total order sum
-function getSum(){
+function getSum() {
     const field = document.getElementById('finalPrice');
     // Selecting the input elements and summing their values
     $elements = $(".fullPrice");
@@ -9,30 +9,30 @@ function getSum(){
     });
     // Displaying the value
     field.textContent = $('#message-fullprice').val() + " " + round(sum);
-        //"Общая сумма: " + round(sum);
+    //"Общая сумма: " + round(sum);
 }
 
 //rounds to 2 digits after point
 function round(a) {
     if (typeof a === "string") return Math.round(parseFloat(a) * 100) / 100;
-    else if (typeof a === "number") return Math.round(a*100)/100;
+    else if (typeof a === "number") return Math.round(a * 100) / 100;
 }
 
-function min(a, b){
+function min(a, b) {
     if (parseInt(a, 10) < parseInt(b, 10)) return parseInt(a, 10);
-    else return parseInt(b,10);
+    else return parseInt(b, 10);
 }
 
 //how many different products were added
-function getCount(){
+function getCount() {
     const field = document.getElementById('finalCount');
     // Selecting the input element and get its value
     var elem = document.getElementsByClassName("myInput");
     var sum = 0;
-    for (var i = 0; i < elem.length; ++ i) {
+    for (var i = 0; i < elem.length; ++i) {
         sum += parseInt(elem[i].value);
     }
-    field.textContent = $('#message-ordered').val() + " " +  sum + " " +  $('#message-items').val();
+    field.textContent = $('#message-ordered').val() + " " + sum + " " + $('#message-items').val();
     // "Всего заказано " + sum + " товаров";
 }
 
@@ -50,23 +50,22 @@ function minusOne(a) {
     else return 0;
 }
 
-function fullPriceOfOneItemFill(element){
+function fullPriceOfOneItemFill(element) {
     var $current = $(element);
-        var $item = $current.closest(".item");
-        var $quantity = $item.find(".quantity input").val();
-        var quantity = parseInt($quantity);
-            var $price = $item.find('.productPrice').text();
-        $itemDiscountPrice = $item.find(".priceWithDiscount");
-        if ($itemDiscountPrice.css('visibility') != 'hidden')
-        {
-            $price = $itemDiscountPrice.text();
-        }
-        var price = parseFloat($price);
-        $item.find(".fullPrice").text(round(quantity * price));
+    var $item = $current.closest(".item");
+    var $quantity = $item.find(".quantity input").val();
+    var quantity = parseInt($quantity);
+    var $price = $item.find('.productPrice').text();
+    $itemDiscountPrice = $item.find(".priceWithDiscount");
+    if ($itemDiscountPrice.css('visibility') != 'hidden') {
+        $price = $itemDiscountPrice.text();
+    }
+    var price = parseFloat($price);
+    $item.find(".fullPrice").text(round(quantity * price));
 }
 
 //calculates price*quantity for every kind of product added
-function everyItemFullPriceFill(){
+function everyItemFullPriceFill() {
     $elements = $(".fullPrice");
     $elements.each(function () {
             fullPriceOfOneItemFill($(this));
@@ -75,8 +74,8 @@ function everyItemFullPriceFill(){
 }
 
 //buttons + and - handler
-$(document).ready(function(){
-    $(".edit-count").on("click", function(){
+$(document).ready(function () {
+    $(".edit-count").on("click", function () {
         var $this = $(this);
         var $input = $this.closest('div').find('input');
         var quantity = parseInt($input.val());
@@ -87,7 +86,7 @@ $(document).ready(function(){
 
     });
     //calculations on changing quantity field
-    $('.myInput').on('input',function(){
+    $('.myInput').on('input', function () {
         $this = $(this);
         var $max_quantity = $this.closest(".item").find(".max_quantity").text();
         var minimum = min(parseInt($max_quantity, 10), 99);
@@ -97,14 +96,14 @@ $(document).ready(function(){
     });
 });
 
-function calculateOrderOnInputChange(element, quantity){
+function calculateOrderOnInputChange(element, quantity) {
     showItemDiscount(element.closest('.item'));
     fullPriceOfOneItemFill(element);
     getCount();
     getSum();
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     showAllDiscounts();
     everyItemFullPriceFill();
     getCount();
@@ -112,30 +111,27 @@ $(document).ready(function(){
     setRestrictions();
 });
 
-function getPrice (a, b, c){
+function getPrice(a, b, c) {
     //a - initial price, price if > 2, quantity
     var $finalPrice = 0;
-       var $initialPrice = parseFloat(a);
-       var $wholesalePrice = parseFloat(b);
-       var $quantity = c;
+    var $initialPrice = parseFloat(a);
+    var $wholesalePrice = parseFloat(b);
+    var $quantity = c;
 
-    if (parseInt($quantity) <= 2)
-       {
-           $finalPrice = $initialPrice*$quantity;
-       }
-       else if (parseInt($quantity) > 2)
-       {
-           $finalPrice = $initialPrice*2;
-           $finalPrice = $finalPrice + $wholesalePrice*($quantity-2);
-       }
+    if (parseInt($quantity) <= 2) {
+        $finalPrice = $initialPrice * $quantity;
+    } else if (parseInt($quantity) > 2) {
+        $finalPrice = $initialPrice * 2;
+        $finalPrice = $finalPrice + $wholesalePrice * ($quantity - 2);
+    }
     return round($finalPrice);
 }
 
-function getItemPrice (a, b, c){
+function getItemPrice(a, b, c) {
     return round(getPrice(a, b, c) / c);
 }
 
-function showAllDiscounts(){
+function showAllDiscounts() {
     var $elements = $(".item");
     $elements.each(function () {
         showItemDiscount($(this));
@@ -145,8 +141,7 @@ function showAllDiscounts(){
 function showItemDiscount(element) {
     var $this = $(element);
     var $count = $this.find(".myInput").val();
-    if ($count > 2)
-    {
+    if ($count > 2) {
         var $priceBeforeDiscount = $this.find(".productPrice").text();
         var $priceWithDiscount = $this.find(".hidden").text();
         var $itemPrice = getItemPrice($priceBeforeDiscount, $priceWithDiscount, $count);
@@ -154,8 +149,7 @@ function showItemDiscount(element) {
         $this.find(".priceWithDiscount").text($itemPrice);
         $this.find(".productPrice").css("text-decoration", "line-through");
     }
-    if ($count <= 2)
-    {
+    if ($count <= 2) {
         $this.find(".priceWithDiscount").css("visibility", "hidden");
         $this.find(".productPrice").css("text-decoration", "none");
     }
@@ -169,9 +163,9 @@ function setRestrictions() {
 
 }
 
-function setRestrictionToQuantityField(element){
+function setRestrictionToQuantityField(element) {
     var $this = $(element);
     var $max_quantity = $this.closest(".item").find(".max_quantity").text();
     var minimum = min(parseInt($max_quantity, 10), 99);
-    $this.attr({"max" : minimum, "min" : 0});
+    $this.attr({"max": minimum, "min": 0});
 }

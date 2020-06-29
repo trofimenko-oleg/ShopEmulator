@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "alcoholicdrinks")
 @DiscriminatorValue("a")
-public class AlcoholicDrink extends Drink{
+public class AlcoholicDrink extends Drink {
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
@@ -18,7 +18,7 @@ public class AlcoholicDrink extends Drink{
     }
 
     public AlcoholicDrink(String name, double purchasePrice, double volume, int quantity, AlcoholicGroup group, double ABV) {
-        this(null, name, purchasePrice, volume, quantity,group, ABV);
+        this(null, name, purchasePrice, volume, quantity, group, ABV);
     }
 
     public AlcoholicDrink(Integer id, String name, double purchasePrice, double volume, int quantity, AlcoholicGroup group, double ABV) {

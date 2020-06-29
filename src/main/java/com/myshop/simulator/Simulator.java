@@ -3,10 +3,12 @@ package com.myshop.simulator;
 import com.myshop.domain.Drink;
 import com.myshop.util.exception.NotEnoughProductInStorage;
 import org.slf4j.Logger;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
+
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class Simulator {
@@ -21,17 +23,16 @@ public class Simulator {
     public static void startSimulator(int days) throws NotEnoughProductInStorage, IOException {
         Shop shop = new Shop();
         log.info("Simulator started");
-        for (int i = 0; i < days; i ++){
+        for (int i = 0; i < days; i++) {
             shop.workForOneDay();
         }
         Map<Drink, Integer> sellsInfo = shop.getSellsInfo();
         Map<Drink, Integer> refillInfo = shop.getRefillInfo();
-        try(PrintWriter writer = new PrintWriter(new FileWriter(fileName), true))
-        {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName), true)) {
             writer.printf("For the period of %d days we have these sells:%n", days);
             writer.print("-------------------------" + System.lineSeparator());
             double allOrdersCostPrice = 0;
-            for (Map.Entry<Drink, Integer> entry: sellsInfo.entrySet()){
+            for (Map.Entry<Drink, Integer> entry : sellsInfo.entrySet()) {
                 allOrdersCostPrice += (entry.getKey().getPurchasePrice() * entry.getValue());
                 writer.printf("Drink \"%s\" - %d pc.%n", entry.getKey().getName(), entry.getValue());
             }
@@ -39,7 +40,7 @@ public class Simulator {
             writer.print("And these refills:" + System.lineSeparator());
             writer.print("-------------------------" + System.lineSeparator());
             double moneySpent = 0;
-            for (Map.Entry<Drink, Integer> entry: refillInfo.entrySet()){
+            for (Map.Entry<Drink, Integer> entry : refillInfo.entrySet()) {
                 moneySpent += (entry.getKey().getPurchasePrice() * entry.getValue());
                 writer.printf("Drink \"%s\" - %d pc.%n", entry.getKey().getName(), entry.getValue());
             }

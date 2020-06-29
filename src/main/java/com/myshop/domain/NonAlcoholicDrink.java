@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "nonalcoholicdrinks")
 @DiscriminatorValue("n")
-public class NonAlcoholicDrink extends Drink{
+public class NonAlcoholicDrink extends Drink {
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)

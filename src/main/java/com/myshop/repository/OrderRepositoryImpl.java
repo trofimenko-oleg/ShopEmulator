@@ -3,24 +3,24 @@ package com.myshop.repository;
 import com.myshop.domain.Order;
 import com.myshop.domain.OrderDetails;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public class OrderRepositoryImpl implements OrderRepository{
+public class OrderRepositoryImpl implements OrderRepository {
     @PersistenceContext
     private EntityManager em;
 
     @Override
     @Transactional
     public Order save(Order order) {
-        if (order.isNew()){
+        if (order.isNew()) {
             em.persist(order);
             return order;
-        }
-        else {
+        } else {
             return em.merge(order);
         }
     }
@@ -35,7 +35,6 @@ public class OrderRepositoryImpl implements OrderRepository{
     public Order get(int id) {
         return em.find(Order.class, id);
     }
-
 
 
     @Override
